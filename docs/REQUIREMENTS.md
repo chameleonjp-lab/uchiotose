@@ -307,3 +307,9 @@ KeyboardEvent.code、重複禁止、予約キー、Esc特例、IME/編集要素/
 9. [FightFlight 共通操作差分](https://github.com/chameleonjp-lab/faitofuraito/blob/c2b313d37875b93458032d98636fcf5b5d30a138/docs/SHARED_CONTROLS_SYNC.md)
 
 10. [Kaisen 航空弾の実損傷](https://github.com/chameleonjp-lab/kaisen/blob/3d751051dc6212482a129e8da596ddd349b2f9f5/src/aircraft-damage.ts)
+
+## 2026-10-05 速度調整レバーの限定追補
+
+[共通契約v1](THROTTLE_LEVER_CONTRACT.md)と[本作adapter追補](THROTTLE_LEVER_ADAPTER.md)を、本書のR09・R13・R17〜R18、A15〜A18の入力・設定観点へ追加する。加速/減速タッチ2ボタン・対応設定・タッチ数・タッチ保存の書込み先に限り、この追補を旧記述より優先する。その他の既存本文・固定元・要件・受入条件は保持する。
+
+Normalは射撃・宙返りの2ボタン＋速度レバー1本（合計3コントロール）、Easyは宙返り1ボタンのまま。PC9操作は不変。上で加速、下で減速、解放時は入力のみ中央へ戻り目標速度は保持する。Easyには追加しない。専用v1 rawを残してv2へ明示保存し、保存失敗と未来versionを保護する。ゲーム本体/レバー/保存移行の実装済み・受入合格という意味ではない。
