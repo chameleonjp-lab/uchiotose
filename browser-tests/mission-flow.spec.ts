@@ -78,6 +78,7 @@ test('Result fixture displays one immutable score and all loss contributions, th
   });
   await expect(page.locator('#app')).toHaveAttribute('data-screen','result');
   await expect(page.locator('#result-title')).toHaveText('作戦成功');
+  await expect(page.locator('#result-mode')).toHaveText('ノーマル');
   await expect(page.locator('#result-breakdown > div')).toHaveCount(6);
   await expect(page.locator('#result-breakdown')).toContainText('敵撃破 100/100');
   await expect(page.locator('#result-breakdown')).toContainText('-1,000');

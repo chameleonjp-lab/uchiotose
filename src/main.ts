@@ -15,7 +15,7 @@ function el<T extends HTMLElement = HTMLElement>(id: string): T {
   if (!node) throw new Error(`Missing UI: ${id}`);
   return node as T;
 }
-function text(id: string, value: string): void { const node = document.getElementById(id); if (node) node.textContent = value; }
+function text(id: string, value: string): void { const node = document.getElementById(id); if (node && node.textContent !== value) node.textContent = value; }
 function time(seconds: number): string {
   return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(Math.floor(seconds % 60)).padStart(2, '0')}`;
 }
@@ -23,6 +23,7 @@ const app = el('app'), canvas = el<HTMLCanvasElement>('flight'), markers = el<HT
 const audio = new FlightAudio(), clock = new FixedClock();
 let mode: GameMode = 'easy', generation = 0;
 let state = createSimulation({missionId: 'home-0', seed: 20261005, mode, phase: 'home'});
+let lastHudState: SimulationState | null = null, lastHudMode: GameMode | null = null;
 let renderer: WorldRenderer | null = null, contextLost = false, ready = false, disposed = false, faulted = false;
 let frameId = 0, controlResetVersion = -1, eventId = 0;
 let pendingLoop = false, renderedResultId: string | null = null;
@@ -47,6 +48,7 @@ function screen(): void {
   const phase = state.mission.phase;
   app.dataset.screen = phase;
   app.dataset.mode = mode;
+  el<HTMLButtonElement>('start').disabled = !ready || faulted || contextLost;
   for (const id of ['retry','pause-restart']) el<HTMLButtonElement>(id).disabled = faulted || contextLost;
   el<HTMLButtonElement>('resume').disabled = faulted || contextLost;
   for (const [id, visible] of [
@@ -56,7 +58,9 @@ function screen(): void {
   ui.controls.clear(); clock.reset(); pendingLoop = false;
   if (phase === 'result') audio.finishFlight(); else syncAudio();
   const focus = phase === 'home' ? 'start' : phase === 'paused' ? 'resume' : phase === 'result' ? 'retry' : 'flight';
-  el(focus).focus({preventScroll: true});
+  const preferred = el<HTMLButtonElement>(focus);
+  const fallback = phase === 'home' ? 'home-settings' : phase === 'paused' ? 'home-return' : 'result-home';
+  (preferred.disabled ? el(fallback) : preferred).focus({preventScroll: true});
 }
 function start(): void {
   if (!ready || contextLost) return;
@@ -81,6 +85,10 @@ function home(): void {
   audio.resetFlight(); renderer?.resetCamera(); screen();
 }
 function updateHUD(): void {
+  // Simulation is immutable: paused/Home frames can reuse the same HUD without
+  // mutating text nodes beneath modal backdrop compositing on every rAF.
+  if (lastHudState === state && lastHudMode === mode) return;
+  lastHudState = state; lastHudMode = mode;
   const mission = state.mission, counts = getRosterCounts(mission);
   const player = mission.aircraft.find(item => item.id === mission.controlledAircraftId);
   const pose = player ? state.world.aircraft[player.id] : null;
@@ -99,7 +107,8 @@ function updateHUD(): void {
   text('hud-aircraft-active', `出撃 ${counts.aircraft.active}/8`);
   text('hud-enemies-active', `出撃 ${counts.enemies.active}/24`);
   const health = document.querySelector<HTMLElement>('.health-track > i');
-  if (health) health.style.width = `${(player?.hp ?? 0) / 80 * 100}%`;
+  const healthWidth = `${(player?.hp ?? 0) / 80 * 100}%`;
+  if (health && health.style.width !== healthWidth) health.style.width = healthWidth;
   // score and result are the single authoritative combat ledger, adapted below.
   updateScore();
   const pending = mission.aircraft.find(item => item.status === 'pending' && item.role === 'player');
@@ -212,14 +221,17 @@ function frame(now: number): void {
     if (renderer?.renderer.getContext().isContextLost()) {
       contextLost = true;
       pause('描画が中断されました。復旧を待って再開してください');
-      el<HTMLButtonElement>('resume').disabled = true;
+      text('pause-reason','描画が中断されました。復旧を待って再開してください');
+      screen();
       return;
     }
     faulted = true; ready = false;
     el<HTMLButtonElement>('start').disabled = true;
     text('p1-status','描画または作戦処理が中断されました。ページを再読み込みしてください');
     pause('処理を継続できません。ページを再読み込みしてください');
-    el<HTMLButtonElement>('resume').disabled = true;
+    text('pause-reason','処理を継続できません。ページを再読み込みしてください');
+    screen();
+    if (state.mission.phase === 'result') text('result-reason',`${el('result-reason').textContent} 描画が中断されました。再出撃にはページを再読み込みしてください。`);
     console.error(error);
   }
 }
@@ -230,6 +242,8 @@ window.addEventListener('resize', () => { ui.controls.clear(); renderer?.resize(
 canvas.addEventListener('webglcontextlost', event => {
   event.preventDefault(); contextLost = true; el<HTMLButtonElement>('resume').disabled = true; pause('描画が中断されました。復旧を待って再開してください');
   el<HTMLButtonElement>('start').disabled = true;
+  text('pause-reason','描画が中断されました。復旧を待って再開してください');
+  screen();
 }, options);
 /** A recovery frame is prepared while the mission remains paused. */
 function waitForPreparedFrame(target: WorldRenderer): Promise<void> {
@@ -289,7 +303,7 @@ if (import.meta.env.DEV) {
     snapshot: () => structuredClone(state),
     diagnostics: () => ({renderer: renderer?.diagnostics(), audio: {enabled:audio.enabled, active:audio.active, voices:audio.activeEffectVoiceCount,sources:audio.activeEffectSourceCount}, frameTimes: [...frameTimes]}),
     // Explicit test fixture entry; production builds contain no state manipulation API.
-    setStateForTest: (candidate: SimulationState) => { state = candidate; renderedResultId = null; controlResetVersion = -1; renderer?.resetCamera(); screen(); updateHUD(); },
+    setStateForTest: (candidate: SimulationState) => { state = candidate; mode = candidate.mode; ui.setMode(mode); lastHudState = null; renderedResultId = null; controlResetVersion = -1; renderer?.resetCamera(); screen(); updateHUD(); },
     advanceForTest: (ticks: number, input: FlightInput) => {
       for (let i=0;i<ticks && state.mission.phase === 'playing';i++) state=stepSimulation(state,input,mode);
       screen(); updateHUD();

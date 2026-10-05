@@ -1,18 +1,21 @@
 import { chromium } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
+import { collectP8Provenance, sameP8Provenance } from './p8-provenance.mjs';
 
 // Ten real wall-clock minutes through the ordinary, no-input Easy product flow.
 // It records the natural Result tick separately from time spent on Result. It is
 // desktop Chromium + SwiftShader evidence, never a physical iPhone claim.
 const baseURL = process.env.P8_CAPTURE_BASE_URL ?? 'http://127.0.0.1:4176';
 const output = process.env.P8_SESSION_OUTPUT ?? 'docs/evidence/p8-browser-session.json';
+const provenanceAtStart = await collectP8Provenance('candidate');
 const durationMs = Number(process.env.P8_SESSION_DURATION_MS ?? 10 * 60 * 1000);
 const sampleMs = Number(process.env.P8_SESSION_SAMPLE_MS ?? 60 * 1000);
 const startedAt = Date.now();
 const record = {
   status: 'running',
   source: baseURL,
+  provenance: { started: provenanceAtStart, ended: null, sourceUnchanged: null },
   environment: {
     browser: null,
     viewport: { width: 393, height: 648 },
@@ -24,6 +27,7 @@ const record = {
   startedAt: new Date(startedAt).toISOString(),
   plannedWallSeconds: durationMs / 1000,
   samples: [],
+  resultObserved: null,
   errors: [],
 };
 
@@ -139,22 +143,48 @@ try {
 
   let mark = sampleMs;
   while (mark <= durationMs) {
-    await page.waitForTimeout(Math.max(0, startedAt + mark - Date.now()));
+    while (Date.now() < startedAt + mark) {
+      await page.waitForTimeout(Math.min(1000, Math.max(0, startedAt + mark - Date.now())));
+      if (!record.resultObserved) {
+        const terminal = await page.evaluate(() => {
+          const mission = window.__uchiotose.snapshot();
+          return mission.result ? { tick: mission.result.tick, outcome: mission.result.outcome, reason: mission.result.reason } : null;
+        });
+        if (terminal) {
+          record.resultObserved = {
+            approximateWallSeconds: (Date.now() - startedAt) / 1000,
+            pollingIntervalMs: 1000,
+            ...terminal,
+          };
+          await save();
+        }
+      }
+    }
     const observation = await readSample(page, cdp, mark, Date.now() - startedAt);
     record.samples.push({ checkpoint: `${mark / 1000}s`, ...observation });
     await save();
     process.stdout.write(`P8 browser ${mark / 1000}s: ${JSON.stringify({ wall: observation.elapsedWallSeconds, mission: observation.app.mission, renderer: observation.app.renderer, audio: observation.app.audio, heap: observation.app.heap, browserMemory: observation.browserMemory })}\n`);
     mark += sampleMs;
   }
+  const provenanceAtEnd = await collectP8Provenance('candidate');
+  record.provenance.ended = provenanceAtEnd;
+  record.provenance.sourceUnchanged = sameP8Provenance(provenanceAtStart, provenanceAtEnd);
+  if (!record.provenance.sourceUnchanged) throw new Error('P8 source changed during the browser session');
   record.status = 'completed';
   record.finishedAt = new Date().toISOString();
   record.actualWallSeconds = (Date.now() - startedAt) / 1000;
   record.resultTick = record.samples.at(-1)?.app?.mission?.resultTick ?? null;
   record.activeSimulationSeconds = record.samples.at(-1)?.app?.mission?.elapsedSeconds ?? null;
-  record.activeWallToResultSeconds = record.samples.find((entry) => entry.app?.mission?.resultTick !== null && entry.app?.mission?.resultTick !== undefined)?.elapsedWallSeconds ?? null;
+  record.activeWallToResultSeconds = record.resultObserved?.approximateWallSeconds ?? null;
   record.limitation = 'No physical iPhone or mobile GPU was available. SwiftShader, Playwright touch emulation, JS heap/DOM listener diagnostics, and wall-clock sampling do not qualify as real-device or Safari performance evidence.';
   await save();
 } catch (error) {
+  if (!record.provenance.ended) {
+    record.provenance.ended = await collectP8Provenance('candidate').catch(() => null);
+    record.provenance.sourceUnchanged = record.provenance.ended
+      ? sameP8Provenance(provenanceAtStart, record.provenance.ended)
+      : false;
+  }
   record.status = 'failed';
   record.finishedAt = new Date().toISOString();
   record.failure = String(error);

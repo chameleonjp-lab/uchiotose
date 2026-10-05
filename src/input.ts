@@ -316,6 +316,9 @@ export class FlightControls {
   }
 
   private loseSteeringCapture(event: PointerEvent): void {
+    // A normal pointerup releases capture after endPointer() has already ended
+    // this steering hold. Capture loss is meaningful only while we still own it.
+    if (event.pointerId !== this.steerPointer) return;
     this.blockedPointers.add(event.pointerId);
     this.releaseGate = true;
     this.endSteering(event);
@@ -336,6 +339,9 @@ export class FlightControls {
 
   /** Capture loss ends the logical action but does not count as a physical lift. */
   private loseButtonCapture(name: FlightControlName, button: HTMLButtonElement, event: PointerEvent): void {
+    // Native pointerup ends the hold before the browser dispatches its implicit
+    // lostpointercapture. Do not let that trailing event gate other live inputs.
+    if (!this.holds[name].has(event.pointerId)) return;
     this.blockedPointers.add(event.pointerId);
     this.releaseGate = true;
     this.endButton(name, button, event, false);

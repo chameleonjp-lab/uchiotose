@@ -1,6 +1,6 @@
 /** P7 presentation: all pools are fixed; no logic state is modified by drawing. */
 import { ACESFilmicToneMapping,BackSide,BufferGeometry,Color,ConeGeometry,DirectionalLight,Float32BufferAttribute,Fog,
-  Group,HemisphereLight,InstancedMesh,LineBasicMaterial,LineSegments,Matrix4,Mesh,MeshBasicMaterial,MeshStandardMaterial,
+  Group,HemisphereLight,InstancedBufferAttribute,InstancedMesh,LineBasicMaterial,LineSegments,Matrix3,Matrix4,Mesh,MeshBasicMaterial,MeshStandardMaterial,
   OctahedronGeometry,PerspectiveCamera,Quaternion,Scene,ShaderMaterial,SphereGeometry,SRGBColorSpace,TorusGeometry,Vector3,
   type Material } from 'three';
 import { AircraftFactory,type AircraftVisual } from './aircraft';
@@ -22,6 +22,7 @@ import type { Projectile } from './projectiles';
 
 export type RenderQuality='low'|'medium'|'high';
 interface Burst {position:Vec3;since:number;active:boolean}
+interface WarriorBatch {mesh:InstancedMesh;normals:InstancedBufferAttribute;sources:{root:Group;mesh:Mesh;reflected:boolean}[]}
 const BURST_CAPACITY=24;
 const p3=(v:Vec3)=>new Vector3(v.x,v.y,v.z);
 /** Source camera/light/ocean and source aircraft; original island and winged warriors. */
@@ -31,6 +32,8 @@ export class WorldRenderer{
   private scene=new Scene();private queue:RenderQueue;
   private aircraft=new AircraftFactory();private batches=new AircraftBatchFactory();private aircraftTracers=new AircraftTracers();
   private planes:AircraftVisual[]=[];private warriors=new WarriorVisualFactory();private enemies:WarriorVisual[]=[];
+  private warriorBatches:WarriorBatch[]=[];private reflection=new Matrix4().makeScale(-1,1,1);
+  private instanceNormal=new Matrix3();
   private fleetFactory=new FleetVisualFactory();private fleet:Group[]=[];
   private ownedGeometries:BufferGeometry[]=[];private ownedMaterials:Material[]=[];
   private seaMaterial=new ShaderMaterial({uniforms:{uTime:{value:0}},vertexShader:seaVertex,fragmentShader:seaFragment});
@@ -43,6 +46,7 @@ export class WorldRenderer{
   private lastPlayer:AircraftPose|null=null;private lastCameraPlayerId:string|null=null;
   private matrix=new Matrix4();private orientation=new Quaternion();private position=new Vector3();private scale=new Vector3();
   private width=1;private height=1;private disposed=false;private quality:RenderQuality='medium';
+  private readonly rendererBackend:string;private readonly softwareRenderer:boolean;
   private initialWarmPendingMs:number|null=null;
   private viewRevision=0;private lastStaticFrameKey:string|null=null;
   private lastSubmittedFrame:{missionId:string;phase:MissionState['phase'];tick:number;mode:GameMode;calls:number;triangles:number}|null=null;
@@ -51,14 +55,17 @@ export class WorldRenderer{
   constructor(private canvas:HTMLCanvasElement,private overlayCanvas?:HTMLCanvasElement){
     this.renderer=new WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
     const gl=this.renderer.getContext();if(!('fenceSync'in gl))throw new Error('WebGL2 is required');this.queue=new RenderQueue(gl);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.5));this.renderer.outputColorSpace=SRGBColorSpace;
+    const rendererInfo=gl.getExtension('WEBGL_debug_renderer_info');
+    this.rendererBackend=String(gl.getParameter(rendererInfo?.UNMASKED_RENDERER_WEBGL??gl.RENDERER));
+    this.softwareRenderer=/swiftshader|llvmpipe|softpipe|software rasterizer/i.test(this.rendererBackend);
+    this.renderer.setPixelRatio(this.renderPixelRatio());this.renderer.outputColorSpace=SRGBColorSpace;
     this.renderer.toneMapping=ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.1;
     this.overlay=overlayCanvas?.getContext('2d')??null;
     this.scene.background=new Color(0xaecbd0);this.scene.fog=new Fog(0xaecbd0,1400,6000);
     this.scene.add(new HemisphereLight(0xc6e5ec,0x23424e,2.3));const sun=new DirectionalLight(0xffe9b5,3.1);sun.position.set(-600,700,-350);this.scene.add(sun);
     this.scene.add(this.sea,this.sky,this.aircraftTracers.root);this.createIsland();
     for(let i=0;i<8;i++){const detail=i===0?'hero':'enemy',v=this.batches.optimize(this.aircraft.create(detail),detail);v.root.visible=false;this.planes.push(v);this.scene.add(v.root);}
-    for(let i=0;i<24;i++){const v=this.warriors.create();v.root.visible=false;this.enemies.push(v);this.scene.add(v.root);}
+    for(let i=0;i<24;i++){const v=this.warriors.create();v.root.visible=false;this.enemies.push(v);}this.createWarriorBatches();
     for(let i=0;i<10;i++){const v=this.fleetFactory.create();v.visible=false;this.fleet.push(v);this.scene.add(v);}
     this.fire=this.instance(new SphereGeometry(1.5,8,6),new MeshBasicMaterial({color:0xff913a}),256);
     this.ice=this.instance(new OctahedronGeometry(1.5),new MeshBasicMaterial({color:0xa3ecff}),256);
@@ -73,6 +80,60 @@ export class WorldRenderer{
   private instance(geometry:BufferGeometry,material:Material,capacity:number):InstancedMesh{
     this.ownedGeometries.push(geometry);this.ownedMaterials.push(material);const mesh=new InstancedMesh(geometry,material,capacity);
     mesh.count=0;mesh.frustumCulled=false;this.scene.add(mesh);return mesh;
+  }
+  private createWarriorBatches(){
+    const groups=new Map<string,{geometry:BufferGeometry;material:Material;sources:WarriorBatch['sources']}>();
+    const materials=new Map<Material,Material>();
+    for(const visual of this.enemies){visual.root.updateMatrixWorld(true);visual.root.traverse(object=>{
+      if(!(object instanceof Mesh)||Array.isArray(object.material))return;
+      const reflected=object.matrixWorld.determinant()<0,key=`${object.geometry.uuid}:${object.material.uuid}:${reflected}`;
+      let group=groups.get(key);
+      if(!group){const geometry=object.geometry.clone();this.ownedGeometries.push(geometry);
+        if(reflected){
+          // InstancedMesh cannot flip front-face winding per instance. Bake the
+          // left-wing reflection into shared vertices/normals, then reverse faces.
+          geometry.applyMatrix4(this.reflection);
+          const indices=geometry.index?Array.from(geometry.index.array):Array.from({length:geometry.attributes.position.count},(_,i)=>i);
+          for(let i=0;i<indices.length;i+=3)[indices[i+1],indices[i+2]]=[indices[i+2],indices[i+1]];
+          geometry.setIndex(indices);
+        }
+        const originalMaterial:Material=object.material;
+        let material=materials.get(originalMaterial);
+        if(!material){const created=originalMaterial.clone();
+          // Wing animation beneath the neutral span scale creates slight shear.
+          // Use the true inverse-transpose, as ordinary source Mesh draws do.
+          created.onBeforeCompile=shader=>{
+            shader.vertexShader=`attribute mat3 instanceNormalMatrix;\n${shader.vertexShader}`;
+            shader.vertexShader=shader.vertexShader.replace('#include <defaultnormal_vertex>',`#include <defaultnormal_vertex>
+              transformedNormal=normalMatrix*instanceNormalMatrix*objectNormal;
+              #ifdef FLIP_SIDED
+                transformedNormal=-transformedNormal;
+              #endif`);
+          };
+          created.customProgramCacheKey=()=> 'warrior-exact-instance-normal-v1';
+          this.ownedMaterials.push(created);materials.set(originalMaterial,created);material=created;
+        }
+        group={geometry,material,sources:[]};groups.set(key,group);
+      }
+      group.sources.push({root:visual.root,mesh:object,reflected});
+    });}
+    for(const group of groups.values()){
+      const mesh=new InstancedMesh(group.geometry,group.material,group.sources.length);mesh.count=0;mesh.frustumCulled=false;
+      const normals=new InstancedBufferAttribute(new Float32Array(group.sources.length*9),9);
+      this.instanceNormal.identity();for(let i=0;i<group.sources.length;i++)normals.array.set(this.instanceNormal.elements,i*9);
+      group.geometry.setAttribute('instanceNormalMatrix',normals);
+      this.warriorBatches.push({mesh,normals,sources:group.sources});this.scene.add(mesh);
+    }
+  }
+  private updateWarriorBatches(){
+    for(const batch of this.warriorBatches){let count=0;
+      for(const source of batch.sources){if(!source.root.visible)continue;
+        this.matrix.copy(source.mesh.matrixWorld);if(source.reflected)this.matrix.multiply(this.reflection);
+        batch.mesh.setMatrixAt(count,this.matrix);this.instanceNormal.getNormalMatrix(this.matrix);
+        batch.normals.array.set(this.instanceNormal.elements,count*9);count++;
+      }
+      batch.mesh.count=count;batch.mesh.instanceMatrix.needsUpdate=true;batch.normals.needsUpdate=true;
+    }
   }
   private createIsland(){
     const geometry=new BufferGeometry(),positions:number[]=[],colors:number[]=[];
@@ -90,22 +151,32 @@ export class WorldRenderer{
     if(this.overlayCanvas){this.overlayCanvas.width=Math.round(w);this.overlayCanvas.height=Math.round(h);}
   }
   resetCamera(){this.lastPlayer=null;this.lastCameraPlayerId=null;this.resetVersion=-1;this.viewRevision++;this.lastStaticFrameKey=null;}
+  private renderPixelRatio():number{
+    const limit=this.quality==='low'?1:this.quality==='medium'?1.5:2;
+    // R20 permits resolution quality steps. CPU rasterizers need fewer shaded
+    // pixels; hardware keeps the fixed source's caps and all world rules agree.
+    return Math.min(window.devicePixelRatio||1,limit)*(this.softwareRenderer ? .75 : 1);
+  }
   setQuality(quality:RenderQuality){if(this.quality===quality)return;this.quality=quality;
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,quality==='low'?1:quality==='medium'?1.5:2));this.resize();}
+    this.renderer.setPixelRatio(this.renderPixelRatio());this.resize();}
   /** Warm each shared geometry/material before the first full-size authoritative view. */
   async prepare():Promise<void>{
     if(this.disposed)return;
-    const roots=[this.planes[0].root,this.planes[1].root,this.enemies[0].root,this.fleet[0]];
+    const roots=[this.planes[0].root,this.planes[1].root,this.fleet[0]];
     const saved=roots.map(root=>({root,visible:root.visible,position:root.position.clone(),scale:root.scale.clone()}));
-    const instances=[this.fire,this.ice,this.burns,this.frost,this.bursts],ratio=this.renderer.getPixelRatio();
+    const instances=[this.fire,this.ice,this.burns,this.frost,this.bursts,...this.warriorBatches.map(batch=>batch.mesh)],ratio=this.renderer.getPixelRatio();
+    const warmPoint=(x:number,y:number,z:number)=>new Vector3(x,y,z).applyQuaternion(this.camera.quaternion).add(this.camera.position);
     try{
-      for(let i=0;i<roots.length;i++){roots[i].visible=true;roots[i].position.set(i*8-12,0,-80);if(i===3)roots[i].scale.setScalar(.03);}
-      for(const mesh of instances){mesh.count=1;this.matrixAt(mesh,0,vec(0,2,-70));mesh.instanceMatrix.needsUpdate=true;}
-      this.aircraftTracers.positions.set([-1,0,-70,1,0,-70]);this.aircraftTracers.colors.set([1,.7,.14,1,.7,.14]);
+      for(let i=0;i<roots.length;i++){roots[i].visible=true;roots[i].position.copy(warmPoint(i*8-12,0,-80));if(i===2)roots[i].scale.setScalar(.03);}
+      const warm=warmPoint(0,2,-70);
+      for(const mesh of instances){mesh.count=1;this.matrixAt(mesh,0,warm);mesh.instanceMatrix.needsUpdate=true;}
+      this.instanceNormal.identity();for(const batch of this.warriorBatches){batch.normals.array.set(this.instanceNormal.elements,0);batch.normals.needsUpdate=true;}
+      const start=warmPoint(-1,0,-70),end=warmPoint(1,0,-70),segment=[start.x,start.y,start.z,end.x,end.y,end.z];
+      this.aircraftTracers.positions.set(segment);this.aircraftTracers.colors.set([1,.7,.14,1,.7,.14]);
       this.aircraftTracers.geometry.instanceCount=1;
       (this.aircraftTracers.geometry.attributes.instanceStart as import('three').InterleavedBufferAttribute).data.needsUpdate=true;
       (this.aircraftTracers.geometry.attributes.instanceColorStart as import('three').InterleavedBufferAttribute).data.needsUpdate=true;
-      this.linePositions.set([-1, 0, -70, 1, 0, -70]);
+      this.linePositions.set(segment);
       this.lineColors.set([1, .8, .3, 1, .8, .3]);
       this.lines.geometry.setDrawRange(0, 2);
       this.lines.geometry.attributes.position.needsUpdate = true;
@@ -137,7 +208,7 @@ export class WorldRenderer{
     if(this.disposed)return false;if(quality)this.setQuality(quality);
     const status=this.queue.poll(performance.now());if(status==='pending')return false;
     if(status==='failed'||status==='stalled'){const last=this.lastSubmittedFrame,pending=this.queue.diagnostics(performance.now()).pendingMs;
-      throw new Error(`GPU frame ${status}; last ${last?.phase??'loading'} tick ${last?.tick??0}, ${Math.round(pending)} ms pending`);}
+      throw new Error(`GPU frame ${status}; last ${last?.missionId??'initial'}/${last?.phase??'loading'} tick ${last?.tick??0}, current ${m.missionId}/${m.phase} tick ${m.tick}, ${Math.round(pending)} ms pending; ${last?.calls??0} calls, ${last?.triangles??0} triangles, ${this.renderer.info.programs?.length??0} programs, DPR ${this.renderer.getPixelRatio()}`);}
     const time=m.tick/60,t=clamp(alpha,0,1);
     if(this.missionId!==m.missionId){this.missionId=m.missionId;this.previousBodies.clear();for(const b of this.burstPool)b.active=false;this.resetCamera();}
     if(this.resetVersion!==m.controlResetVersion){this.resetVersion=m.controlResetVersion;this.lastPlayer=null;}
@@ -155,7 +226,8 @@ export class WorldRenderer{
     const enemies=m.enemies.filter(e=>e.status==='active').sort((a,b)=>a.id.localeCompare(b.id));
     for(let i=0;i<this.enemies.length;i++){const visual=this.enemies[i],e=enemies[i],p=e&&w.enemies[e.id];visual.root.visible=Boolean(p);if(!p)continue;
       visual.root.position.copy(p3(lerp(p.previousPosition,p.position,t)));visual.root.quaternion.set(p.quaternion.x,p.quaternion.y,p.quaternion.z,p.quaternion.w);
-      const flap=this.quality==='low'?0:Math.sin(time*5+i*.7)*.22;visual.wings[0].rotation.y=flap;visual.wings[1].rotation.y=-flap;}
+      const flap=this.quality==='low'?0:Math.sin(time*5+i*.7)*.22;visual.wings[0].rotation.y=flap;visual.wings[1].rotation.y=-flap;visual.root.updateMatrixWorld(true);}
+    this.updateWarriorBatches();
     for(let i=0;i<m.ships.length&&i<10;i++){const s=m.ships[i],visual=this.fleet[i],p=w.ships[s.id];visual.visible=Boolean(p&&s.status==='alive');if(!p)continue;
       visual.position.copy(p3(lerp(p.previousPosition,p.position,t)));visual.quaternion.set(p.quaternion.x,p.quaternion.y,p.quaternion.z,p.quaternion.w);}
     const liveBodies=new Map<string,Vec3>();for(const a of aircraft)if(w.aircraft[a.id])liveBodies.set(a.id,{...w.aircraft[a.id].position});
@@ -254,10 +326,12 @@ export class WorldRenderer{
   }
   diagnostics(){return{queue:this.queue.diagnostics(performance.now()),calls:this.renderer.info.render.calls,triangles:this.renderer.info.render.triangles,
     geometries:this.renderer.info.memory.geometries,textures:this.renderer.info.memory.textures,planes:this.planes.length,warriors:this.enemies.length,ships:this.fleet.length,
-    burstCapacity:BURST_CAPACITY,bursts:this.burstPool.filter(b=>b.active).length,quality:this.quality,width:this.width,height:this.height,
-    pixelRatio:this.renderer.getPixelRatio(),initialWarmPendingMs:this.initialWarmPendingMs,lastSubmittedFrame:this.lastSubmittedFrame,aircraftTracers:this.aircraftTracers.diagnostics()};}
+    burstCapacity:BURST_CAPACITY,bursts:this.burstPool.filter(b=>b.active).length,warriorDrawBatches:this.warriorBatches.length,quality:this.quality,width:this.width,height:this.height,
+    pixelRatio:this.renderer.getPixelRatio(),rendererBackend:this.rendererBackend,softwareRenderer:this.softwareRenderer,
+    programs:this.renderer.info.programs?.length??0,initialWarmPendingMs:this.initialWarmPendingMs,lastSubmittedFrame:this.lastSubmittedFrame,aircraftTracers:this.aircraftTracers.diagnostics()};}
   dispose(){if(this.disposed)return;this.disposed=true;this.queue.dispose();this.aircraftTracers.dispose();
     for(const plane of this.planes)plane.root.removeFromParent();this.planes=[];this.batches.dispose();this.aircraft.dispose();
+    for(const batch of this.warriorBatches){batch.mesh.removeFromParent();batch.mesh.dispose();}this.warriorBatches=[];
     for(const enemy of this.enemies)enemy.root.removeFromParent();this.enemies=[];this.warriors.dispose();
     for(const ship of this.fleet)ship.removeFromParent();this.fleet=[];this.fleetFactory.dispose();
     for(const mesh of [this.fire,this.ice,this.burns,this.frost,this.bursts])mesh.dispose();

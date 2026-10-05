@@ -1,6 +1,7 @@
 import { chromium } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
+import { collectP8Provenance, sameP8Provenance } from './p8-provenance.mjs';
 
 // P8 captures are deliberately separate from product tests. Run once per side:
 // P8_CAPTURE_SIDE=reference P8_CAPTURE_BASE_URL=http://127.0.0.1:4177 \
@@ -12,6 +13,7 @@ if (!['reference', 'candidate'].includes(side)) throw new Error('P8_CAPTURE_SIDE
 const isReference = side === 'reference';
 const baseURL = process.env.P8_CAPTURE_BASE_URL ?? (isReference ? 'http://127.0.0.1:4177' : 'http://127.0.0.1:4176');
 const outputRoot = process.env.P8_CAPTURE_OUTPUT ?? `docs/evidence/p8-${side}`;
+const provenanceAtStart = await collectP8Provenance(side);
 const viewports = [
   { width: 393, height: 648 },
   { width: 568, height: 320 },
@@ -34,7 +36,9 @@ async function waitForStart(page, navigate = false) {
 }
 
 async function click(page, selector) {
-  await page.locator(selector).click({ timeout: 30000 });
+  const locator = page.locator(selector);
+  if (await page.evaluate(() => navigator.maxTouchPoints > 0)) await locator.tap({ timeout: 30000 });
+  else await locator.click({ timeout: 30000 });
 }
 
 function summarizeTimes(values) {
@@ -71,7 +75,7 @@ async function readObservation(page) {
     const diagnostics = window.__uchiotose.diagnostics();
     const renderer = diagnostics.renderer;
     return {
-      phase: s.mission.phase, mode: s.mission.mode, screen: app?.getAttribute('data-screen'),
+      phase: s.mission.phase, mode: app?.getAttribute('data-mode') ?? s.mode, screen: app?.getAttribute('data-screen'),
       tick: s.mission.tick, missionId: s.mission.missionId, elapsedSeconds: s.mission.tick / 60,
       result: s.result ? { outcome: s.result.outcome, reason: s.result.reason, tick: s.result.tick, score: s.result.score } : null,
       losses: s.mission.losses,
@@ -313,7 +317,7 @@ async function captureAircraftCamera(page, viewport) {
     await writeFile(path, Buffer.from(base64, 'base64'));
   }
   const metadata = {
-    side, source: baseURL, viewport, deviceScaleFactor: 1,
+    side, source: baseURL, viewport, deviceScaleFactor: 1, provenance: provenanceAtStart,
     capturedAt: new Date().toISOString(),
     capturePath: 'Isolated source AircraftFactory hero model and source AircraftBatchFactory, matching neutral product lights, fixed player pose/speed/altitude, and production mode-specific camera helper. Does not replace the actual product-flight screenshots.',
     factory: 'src/aircraft.ts create("hero") + src/aircraft-batch.ts optimize("hero")',
@@ -336,6 +340,7 @@ async function capture(page, viewport, screen) {
     const path = join(outputRoot, `${viewport.width}x${viewport.height}`, `${screen}.png`);
     const metadata = {
       side, source: baseURL, screen, viewport, deviceScaleFactor: 1,
+      provenance: provenanceAtStart,
       inputEmulation: mobile ? 'touch emulation' : 'mouse/keyboard',
       title: await page.title(), capturedAt: new Date().toISOString(),
       capturePath: screen === 'result' && isReference ? 'ordinary ArrowDown held to natural sea-impact defeat' : screen === 'result' ? 'synthetic pure-simulation result injected through DEV-only test API; not normal play' : 'ordinary DOM/UI flow',
@@ -358,21 +363,35 @@ async function capture(page, viewport, screen) {
   }
 }
 
-const browser = await chromium.launch({ headless: true, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+let captureFailure = null;
 try {
-  for (const viewport of viewports) {
-    const mobile = viewport.width <= 568;
-    const context = await browser.newContext({ viewport, deviceScaleFactor: 1, isMobile: mobile, hasTouch: mobile, colorScheme: 'dark' });
-    const page = await context.newPage();
-    page.setDefaultTimeout(30000);
-    try {
-      for (const screen of observedScreens) await capture(page, viewport, screen);
-      await captureAircraftCamera(page, viewport);
-    } finally {
-      await context.close();
+  const browser = await chromium.launch({ headless: true, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+  try {
+    for (const viewport of viewports) {
+      const mobile = viewport.width <= 568;
+      const context = await browser.newContext({ viewport, deviceScaleFactor: 1, isMobile: mobile, hasTouch: mobile, colorScheme: 'dark' });
+      const page = await context.newPage();
+      page.setDefaultTimeout(30000);
+      try {
+        for (const screen of observedScreens) await capture(page, viewport, screen);
+        await captureAircraftCamera(page, viewport);
+      } finally {
+        await context.close();
+      }
     }
+  } finally {
+    await browser.close();
   }
-} finally {
-  await browser.close();
+} catch (error) {
+  captureFailure = String(error);
 }
+const provenanceAtEnd = await collectP8Provenance(side);
+const sourceUnchanged = sameP8Provenance(provenanceAtStart, provenanceAtEnd);
+await mkdir(outputRoot, { recursive: true });
+await writeFile(join(outputRoot, 'run-provenance.json'), `${JSON.stringify({
+  side, source: baseURL, startedAtProvenance: provenanceAtStart,
+  endedAtProvenance: provenanceAtEnd, sourceUnchanged, captureFailure, browserErrorCount: captureErrors,
+}, null, 2)}\n`);
+if (!sourceUnchanged) throw new Error('P8 source changed during capture; review run-provenance.json and repeat after source freeze');
+if (captureFailure) throw new Error(`P8 capture failed: ${captureFailure}`);
 if (captureErrors) process.exitCode = 1;

@@ -7,7 +7,7 @@
     "browser": "Chromium 149 via Playwright 1.61.1; ANGLE SwiftShader; DPR 1; simulated viewports"
   },
   "workingTree": true,
-  "baseCommit": "df519dae14a09295112f8d7cb9e781b3043bdff4",
+  "baseCommit": "70d44964c095f65b92d9a23550908e35eb2dc2c4",
   "referenceCommit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
   "checks": [
     {
@@ -40,11 +40,43 @@
         "568x320",
         "1280x720"
       ]
+    },
+    {
+      "command": "node --import tsx docs/evidence/warrior-batch-parity.mjs",
+      "result": "pass",
+      "artifact": "docs/evidence/warrior-batch-parity.json",
+      "covers": [
+        "9 orientation/wing-flap conditions, 71064 world vertices and normals compared to the original ordinary Mesh hierarchy",
+        "positive instance determinant with baked left reflection and reversed triangle winding",
+        "neutral dimensions 8 m across / 4 m tall, hidden one/all entities remove corresponding draw instances"
+      ],
+      "maxPositionErrorMetres": 0.0001601405765566382,
+      "maxNormalError": 4.517856027484367e-08,
+      "batches": 5
+    },
+    {
+      "command": "PLAYWRIGHT_BROWSERS_PATH=/tmp/uchiotose-browsers node docs/evidence/world-runtime-diagnosis.mjs",
+      "result": "pass",
+      "rounds": 3,
+      "retries": 15,
+      "viewport": "393x648",
+      "trace": false,
+      "actionAndAssertTimeoutMs": 5000,
+      "artifacts": [
+        "docs/evidence/world-runtime-diagnosis.mjs",
+        "docs/evidence/world-runtime-diagnosis.json"
+      ],
+      "covers": [
+        "Normal DOM start, fire, pause, rules/settings modal, resume, five retries, Home",
+        "every retry actual matching-mission playing submission, each paused frame matching mission and ready fence, final Home matching submission and ready fence",
+        "50 geometries / 4 textures / 8 aircraft / 24 warrior roots / 10 ships stable",
+        "zero console/page errors"
+      ]
     }
   ],
   "gpuWarmup": {
     "sourceContract": "Kaisen scene.prepare initial GPU wait accepts pending/stalled until a real ready fence; source runtime render queue stalls at 1 s.",
-    "adaptation": "Hidden source material variants/buffers are warmed using a 16x16 loading draw. Initialization wait is bounded to 30 s and exposes initialWarmPendingMs. Main separately gates Start on a full-size Home frame fence. Runtime stall threshold is unchanged.",
+    "adaptation": "All hidden shared material variants, instanced normal buffers and aircraft/non-aircraft line buffers are warmed by a 16x16 loading draw. Warm points follow the current camera during initial preparation and context recovery. The initialization wait is bounded to 30 s; Main gates Start separately on a full-size Home frame fence. Identical stopped scenes poll their existing fence without repeated GPU submissions. Runtime strict 1 s stall threshold is unchanged; an unfinished fence is not reset on retry.",
     "sourceComparison": "Independent verification measured fixed Kaisen graphicsReady at 9.17 s and initial stalled around 3.9-8.7 s on the same software GPU. This is not iPhone frame-time evidence."
   },
   "newAssets": {
@@ -61,7 +93,7 @@
     "Final resource stress reports"
   ],
   "sha256": {
-    "src/world.ts": "784a9aea829fd5730a081c6e906f51c096ae82a30b11524f829e273383f5f4c2",
+    "src/world.ts": "90d6e1c350faac412371126d68f5b1de850878b59e577d14728619030c1407ea",
     "src/world-math.ts": "63781b62ef683a0081bc9c3865a62182d07077d1ae3f747c521d736e5edd14a9",
     "src/world-collision.ts": "0b8e1c693842a06e13c447691c64544a0601b58e2f8eaafd094a35fbc8f2094e",
     "src/island.ts": "e152641bf02a5c1a5f0c292ff7a31a969a6a213e85c7cc2d4f58a7f5fc544876",
@@ -70,11 +102,101 @@
     "src/flight-assist.ts": "a58adc5eabee78a2ca3baf8c8e889302f717d6abbf2e9738083ff680acfd9d6a",
     "src/flight-view.ts": "ee778e4d8800d3c0d3f7c7eeb4a94887792ffe9329738e49935be6d60d64b16a",
     "src/gun-sight.ts": "a9fcc92d8015180ba30d21091fabbc963bb1cfd90843fc7c58b21ff8fd6e21f1",
-    "src/world-renderer.ts": "2484344068298784e7bce2ac7ce2c46a0e7f94277e688ef309b00b09b074dbe0",
+    "src/world-renderer.ts": "462634f43234bf84f16a44a9d0fff9c2f2bc7526cdd8fd79f9519541bd8325f0",
     "src/warrior-visual.ts": "b108531de5cefefc0e35bf43836d41ecb079a75c24a0db88ad0cdce51d0b96d9",
     "src/fleet-visual.ts": "c4b1a67063b40e31f1d25c98419221f82a301543009fb29d4f9f092da71a7f69",
     "src/fleet-geometry.ts": "76174067f95c2ccc458ec562e2e76081ed84c18cc7032d46b3bbbdc895618025",
     "tests/world.test.ts": "f2f6a3f3628faefec5c643cb473f3aa2375ba50389aadf945085fbd50c107534",
-    "tests/fixtures/kaisen-flight.json": "c275b41011a68cb38f056e4b29f7b1a4449d407b0158bbd6437b38ae85a79961"
+    "tests/fixtures/kaisen-flight.json": "c275b41011a68cb38f056e4b29f7b1a4449d407b0158bbd6437b38ae85a79961",
+    "docs/evidence/warrior-batch-parity.mjs": "c1093caa46c8d602c9c1efc467755f646e4c960668d4db8b469a64056262ab80",
+    "docs/evidence/warrior-batch-parity.json": "035a86ac4dff636c572022dee152112aad1518e3a6dc4469bd90b62726497a1f",
+    "docs/evidence/world-runtime-diagnosis.mjs": "bb120126168115a7799b6bddb7a746f2534043d4358aceee7179e7426b644ac4",
+    "docs/evidence/world-runtime-diagnosis.json": "e92112a447886ddb913af8be821fa64a557681e5d568e25af57a4ff1aa261527"
+  },
+  "presentationQuality": {
+    "requirement": "R20 and IMPLEMENTATION_PLAN section 5.2 permit resolution quality steps independent of 60 Hz rules.",
+    "hardware": "Unchanged fixed-source pixel-ratio caps: low 1, medium 1.5, high 2.",
+    "software": "SwiftShader/llvmpipe/softpipe/software-rasterizer detection applies a 0.75 multiplier to the capped pixel ratio; no reduction of aircraft/enemy/ship existence, geometry, collisions or attacks. Renderer diagnostics record backend and effective ratio.",
+    "batching": "24 warriors share five instanced body/head/robe/left-feather/right-feather meshes. Source world vertex transforms and inverse-transpose normal transforms remain equivalent; reflected left geometry reverses face indices so instance determinants are positive. Geometry and materials have fixed owners and capacities."
+  },
+  "runtimeInvestigation": {
+    "environment": "Chromium 149 / ANGLE Vulkan SwiftShader / DPR1; synthetic browser environment, not iPhone measurement.",
+    "baseline": {
+      "cameraViewports": [
+        "393x648",
+        "393x852"
+      ],
+      "maxObservedPendingMs": [
+        441,
+        623.9000000003725
+      ],
+      "programsStableAt": 15,
+      "callsRange": [
+        292,
+        334
+      ],
+      "trianglesApproximately": 100000,
+      "note": "Untraced independent diagnostic with eight DOM retries per viewport; no console/page errors."
+    },
+    "tracedFailure": {
+      "pixelRatio": 0.75,
+      "calls": 77,
+      "triangles": 102096,
+      "programs": 16,
+      "pendingMs": 1190,
+      "lastSubmittedTick": 24,
+      "currentMissionTickBeforeFailure": 10,
+      "note": "Playwright modal snapshots/screenshots were active while a playing GPU frame was pending. Subsequent trace-off runs also fail, so tracing alone is not accepted as the cause."
+    },
+    "traceOffComparison": {
+      "command": "PLAYWRIGHT_BROWSERS_PATH=/tmp/uchiotose-browsers npm run test:browser -- --project=chromium browser-tests/mission-flow.spec.ts --repeat-each=3 --trace=off",
+      "result": "fail",
+      "passed": 7,
+      "failed": 2,
+      "seconds": 192,
+      "note": "DOM five-retry flow passed 1/3; Result and context recovery each passed 3/3. The tracing hypothesis alone does not explain the unstable software-GPU flow; direct console/queue diagnostic is pending."
+    },
+    "shortTraceOffDiagnostic": {
+      "result": "3 UI flows passed, GPU completion not yet established",
+      "rounds": 3,
+      "actionTimeoutMs": 5000,
+      "tracing": false,
+      "softwarePixelRatio": 0.75,
+      "consoleErrors": 0,
+      "lastCompletedPendingMs": [
+        856.5,
+        1009.2,
+        714.2
+      ],
+      "pendingAtHomeReturnMs": [
+        991.5,
+        604.8,
+        234
+      ],
+      "note": "Five rapid DOM retries can complete while the previous mission GPU frame remains pending. This diagnostic is not accepted as stable graphics completion. The next diagnostic waits for the Home mission actual submission and a ready fence."
+    },
+    "resolvedBy": {
+      "renderer": "Material/buffer/backend warm-up covers camera-relative recovery, stopped scenes avoid repeated submissions, five exact warrior instance batches reduce calls from roughly 336 to 77. Software density multiplier remains 0.75; hardware caps are unchanged.",
+      "main": "Root changed textContent and HP style setters to write only changed values and reuses HUD output when the immutable SimulationState/mode did not change. Repeated unchanged HUD writes under the backdrop blur had kept compositing work active during paused/Home frames.",
+      "afterHUDFix": {
+        "flowsPassed": 3,
+        "freshRetries": 15,
+        "actualFrameCompletionAsserted": true,
+        "homeFrameCompletedPendingMs": [
+          48.5,
+          82.2,
+          65.2
+        ],
+        "consoleErrors": 0,
+        "resourceCounts": {
+          "geometries": 50,
+          "textures": 4,
+          "planes": 8,
+          "warriors": 24,
+          "ships": 10
+        }
+      },
+      "measurementLimit": "Synthetic Chromium/SwiftShader evidence only. No iPhone Safari or mobile GPU performance acceptance claim; final candidate/full-suite rerun remains root-owned."
+    }
   }
 }
