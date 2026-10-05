@@ -48,3 +48,5 @@ iPhone実機Safari・実機モバイルGPUの通常60秒/最大120秒/連続10�
 ブラウザのResult画像は明示した純粋simulationの損傷fixtureから製品の終端/得点経路を通し、画面へ注入して撮影する。実際のDOM操縦経路と区別し、DOM入力で敵100人を撃破した証拠とは扱わない。
 
 公開先と検証手順は[DEPLOYMENT.md](DEPLOYMENT.md)。PR統合・公開は今回のユーザーの明示指示に基づき、最終検査と独立レビュー後に実施する。
+
+2026-10-05にPR #6をmainへ統合し、検証済みビルドをSitesで一般公開した。URLは https://uchiotose.chameleonjp.chatgpt.site 。GitHub Pagesの設定権限不足と、直接公開URLのChromium検査に関する環境上の制約はDEPLOYMENT.mdへ記録した。公開ファイルのTLS取得・ビルドとの一致・同一取得ファイルの操作検査は成功している。速度レバーはユーザーの指示どおり後続作業とする。
