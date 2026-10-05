@@ -1,0 +1,114 @@
+{
+  "side": "reference",
+  "source": "http://127.0.0.1:4177",
+  "viewport": {
+    "width": 393,
+    "height": 648
+  },
+  "deviceScaleFactor": 1,
+  "provenance": {
+    "candidateCodeCommit": "1de85aa933c0ed69a1115c6da744c4b0e72d641e",
+    "candidateCodeTree": "b63eafd40a62f4ae6f020a04f1527023d1c28dae",
+    "candidateSourceSha256": "3dbe1b33573695448e942535a9f6fcfe67e36824a3c3785d4c8f194183058c5d",
+    "loadedSourceRepository": "/workspace/kaisen-reference",
+    "loadedSourceCommit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "loadedSourceTree": "1134d5e67196bc10fb9d6fc1df4d4b783e07c18b",
+    "loadedSourceSha256": "d55b4f590db2aa6f0c18779646f33487a36ba214c5b2783ea9332556626d3642",
+    "loadedSourceWorktree": "clean"
+  },
+  "capturedAt": "2026-10-05T04:12:51.422Z",
+  "capturePath": "Isolated source AircraftFactory hero model and source AircraftBatchFactory, matching neutral product lights, fixed player pose/speed/altitude, and production mode-specific camera helper. Does not replace the actual product-flight screenshots.",
+  "factory": "src/aircraft.ts create(\"hero\") + src/aircraft-batch.ts optimize(\"hero\")",
+  "lighting": {
+    "background": "#aecbd0",
+    "fog": {
+      "color": "#aecbd0",
+      "near": 1400,
+      "far": 6000
+    },
+    "hemisphereSky": "#c6e5ec",
+    "hemisphereGround": "#23424e",
+    "hemisphereIntensity": 2.3,
+    "sun": "#ffe9b5",
+    "sunIntensity": 3.1,
+    "sunPosition": [
+      -600,
+      700,
+      -350
+    ],
+    "toneMapping": "ACESFilmicToneMapping",
+    "exposure": 1.1,
+    "pixelRatio": 1
+  },
+  "cameraModes": {
+    "easy": {
+      "fovDegrees": 64,
+      "aspect": 0.6064814814814815,
+      "near": 0.5,
+      "far": 22000,
+      "position": {
+        "x": 0,
+        "y": 231,
+        "z": 269
+      },
+      "quaternion": {
+        "x": -0.01147998470227049,
+        "y": 0,
+        "z": 0,
+        "w": 0.9999341028043977
+      },
+      "reticle": {
+        "x": 196.5,
+        "y": 324,
+        "radius": 53.05500000000001,
+        "depthM": null
+      }
+    },
+    "normal": {
+      "fovDegrees": 64,
+      "aspect": 0.6064814814814815,
+      "near": 0.5,
+      "far": 22000,
+      "position": {
+        "x": 0,
+        "y": 231,
+        "z": 269
+      },
+      "quaternion": {
+        "x": -0.0948571686345573,
+        "y": 0,
+        "z": 0,
+        "w": 0.9954908927552453
+      },
+      "reticle": {
+        "x": 196.5,
+        "y": 235.32308143001688,
+        "radius": 33.405,
+        "depthM": 500
+      }
+    }
+  },
+  "stats": {
+    "geometries": 17,
+    "textures": 4,
+    "triangles": 39972,
+    "calls": 21
+  },
+  "canonicalPose": {
+    "position": {
+      "x": 0,
+      "y": 220,
+      "z": 240
+    },
+    "quaternion": {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "altitudeM": 220,
+    "speedMps": 110,
+    "bankRad": 0,
+    "propellerAngleRad": 0
+  }
+}

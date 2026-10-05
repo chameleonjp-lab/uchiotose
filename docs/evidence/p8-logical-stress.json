@@ -15,6 +15,8 @@
   "noInputCadence": {
     "seed": 20261005,
     "mode": "easy",
+    "viewAspect": 0.4612676056338028,
+    "viewAspectSource": "ZERO_INPUT omits viewAspect; the adopted flight-assist default is 393/852. The live browser session explicitly uses 393/648, so it is a distinct viewport-dependent Easy assistance input.",
     "renderSchedulesFps": [30, 60, 120],
     "scheduledWallSeconds": 600,
     "requestedLogicalTicks": 36000,

@@ -1051,13 +1051,23 @@ p {
 .rules-content p { margin: 0 0 10px; font-size: 14px; line-height: 1.8; }
 .rules-dialog footer { flex: 0 0 auto; padding: 12px 18px; border-top: 1px solid #9ebec333; }
 .rules-dialog footer button { margin: 0; min-height: 44px; }
-@media (max-width: 360px) {
+/* Keep the clock's actual text clear of the wider Uchiotose rosters. */
+@media (max-width: 480px) {
   .hud-top { flex-wrap: wrap; }
-  .time-block { flex: 1 0 100%; padding: 0; }
-  .time-block > span { display: inline; margin-right: 8px; }
+  .time-block { flex: 1 0 100%; display: flex; align-items: baseline; gap: 8px; padding: 0; }
+  .time-block > span { display: inline; margin: 0; }
   .time-block strong { font-size: 22px; }
-  .targets { min-width: 0; width: 100%; margin-left: 0; }
-  .flight-data { top: calc(136px + var(--safe-top)); }
+  .targets { flex: 1 1 auto; min-width: 0; margin-left: 0; }
+  .hud-actions { align-self: center; flex-shrink: 0; }
+  .flight-data { top: calc(125px + var(--safe-top)); }
+  #hud-score { top: calc(124px + var(--safe-top)); }
+  .warning { top: calc(236px + var(--safe-top)); }
+  #app[data-mode="normal"] .warning { top: calc(280px + var(--safe-top)); }
+}
+.warning:empty { display: none; }
+.warning { margin: 0; line-height: 1.2; }
+@media (orientation: landscape) and (max-height: 600px) {
+  .home-copy h1 { font-size: 40px; white-space: nowrap; }
 }
 @media (orientation: landscape) and (max-height: 600px) {
   .targets { min-width: 218px; }

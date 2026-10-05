@@ -1,0 +1,496 @@
+{
+  "reviewer": "independent review agent /root/review",
+  "reviewedAt": "2026-10-05T04:52:20+00:00",
+  "status": "independent-review-complete; no-unresolved-major-findings; physical-device-performance-unverified",
+  "candidate": {
+    "commit": "da017ad25fce53e4ee06920053cfdb99aeae6970",
+    "tree": "a3e9a18e1a00d5188a9b95805ce20bf5888f8529",
+    "trackedSourceSha256": "33a86b8766493683623473e725646f4015eb62403fd844a1d28cfbe077088c6a",
+    "trackedSourceWorktreeAtReview": "clean",
+    "changesSinceIndependentUnitRun": "Presentation-only changes in src/style.css, index.html, Home status messages in src/main.ts and guide display/subscription cleanup in src/ui-controller.ts. Simulation/combat/flight/clock/input/audio/renderer logic remains unchanged. Browser evidence and documentation were also refreshed."
+  },
+  "independentlyExecuted": {
+    "unit": {
+      "command": "npm test",
+      "executedCommit": "1de85aa933c0ed69a1115c6da744c4b0e72d641e",
+      "executedTree": "b63eafd40a62f4ae6f020a04f1527023d1c28dae",
+      "executedSourceSha256": "3dbe1b33573695448e942535a9f6fcfe67e36824a3c3785d4c8f194183058c5d",
+      "sameCommitBeforeAndAfterChecks": true,
+      "worktreeBeforeAndAfterChecks": "clean",
+      "laterCandidateUnitRerun": "Not claimed. The parent judged a repeat unnecessary for the reviewed presentation-only changes; final browser coverage exercises those changes.",
+      "exitCode": 0,
+      "tests": 117,
+      "passed": 117,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 123048.803089
+    },
+    "productionBuild": {
+      "command": "npm run build",
+      "executedCommit": "da017ad25fce53e4ee06920053cfdb99aeae6970",
+      "exitCode": 0,
+      "typescriptNoEmit": "passed",
+      "viteProductionBuild": "passed",
+      "javascriptBytesReportedKB": 784.75,
+      "javascriptGzipReportedKB": 209.89,
+      "warning": "Vite reports the minified JavaScript chunk exceeds 500 kB; this is a warning, not a failed build.",
+      "executedTree": "a3e9a18e1a00d5188a9b95805ce20bf5888f8529",
+      "executedSourceSha256": "33a86b8766493683623473e725646f4015eb62403fd844a1d28cfbe077088c6a",
+      "sameCommitAndTrackedSourceBeforeAndAfterChecks": true,
+      "trackedProductWorktreeBeforeAndAfterChecks": "clean; documentation and evidence updates were in progress separately"
+    },
+    "diffCheck": {
+      "command": "git diff --check",
+      "executedCommit": "da017ad25fce53e4ee06920053cfdb99aeae6970",
+      "exitCode": 0
+    },
+    "originalDocuments": {
+      "comparedAgainstOriginMainCommit": "14090299b5d1f67502210fe51e1c04799770d817",
+      "files": [
+        "README.md",
+        "docs/REQUIREMENTS.md",
+        "docs/IMPLEMENTATION_PLAN.md"
+      ],
+      "diffAtUnitBuildReview": "empty",
+      "subsequentReadmeUpdate": "Independently reviewed the subsequent documentation-only README change: the implemented game purpose, launch commands, ranking exclusion, Normal acceleration/deceleration/fire/loop controls and authorized lever follow-up are accurate. The requirements, plan and lever specifications remain preserved.",
+      "scope": "The merged throttle-lever follow-up documents remain intact. The user explicitly authorized publishing the current Normal-four-button / Easy-one-button game before implementing the lever.",
+      "finalPreservationCheck": {
+        "comparedAgainstCommit": "1de85aa933c0ed69a1115c6da744c4b0e72d641e",
+        "files": [
+          "docs/REQUIREMENTS.md",
+          "docs/IMPLEMENTATION_PLAN.md",
+          "docs/THROTTLE_LEVER_CONTRACT.md",
+          "docs/THROTTLE_LEVER_ADAPTER.md"
+        ],
+        "diff": "empty; README subsequent authorized current-implementation description independently rechecked"
+      }
+    },
+    "productionDevelopmentAPI": {
+      "searched": [
+        "__uchiotose",
+        "setStateForTest",
+        "advanceForTest",
+        "snapshotForTest"
+      ],
+      "directory": "dist",
+      "matches": 0,
+      "executedCommit": "da017ad25fce53e4ee06920053cfdb99aeae6970"
+    },
+    "externalCommunicationAndRanking": {
+      "searched": [
+        "fetch(",
+        "XMLHttpRequest",
+        "WebSocket",
+        "supabase",
+        "ranking"
+      ],
+      "directory": "src",
+      "matches": 0,
+      "executedCommit": "da017ad25fce53e4ee06920053cfdb99aeae6970"
+    }
+  },
+  "naturalNoInputRegression": {
+    "seed": 20261005,
+    "mode": "easy",
+    "inputViewAspect": 0.4612676056338028,
+    "inputViewAspectSource": "The Node fixture omits viewAspect, so fixed-source flight-assist uses its 393/852 default. The separate live browser run uses its CSS viewport 393/648 explicitly; these are different adopted inputs.",
+    "renderSchedulesFPS": [
+      30,
+      60,
+      120
+    ],
+    "allCheckpointAndFinalFullStateHashesMatch": true,
+    "terminalTick": 26684,
+    "activeSimulationSeconds": 444.73333333333335,
+    "outcome": "victory",
+    "score": 3400,
+    "losses": {
+      "player": 0,
+      "wing": 13,
+      "ships": 4,
+      "enemies": 100
+    },
+    "finalStateSha256": "37c9fbee9bf69ab418197324861e51056d3eeb44c8f1cd385d6e0a2b8afa7b27",
+    "maximumProjectiles": {
+      "aircraft": 96,
+      "magic": 193,
+      "antiAir": 6
+    },
+    "maximumBurns": 24,
+    "maximumTickEvents": 14,
+    "poolBlocked": {
+      "aircraft": 0,
+      "magic": 0,
+      "antiAir": 0
+    },
+    "limitation": "The natural mission ends before ten active minutes. The separate 36000-tick test disables weapons and proves bounded movement/state only; it is not natural combat or GPU performance evidence."
+  },
+  "codeReview": {
+    "unresolvedMajorFindings": [],
+    "resolvedFindingsVerified": [
+      "Finite spawn reservations preserve IDs/deadlines and avoid occupied aircraft/enemy/hull interiors.",
+      "Combat budget reducers preserve prior immutable state and normalize entity/projectile ordering.",
+      "Physical input-release gating rejects held controls on respawn/handoff while normal implicit capture loss preserves another active pointer.",
+      "Pause preserves a continuing same-owner loop; a real control handoff resets the new owner's loop/input.",
+      "Ice changes actual displacement and turn authority while retaining baseline trim speed.",
+      "GPU readiness and context recovery require bounded real render completion, and fatal errors disable Start/Resume/Retry even when already paused.",
+      "Result state remains immutable and defeat priority is preserved; final critical audio tails finish with the engine stopped.",
+      "Software-renderer pixel ratio and warrior instancing affect presentation without changing logical entities, fire, collisions, score, or stall policy.",
+      "Later presentation fixes restore readable mobile clocks, hide empty warnings, keep real warnings outside the sight, preserve the source button hierarchy and input/mode guides, and explain Home context loss until real render recovery completes."
+    ]
+  },
+  "browserSuiteReportReviewed": {
+    "artifact": "docs/evidence/browser-acceptance.json",
+    "executionOwner": "/root",
+    "independentlyReexecutedByReviewer": false,
+    "expected": 11,
+    "unexpected": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "reportErrors": [],
+    "durationMs": 51097.581,
+    "finalPresentationChanges": "The reviewed report and parent confirmation cover the final candidate presentation changes, including real Home and Playing WebGL loss/recovery, visible fatal explanations, clock text bounds and nonempty warning clearance in both modes."
+  },
+  "finalVisualReview": {
+    "status": "complete; all 24 UI pairs and 6 isolated aircraft-camera pairs independently reviewed",
+    "capturedCandidateCommit": "da017ad25fce53e4ee06920053cfdb99aeae6970",
+    "capturedCandidateSourceSha256": "33a86b8766493683623473e725646f4015eb62403fd844a1d28cfbe077088c6a",
+    "candidateCaptureSourceUnchanged": true,
+    "candidateCaptureErrors": 0,
+    "uiPairsIndependentlyInspected": 24,
+    "viewports": [
+      "393x648",
+      "568x320",
+      "1280x720"
+    ],
+    "screens": [
+      "home",
+      "normal-hud",
+      "easy-hud",
+      "pause",
+      "touch-settings",
+      "pc-key-settings",
+      "rules",
+      "result"
+    ],
+    "finalUiObservations": "Readable clocks and all finite tallies; restored Home/Pause/Result button hierarchy and Home input/mode guidance; the five-character title fits one line in short landscape; matching native Settings/Rules outer bounds and computed CSS at every viewport; no horizontal document overflow. Long cards and key lists retain vertical scrolling like the source. Touch previews use the same Normal/Fire adjustment conditions and preserve the four retained controls; source payload controls are intentionally absent.",
+    "sceneQualityDifference": "Actual candidate SwiftShader scene uses pixelRatio 0.75 versus reference 1.0, unmasked and recorded. DOM geometry is compared in CSS pixels. This does not claim hardware/mobile GPU performance.",
+    "isolatedAircraftCameraPairs": {
+      "count": 6,
+      "pixelRatio": 1,
+      "visualInspection": "Airframe silhouette, windscreen, wings, tail, propeller, framing and reticle placement agree with the locked source.",
+      "cameraModesLightingCanonicalPose": "exact JSON equality at all three viewports",
+      "pngComparison": "All six candidate PNGs are byte-identical to their locked-source reference PNGs; SHA-256 equality was checked in addition to visual inspection."
+    },
+    "remainingCaptureCondition": "none; reference 1280x720 Pause was genuinely recaptured at 2026-10-05T04:45:05.748Z with Resume focus, inspected independently, and retains its actual capture-time provenance. All 24 focus IDs now match.",
+    "findingAtCandidate1de85aa": "Resolved in final da017ad: independent review found 393x648 Normal/Easy clock text obscured by aircraft tallies because the shrinking flex container was narrower than its text. Final screenshots and actual text/tally bounds confirm separate rows; browser coverage now checks text bounds.",
+    "intermediateReview": "Historical fe8c126 review covered all 24 UI images and six camera pairs. Remaining hierarchy/title/guide/warning findings were subsequently corrected. All final da017ad UI images, explicit Normal/Fire settings conditions, DOM/CSS reports and provenance were then independently reviewed.",
+    "required": "Completed: 24 unmasked UI pairs, six isolated aircraft/camera pairs, DOM/CSS layout reports and fixed-source provenance.",
+    "nonemptyWarningCoverage": "Root final browser suite checks both Easy and Normal warning rects against the actual projectGunSight circle plus 6px. Empty warnings are absent in final images."
+  },
+  "finalBrowserSessionReview": {
+    "status": "complete; sampled logical/resource evidence independently reviewed and viewport-matched pure replay passed",
+    "artifact": "docs/evidence/p8-browser-session.json",
+    "executionOwner": "/root/verification",
+    "independentlyReexecutedByReviewer": false,
+    "capturedCandidateCommit": "da017ad25fce53e4ee06920053cfdb99aeae6970",
+    "capturedCandidateSourceSha256": "33a86b8766493683623473e725646f4015eb62403fd844a1d28cfbe077088c6a",
+    "captureSourceUnchanged": true,
+    "environment": {
+      "browser": "chromium 149.0.7827.55",
+      "viewport": {
+        "width": 393,
+        "height": 648
+      },
+      "deviceScaleFactor": 1,
+      "emulation": "Chromium mobile/touch emulation on desktop Linux; SwiftShader software renderer",
+      "sound": "enabled by ordinary Home button before Start; playback state recorded"
+    },
+    "scenario": "Normal product route: click Home sound on, start Easy, provide no flight inputs, leave page foregrounded for ten wall-clock minutes. Natural mission Result ends active ticks; Result dwell is reported separately.",
+    "plannedWallSeconds": 600,
+    "actualWallSeconds": 600.041,
+    "startedAt": "2026-10-05T04:34:08.884Z",
+    "finishedAt": "2026-10-05T04:44:08.925Z",
+    "sampleCount": 11,
+    "allSamplesForeground": true,
+    "browserErrors": [],
+    "naturalResult": {
+      "approximateWallSeconds": 514.209,
+      "pollingIntervalMs": 1000,
+      "tick": 30624,
+      "outcome": "victory",
+      "reason": "all-enemies-defeated"
+    },
+    "activeSimulationSeconds": 510.4,
+    "resultDwellApproximateWallSeconds": 85.832,
+    "finalLosses": {
+      "player": 5,
+      "wing": 7,
+      "ships": 4,
+      "enemies": 100
+    },
+    "finalActiveAircraft": 8,
+    "finalAliveShips": 6,
+    "finalLogicalMetrics": {
+      "poolBlockedAircraft": 0,
+      "poolBlockedMagic": 0,
+      "poolBlockedAntiAir": 0,
+      "maxAircraftProjectiles": 96,
+      "maxMagicProjectiles": 197,
+      "maxAntiAirProjectiles": 6,
+      "maxBurns": 24,
+      "maxEvents": 14,
+      "aircraftShots": 4162,
+      "enemyShots": 14503,
+      "shipShots": 142
+    },
+    "rendererAllocationsAllSamples": {
+      "geometries": 50,
+      "textures": 4,
+      "programs": 16
+    },
+    "rendererPools": {
+      "aircraft": 8,
+      "enemies": 24,
+      "ships": 10,
+      "meaning": "Fixed renderer pool capacities; active mission counts decline and are recorded separately."
+    },
+    "rafP95IntervalMs": 16.8,
+    "rafMaximumIntervalMs": 50,
+    "sampledLastCompletedGpuFrameIntervalMs": {
+      "minimum": 49.90000000037253,
+      "maximum": 136.39999999850988
+    },
+    "sampledLastCompletedFenceWaitMs": {
+      "minimum": 48.69999999925494,
+      "maximum": 133.69999999925494
+    },
+    "performanceInterpretation": "16.8ms is rAF cadence, not 60fps rendered-GPU acceptance. SwiftShader frame completion is slower; hardware/mobile targets remain unverified.",
+    "currentNodeListenerCountAllSamples": 130,
+    "cdpDomCountersRange": {
+      "nodes": [
+        602,
+        883
+      ],
+      "jsEventListeners": [
+        147,
+        273
+      ]
+    },
+    "cdpJSHeapUsedSizeBytesRange": [
+      17844848,
+      44670524
+    ],
+    "resourceInterpretation": "Geometry/texture/program counts and current-node listener count remain constant. Broader DOM/listener/audio-handler counters include temporary and detached allocations and fall after GC; CDP heap falls to 17,844,848 bytes on Result. Sampled evidence does not show monotonic resource growth, and is not an unlimited-duration leak proof. Page performance.memory is coarse and remains 29.4MB, so it was not used alone to infer heap stability.",
+    "resultAudioAt540And600Seconds": [
+      {
+        "wallSeconds": 540.001,
+        "audio": {
+          "enabled": true,
+          "active": false,
+          "voices": 0,
+          "sources": 0
+        },
+        "cdpAudioHandlers": 3
+      },
+      {
+        "wallSeconds": 600.001,
+        "audio": {
+          "enabled": true,
+          "active": false,
+          "voices": 0,
+          "sources": 0
+        },
+        "cdpAudioHandlers": 3
+      }
+    ],
+    "limitations": [
+      "600.041 seconds is total wall-clock sampling, including about 85.832 seconds on Result, not ten minutes of active combat.",
+      "Only one Easy no-input viewport route was measured; this is desktop Chromium/SwiftShader mobile emulation, not physical iPhone Safari or mobile-GPU acceptance.",
+      "The live browser runner does not persist natural Result score or full state hashes. Pure score 2100 is not claimed as a browser score comparison; score/result UI consistency is covered separately by the final browser fixtures."
+    ]
+  },
+  "physicalDeviceVerification": {
+    "status": "unverified",
+    "scope": "Physical iPhone Safari and mobile-GPU normal-60-second, maximum-120-second and ten-minute performance. Desktop Chromium/SwiftShader/touch emulation is not a substitute."
+  },
+  "viewportMatchedBrowserRegression": {
+    "executedCommit": "da017ad25fce53e4ee06920053cfdb99aeae6970",
+    "executedSourceSha256": "33a86b8766493683623473e725646f4015eb62403fd844a1d28cfbe077088c6a",
+    "status": "passed",
+    "mode": "easy",
+    "seed": 20261005,
+    "missionId": "mission-1",
+    "input": {
+      "turn": 0,
+      "climb": 0,
+      "fire": false,
+      "loop": false,
+      "accelerate": false,
+      "brake": false,
+      "steeringRevision": 0,
+      "viewAspect": 0.6064814814814815
+    },
+    "durationSeconds": 41.641,
+    "browserArtifact": "docs/evidence/p8-browser-session.json",
+    "samplesCompared": 11,
+    "uniqueCheckpointTicks": 10,
+    "allSampledMissionProjectilesEffectsAndLogicalMetricsDeepEqual": true,
+    "comparisons": [
+      {
+        "browserWallSeconds": 4.167,
+        "tick": 30,
+        "fieldsMatched": [
+          "mission",
+          "projectiles",
+          "effects",
+          "logicalMetrics"
+        ],
+        "fullPureStateSha256": "9f2a8048b44b2420e2ebdc658bb6f455bf6c4a0b79a8031f3287f9e1e5a26868"
+      },
+      {
+        "browserWallSeconds": 60.004,
+        "tick": 3381,
+        "fieldsMatched": [
+          "mission",
+          "projectiles",
+          "effects",
+          "logicalMetrics"
+        ],
+        "fullPureStateSha256": "35516f1d6ce195782556bb75907cc332674c72024a0a7a39d713ff2be102b6cf"
+      },
+      {
+        "browserWallSeconds": 120.005,
+        "tick": 6981,
+        "fieldsMatched": [
+          "mission",
+          "projectiles",
+          "effects",
+          "logicalMetrics"
+        ],
+        "fullPureStateSha256": "6ac6a2f2e2156e515c484ee46a34e318a1d3d8040e4a93e5cf5447255953f218"
+      },
+      {
+        "browserWallSeconds": 180.004,
+        "tick": 10581,
+        "fieldsMatched": [
+          "mission",
+          "projectiles",
+          "effects",
+          "logicalMetrics"
+        ],
+        "fullPureStateSha256": "f38ccc060b1e653606fd507e5919e657eaebee5a082a5392510f0165d1428d0c"
+      },
+      {
+        "browserWallSeconds": 240.004,
+        "tick": 14181,
+        "fieldsMatched": [
+          "mission",
+          "projectiles",
+          "effects",
+          "logicalMetrics"
+        ],
+        "fullPureStateSha256": "26e957d7007faad454d58e755ee9b604ddd0259ddd33f498779ab3d05fbff346"
+      },
+      {
+        "browserWallSeconds": 300.006,
+        "tick": 17781,
+        "fieldsMatched": [
+          "mission",
+          "projectiles",
+          "effects",
+          "logicalMetrics"
+        ],
+        "fullPureStateSha256": "b9380fd5cfb95a8576cedf44b56541b3b35d578ec55dec899ad41057c347be9c"
+      },
+      {
+        "browserWallSeconds": 360.005,
+        "tick": 21381,
+        "fieldsMatched": [
+          "mission",
+          "projectiles",
+          "effects",
+          "logicalMetrics"
+        ],
+        "fullPureStateSha256": "30dcfe04efbdfa79245dc21153d6a505bb3802da60626fef2198d59f6367d17a"
+      },
+      {
+        "browserWallSeconds": 420.006,
+        "tick": 24981,
+        "fieldsMatched": [
+          "mission",
+          "projectiles",
+          "effects",
+          "logicalMetrics"
+        ],
+        "fullPureStateSha256": "67fed764ff713d55f114b796bf48734bff64d10199dc34c15098bcc7645eb122"
+      },
+      {
+        "browserWallSeconds": 480.005,
+        "tick": 28581,
+        "fieldsMatched": [
+          "mission",
+          "projectiles",
+          "effects",
+          "logicalMetrics"
+        ],
+        "fullPureStateSha256": "c6343133eefc44e806672a32f3c36145518049b715b0a940aa0ac81260929f15"
+      },
+      {
+        "browserWallSeconds": 540.001,
+        "tick": 30624,
+        "fieldsMatched": [
+          "mission",
+          "projectiles",
+          "effects",
+          "logicalMetrics"
+        ],
+        "fullPureStateSha256": "b97d1dcdd98c29c63cd19ba9d224d02c6019b78cd817e801c73ffb24cdca151e"
+      },
+      {
+        "browserWallSeconds": 600.001,
+        "tick": 30624,
+        "fieldsMatched": [
+          "mission",
+          "projectiles",
+          "effects",
+          "logicalMetrics"
+        ],
+        "fullPureStateSha256": "b97d1dcdd98c29c63cd19ba9d224d02c6019b78cd817e801c73ffb24cdca151e"
+      }
+    ],
+    "pureFinalResult": {
+      "missionId": "mission-1",
+      "rulesVersion": "uchiotose-1",
+      "mode": "easy",
+      "outcome": "victory",
+      "reason": "all-enemies-defeated",
+      "tick": 30624,
+      "elapsedSeconds": 510.4,
+      "losses": {
+        "player": 5,
+        "wing": 7,
+        "ships": 4,
+        "enemies": 100
+      },
+      "breakdown": {
+        "kills": 100,
+        "playerDamage": 0,
+        "killPoints": 10000,
+        "damagePoints": 0,
+        "timeBonus": 0,
+        "playerLossPenalty": -2500,
+        "wingLossPenalty": -1400,
+        "shipLossPenalty": -4000,
+        "rawTotal": 2100,
+        "total": 2100
+      },
+      "score": 2100
+    },
+    "pureFinalStateSha256": "b97d1dcdd98c29c63cd19ba9d224d02c6019b78cd817e801c73ffb24cdca151e",
+    "limitation": "Browser checkpoint record contains sampled mission/projectiles/effects/metrics, not a full-state hash or natural Result score; pure full-state hashes and score are recorded without claiming those omitted browser fields were compared.",
+    "conclusion": "The default 393/852 Node fixture and the explicit 393/648 live-browser route have different adopted viewport inputs for fixed-source Easy assistance/autofire. Explicit 393/648 reproduces every recorded browser logical checkpoint and natural terminal outcome."
+  }
+}

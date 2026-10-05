@@ -1,0 +1,999 @@
+{
+  "side": "candidate",
+  "source": "http://127.0.0.1:4176",
+  "screen": "easy-hud",
+  "viewport": {
+    "width": 568,
+    "height": 320
+  },
+  "deviceScaleFactor": 1,
+  "provenance": {
+    "candidateCodeCommit": "da017ad25fce53e4ee06920053cfdb99aeae6970",
+    "candidateCodeTree": "a3e9a18e1a00d5188a9b95805ce20bf5888f8529",
+    "candidateSourceSha256": "33a86b8766493683623473e725646f4015eb62403fd844a1d28cfbe077088c6a",
+    "loadedSourceRepository": "/workspace/uchiotose",
+    "loadedSourceCommit": "da017ad25fce53e4ee06920053cfdb99aeae6970",
+    "loadedSourceTree": "a3e9a18e1a00d5188a9b95805ce20bf5888f8529",
+    "loadedSourceSha256": "33a86b8766493683623473e725646f4015eb62403fd844a1d28cfbe077088c6a",
+    "loadedSourceWorktree": "clean"
+  },
+  "stalledFrameRecoveries": [],
+  "inputEmulation": "touch emulation",
+  "title": "ウチオトセ",
+  "capturedAt": "2026-10-05T04:31:36.804Z",
+  "capturePath": "ordinary DOM/UI flow",
+  "appScreen": "playing",
+  "appMode": "easy",
+  "focusedElement": {
+    "tag": "canvas",
+    "id": "flight",
+    "text": ""
+  },
+  "scroll": {
+    "x": 0,
+    "y": 0,
+    "bodyWidth": 568,
+    "bodyHeight": 320,
+    "viewportWidth": 568,
+    "viewportHeight": 320
+  },
+  "observation": {
+    "phase": "playing",
+    "mode": "easy",
+    "screen": "playing",
+    "tick": 62,
+    "missionId": "mission-3",
+    "elapsedSeconds": 1.0333333333333334,
+    "result": null,
+    "losses": {
+      "player": 0,
+      "wing": 0,
+      "ships": 0,
+      "enemies": 0
+    },
+    "activeCounts": {
+      "aircraft": 8,
+      "enemies": 24,
+      "ships": 10
+    },
+    "projectileCount": 0,
+    "renderer": {
+      "queue": {
+        "status": "pending",
+        "failure": null,
+        "pendingMs": 10,
+        "lastCompletedPendingMs": 97.40000000037253,
+        "completedFrameIntervalMs": 100.5,
+        "submittedCount": 21,
+        "completedCount": 20,
+        "skippedCount": 299
+      },
+      "calls": 175,
+      "triangles": 203344,
+      "geometries": 50,
+      "textures": 4,
+      "planes": 8,
+      "warriors": 24,
+      "ships": 10,
+      "burstCapacity": 24,
+      "bursts": 0,
+      "warriorDrawBatches": 5,
+      "quality": "medium",
+      "width": 568,
+      "height": 320,
+      "pixelRatio": 0.75,
+      "rendererBackend": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "softwareRenderer": true,
+      "programs": 16,
+      "initialWarmPendingMs": 2569.2999999988824,
+      "lastSubmittedFrame": {
+        "missionId": "mission-3",
+        "phase": "playing",
+        "tick": 62,
+        "mode": "easy",
+        "calls": 175,
+        "triangles": 203344
+      },
+      "aircraftTracers": {
+        "segments": 0,
+        "capacity": 2048,
+        "corePx": 1.5,
+        "outlinePx": 2.5,
+        "tailSeconds": 0.045
+      }
+    },
+    "audio": {
+      "enabled": false,
+      "active": true,
+      "voices": 0,
+      "sources": 0
+    },
+    "frameIntervals": {
+      "samples": 142,
+      "medianMs": 16.699999999999818,
+      "p95Ms": 16.700000000000728,
+      "maxMs": 16.800000000000182
+    },
+    "heap": {
+      "usedJSHeapSize": 26000000,
+      "totalJSHeapSize": 42100000,
+      "jsHeapSizeLimit": 3760000000
+    }
+  },
+  "settingsComparison": {
+    "adjustmentMode": "normal",
+    "selectedControl": "fire",
+    "previewScale": null,
+    "previewBounds": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0
+    },
+    "visibleControls": []
+  },
+  "errors": [],
+  "layout": [
+    {
+      "tag": "main",
+      "id": "app",
+      "className": "",
+      "text": "作戦時間 00:01 イージー 味方総残機 50/50 出撃 8/8 敵残数 100/100 出撃 24/24 味方艦隊 10/10 生存艦 音 OFF Ⅱ 自機 HP 80 / 80 速度 396 km/h 高度 1000 m 状態異常なし 機銃 288 / 機関砲 96 0点",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 568,
+        "height": 320
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 568,
+        "height": 320
+      },
+      "css": {
+        "display": "block",
+        "position": "relative",
+        "zIndex": "auto",
+        "overflow": "hidden",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(239, 244, 237)"
+      }
+    },
+    {
+      "tag": "canvas",
+      "id": "flight",
+      "className": "",
+      "text": "飛行戦場",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 568,
+        "height": 320
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 568,
+        "height": 320
+      },
+      "css": {
+        "display": "block",
+        "position": "absolute",
+        "zIndex": "auto",
+        "overflow": "clip",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(239, 244, 237)"
+      }
+    },
+    {
+      "tag": "canvas",
+      "id": "markers",
+      "className": "",
+      "text": "",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 568,
+        "height": 320
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 568,
+        "height": 320
+      },
+      "css": {
+        "display": "block",
+        "position": "absolute",
+        "zIndex": "auto",
+        "overflow": "clip",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(239, 244, 237)"
+      }
+    },
+    {
+      "tag": "section",
+      "id": "hud",
+      "className": "screen",
+      "text": "作戦時間 00:01 イージー 味方総残機 50/50 出撃 8/8 敵残数 100/100 出撃 24/24 味方艦隊 10/10 生存艦 音 OFF Ⅱ 自機 HP 80 / 80 速度 396 km/h 高度 1000 m 状態異常なし 機銃 288 / 機関砲 96 0点",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 568,
+        "height": 320
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 568,
+        "height": 320
+      },
+      "css": {
+        "display": "block",
+        "position": "absolute",
+        "zIndex": "3",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(239, 244, 237)"
+      }
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "className": "hud-top",
+      "text": "作戦時間 00:01 イージー 味方総残機 50/50 出撃 8/8 敵残数 100/100 出撃 24/24 味方艦隊 10/10 生存艦 音 OFF Ⅱ",
+      "bounds": {
+        "x": 12,
+        "y": 12,
+        "width": 544,
+        "height": 69
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 544,
+        "height": 69
+      },
+      "css": {
+        "display": "flex",
+        "position": "absolute",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(239, 244, 237)"
+      }
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "className": "time-block",
+      "text": "作戦時間 00:01 イージー",
+      "bounds": {
+        "x": 12,
+        "y": 12,
+        "width": 61.234375,
+        "height": 69
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 61,
+        "height": 69
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "5px 0px",
+        "margin": "0px",
+        "border": "0px none rgb(239, 244, 237)"
+      }
+    },
+    {
+      "tag": "strong",
+      "id": "hud-time",
+      "className": "",
+      "text": "00:01",
+      "bounds": {
+        "x": 12,
+        "y": 34,
+        "width": 61.234375,
+        "height": 25
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 0,
+        "height": 0
+      },
+      "css": {
+        "display": "inline",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "ui-monospace, SFMono-Regular, Consolas, monospace",
+        "fontSize": "22px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(251, 241, 212)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(251, 241, 212)"
+      }
+    },
+    {
+      "tag": "span",
+      "id": "hud-mode",
+      "className": "",
+      "text": "イージー",
+      "bounds": {
+        "x": 12,
+        "y": 59,
+        "width": 61.234375,
+        "height": 13
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 61,
+        "height": 13
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "9px",
+        "lineHeight": "normal",
+        "fontWeight": "500",
+        "color": "rgb(213, 223, 216)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px 0px 4px",
+        "border": "0px none rgb(213, 223, 216)"
+      }
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "className": "target-tally",
+      "text": "味方総残機 50/50 出撃 8/8",
+      "bounds": {
+        "x": 233.234375,
+        "y": 18,
+        "width": 58.53125,
+        "height": 52
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 59,
+        "height": 52
+      },
+      "css": {
+        "display": "flex",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "9px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(190, 210, 208)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(190, 210, 208)"
+      }
+    },
+    {
+      "tag": "b",
+      "id": "hud-aircraft",
+      "className": "",
+      "text": "50/50",
+      "bounds": {
+        "x": 233.234375,
+        "y": 33,
+        "width": 58.53125,
+        "height": 22
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 59,
+        "height": 26
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "22px",
+        "lineHeight": "22px",
+        "fontWeight": "400",
+        "color": "rgb(241, 227, 196)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(241, 227, 196)"
+      }
+    },
+    {
+      "tag": "small",
+      "id": "hud-aircraft-active",
+      "className": "",
+      "text": "出撃 8/8",
+      "bounds": {
+        "x": 245.5,
+        "y": 57,
+        "width": 33.984375,
+        "height": 13
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 34,
+        "height": 13
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "9px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(161, 183, 185)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(161, 183, 185)"
+      }
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "className": "target-tally",
+      "text": "敵残数 100/100 出撃 24/24",
+      "bounds": {
+        "x": 298.765625,
+        "y": 18,
+        "width": 83.703125,
+        "height": 52
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 84,
+        "height": 52
+      },
+      "css": {
+        "display": "flex",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "9px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(190, 210, 208)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(190, 210, 208)"
+      }
+    },
+    {
+      "tag": "b",
+      "id": "hud-enemies",
+      "className": "",
+      "text": "100/100",
+      "bounds": {
+        "x": 298.765625,
+        "y": 33,
+        "width": 83.703125,
+        "height": 22
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 84,
+        "height": 26
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "22px",
+        "lineHeight": "22px",
+        "fontWeight": "400",
+        "color": "rgb(241, 227, 196)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(241, 227, 196)"
+      }
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "className": "target-tally",
+      "text": "味方艦隊 10/10 生存艦",
+      "bounds": {
+        "x": 389.46875,
+        "y": 18,
+        "width": 58.53125,
+        "height": 52
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 59,
+        "height": 52
+      },
+      "css": {
+        "display": "flex",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "9px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(190, 210, 208)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(190, 210, 208)"
+      }
+    },
+    {
+      "tag": "b",
+      "id": "hud-ships",
+      "className": "",
+      "text": "10/10",
+      "bounds": {
+        "x": 389.46875,
+        "y": 33,
+        "width": 58.53125,
+        "height": 22
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 59,
+        "height": 26
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "22px",
+        "lineHeight": "22px",
+        "fontWeight": "400",
+        "color": "rgb(241, 227, 196)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(241, 227, 196)"
+      }
+    },
+    {
+      "tag": "button",
+      "id": "game-sound",
+      "className": "icon-button",
+      "text": "音 OFF",
+      "bounds": {
+        "x": 464,
+        "y": 12,
+        "width": 44,
+        "height": 44
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 42,
+        "height": 42
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "10px",
+        "lineHeight": "12px",
+        "fontWeight": "600",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(6, 36, 51, 0.72)",
+        "borderRadius": "4px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "1px solid rgba(157, 191, 196, 0.286)"
+      }
+    },
+    {
+      "tag": "button",
+      "id": "pause-button",
+      "className": "icon-button",
+      "text": "Ⅱ",
+      "bounds": {
+        "x": 512,
+        "y": 12,
+        "width": 44,
+        "height": 44
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 42,
+        "height": 42
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "19px",
+        "lineHeight": "normal",
+        "fontWeight": "600",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(6, 36, 51, 0.72)",
+        "borderRadius": "4px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "1px solid rgba(157, 191, 196, 0.286)"
+      }
+    },
+    {
+      "tag": "p",
+      "id": "hud-effects",
+      "className": "ammo",
+      "text": "状態異常なし",
+      "bounds": {
+        "x": 18,
+        "y": 151,
+        "width": 118,
+        "height": 17.6875
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 118,
+        "height": 18
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "10.4px",
+        "lineHeight": "17.68px",
+        "fontWeight": "400",
+        "color": "rgb(225, 222, 208)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "7px 0px 10.4px",
+        "border": "0px none rgb(225, 222, 208)"
+      }
+    },
+    {
+      "tag": "p",
+      "id": "hud-ammo",
+      "className": "flight-tip",
+      "text": "機銃 288 / 機関砲 96",
+      "bounds": {
+        "x": 90,
+        "y": 270.3125,
+        "width": 102,
+        "height": 18.6875
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 102,
+        "height": 19
+      },
+      "css": {
+        "display": "block",
+        "position": "absolute",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "11px",
+        "lineHeight": "18.7px",
+        "fontWeight": "400",
+        "color": "rgb(230, 231, 216)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "11px 0px",
+        "border": "0px none rgb(230, 231, 216)"
+      }
+    },
+    {
+      "tag": "p",
+      "id": "hud-score",
+      "className": "score-readout",
+      "text": "0点",
+      "bounds": {
+        "x": 536.703125,
+        "y": 100,
+        "width": 17.296875,
+        "height": 18.6875
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 17,
+        "height": 19
+      },
+      "css": {
+        "display": "block",
+        "position": "absolute",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "11px",
+        "lineHeight": "18.7px",
+        "fontWeight": "400",
+        "color": "rgb(240, 228, 202)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "5px 0px 11px",
+        "border": "0px none rgb(240, 228, 202)"
+      }
+    },
+    {
+      "tag": "button",
+      "id": "touch-loop",
+      "className": "flight-button loop-button",
+      "text": "↻ 宙返り",
+      "bounds": {
+        "x": 445.84375,
+        "y": 185.59375,
+        "width": 51.1875,
+        "height": 51.1875
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 49,
+        "height": 56
+      },
+      "css": {
+        "display": "flex",
+        "position": "absolute",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "14px",
+        "lineHeight": "normal",
+        "fontWeight": "600",
+        "color": "rgb(242, 224, 181)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "50%",
+        "padding": "1px 6px",
+        "margin": "0px",
+        "border": "1px solid rgba(228, 200, 139, 0.6)"
+      }
+    }
+  ]
+}

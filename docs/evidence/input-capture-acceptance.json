@@ -1,0 +1,50 @@
+{
+  "scope": "P6: FlightControls capture-loss ownership and physical release gate",
+  "capturedAt": "2026-10-05T03:45:35Z",
+  "referenceCommit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+  "environment": {
+    "browser": "Chromium 149 via Playwright 1.61.1",
+    "input": "Trusted touch PointerEvents dispatched with Chromium CDP Input.dispatchTouchEvent",
+    "renderer": "No WebGL game renderer; /input-probe imports src/input.ts in a small static fixture",
+    "platform": "Linux / simulated 393x852 touch viewport"
+  },
+  "checks": [
+    {
+      "command": "PLAYWRIGHT_BROWSERS_PATH=/tmp/uchiotose-browsers npx playwright test browser-tests/input-recovery.spec.ts --grep 'real multi-touch'",
+      "result": "pass",
+      "tests": 1,
+      "testSeconds": 1.1,
+      "covers": [
+        "Two simultaneous trusted touch pointers acquired real browser pointer capture on the steering surface and Fire button.",
+        "After pointerup plus trusted implicit lostpointercapture for Fire, steering remains active and the release gate remains open until steering lifts.",
+        "The reverse ordering preserves a held Fire input when steering pointerup is followed by trusted implicit lostpointercapture.",
+        "Releasing an active Loop and steering capture through releasePointerCapture produces trusted lostpointercapture, clears the owning action, and requires physical touchEnd before acknowledgement."
+      ]
+    },
+    {
+      "command": "node --import tsx --test tests/input-capture.test.ts",
+      "result": "pass",
+      "tests": 3,
+      "durationMs": 189,
+      "covers": [
+        "Button implicit capture loss does not cancel a live steering pointer.",
+        "Steering implicit capture loss does not cancel a live Fire pointer.",
+        "Capture loss while a button or steering pointer is still owned sets the gate and awaits physical release."
+      ]
+    },
+    {
+      "command": "npm run build",
+      "result": "pass",
+      "covers": ["TypeScript check", "Vite production build"]
+    }
+  ],
+  "sourceSha256": {
+    "src/input.ts": "0208be7953a57bc9112af568e820fdd2ef77e59624abed84128a7c66f668096c",
+    "tests/input-capture.test.ts": "1288e69935ae834a1d0e75201c94b677709894d57b2c3b470510d2022653d883",
+    "browser-tests/input-recovery.spec.ts": "fec53703a317c6e3d8e33057010dbd674c94a3f2991dafb169d12735f82aacc2"
+  },
+  "limits": [
+    "Chromium simulated touch input is not physical-device Safari or mobile GPU validation.",
+    "This record covers pointer capture and release only; other P6 browser checks and final full-suite results are recorded separately."
+  ]
+}

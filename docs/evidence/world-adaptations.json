@@ -162,7 +162,7 @@
     "bytes": 29490,
     "status": "adapted",
     "destination": "src/world-renderer.ts",
-    "change_reason": "Retained sea/sky/light/tone mapping/camera/aircraft control surface presentation and fixed GPU queue. Removed source ordnance and enemy ship rules; added original closed island/winged warriors, bounded new fire/ice/owner effects, roster IDs and root disposal. Hidden shared materials warm before first full-size Home frame; loading waits for genuine GPU completion within 30 seconds like source prepare; in-flight 1 second stall unchanged."
+    "change_reason": "Retained sea/sky/light/tone mapping/camera/aircraft control surface presentation and fixed GPU queue. Removed source ordnance and enemy ship rules; added original closed island/winged warriors, bounded new fire/ice/owner effects, roster IDs and root disposal. Hidden shared materials warm before first full-size Home frame; loading waits for genuine GPU completion within 30 seconds like source prepare; in-flight 1 second stall unchanged. R20 presentation adaptations: repeated stopped-scene submissions are cached; warrior transforms use five shared positive-determinant instance batches with exact normal matrices; software rasterizers use 0.75 pixel-density multiplier while hardware caps remain source defaults. Recovery warm locations are camera-relative; queue threshold and logical rules are unchanged."
   },
   {
     "repository": "kaisen-reference",

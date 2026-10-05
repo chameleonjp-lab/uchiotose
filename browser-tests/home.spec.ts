@@ -19,12 +19,14 @@ test('Home is ready and fits the planned viewports', async ({ page }) => {
     await expect(page.locator('.mission-data > div').nth(2).locator('strong')).toHaveText('10隻');
     await expect(page.locator('#app')).toHaveAttribute('data-screen', 'home');
     await expect(page.locator('#home-sound')).toHaveAttribute('aria-pressed', 'false');
-    await expect(page.locator('#start')).toHaveText('作戦開始');
+    await expect(page.locator('#start')).toHaveText('作戦開始 ↗');
 
     await page.getByLabel('ノーマル', { exact: true }).check();
     await expect(page.locator('#app')).toHaveAttribute('data-mode', 'normal');
+    await expect(page.locator('#mode-guide')).toContainText('手動射撃');
     await page.getByLabel('イージー', { exact: true }).check();
     await expect(page.locator('#app')).toHaveAttribute('data-mode', 'easy');
+    await expect(page.locator('#mode-guide')).toContainText('自動射撃');
     await page.screenshot({ path: `docs/evidence/home-${viewport.width}x${viewport.height}.png` });
 
     const dimensions = await page.evaluate(() => ({
@@ -135,23 +137,64 @@ test('HUD header controls fit three planned viewports and Pause traps keyboard f
       return {
         viewportWidth: document.documentElement.clientWidth,
         clock: rect('.time-block'),
+        clockText: rect('#hud-time'),
         targets: rect('.targets'),
         actions: rect('.hud-actions'),
+        tallyText: ['#hud-aircraft', '#hud-enemies', '#hud-ships'].map(rect),
       };
     });
     for (const region of [layout.clock, layout.targets, layout.actions]) {
       expect(region.left).toBeGreaterThanOrEqual(0);
       expect(region.right).toBeLessThanOrEqual(layout.viewportWidth);
     }
-    expect(layout.clock.right).toBeLessThanOrEqual(layout.targets.left);
+    const disjoint = (a: typeof layout.clock, b: typeof layout.clock) =>
+      a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top;
+    expect(disjoint(layout.clockText, layout.targets)).toBe(true);
+    expect(disjoint(layout.clockText, layout.actions)).toBe(true);
+    expect(layout.clockText.left).toBeGreaterThanOrEqual(layout.clock.left);
+    expect(layout.clockText.right).toBeLessThanOrEqual(layout.clock.right);
+    for (const text of layout.tallyText) {
+      expect(text.left).toBeGreaterThanOrEqual(layout.targets.left);
+      expect(text.right).toBeLessThanOrEqual(layout.targets.right);
+      expect(disjoint(text, layout.actions)).toBe(true);
+    }
     expect(layout.targets.right).toBeLessThanOrEqual(layout.actions.left);
+
+    if (viewport.width === 393) {
+      const warningLayouts = await page.evaluate(async () => {
+        const { projectGunSight } = await import(/* @vite-ignore */ `${'/src/gun-sight.ts'}`);
+        const api = (window as any).__uchiotose;
+        const state = api.snapshot();
+        const player = state.world.aircraft[state.mission.controlledAircraftId];
+        const app = document.querySelector<HTMLElement>('#app')!;
+        const warning = document.querySelector<HTMLElement>('#hud-warning')!;
+        const previousMode = app.dataset.mode, previousText = warning.textContent;
+        try {
+          warning.textContent = '戦場境界 · 島へ戻ってください';
+          return ['normal', 'easy'].map(mode => {
+            app.dataset.mode = mode;
+            const width = innerWidth, height = innerHeight;
+            const sight = mode === 'normal' ? projectGunSight(player, width, height) : { x: width / 2, y: height / 2 };
+            const radius = mode === 'normal' ? Math.max(26, Math.min(38, Math.min(width, height) * .085)) : Math.min(width, height) * .135;
+            const box = warning.getBoundingClientRect();
+            const dx = Math.max(box.left - sight.x, 0, sight.x - box.right);
+            const dy = Math.max(box.top - sight.y, 0, sight.y - box.bottom);
+            return { mode, clearance: Math.hypot(dx, dy) - radius };
+          });
+        } finally {
+          app.dataset.mode = previousMode;
+          warning.textContent = previousText;
+        }
+      });
+      for (const warning of warningLayouts) expect(warning.clearance, `${warning.mode} warning clears the sight`).toBeGreaterThan(6);
+    }
   }
 
   await page.locator('#pause-button').click();
   await expect(page.locator('#pause-screen')).toBeVisible();
-  await page.locator('#pause-rules').focus();
+  await page.locator('#pause-settings').focus();
   await page.keyboard.press('Tab');
   await expect(page.locator('#resume')).toBeFocused();
   await page.keyboard.press('Shift+Tab');
-  await expect(page.locator('#pause-rules')).toBeFocused();
+  await expect(page.locator('#pause-settings')).toBeFocused();
 });

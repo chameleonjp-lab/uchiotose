@@ -1,0 +1,19 @@
+{
+  "batches": 5,
+  "points": 71064,
+  "maxPositionError": 0.0001601405765566382,
+  "maxNormalError": 4.517856027484367e-8,
+  "minDeterminant": 0.09476449002414312,
+  "neutralBounds": {
+    "x": 7.999999999999998,
+    "y": 4.000000047683716,
+    "z": 2
+  },
+  "hiddenCounts": [
+    23,
+    23,
+    23,
+    92,
+    92
+  ]
+}
