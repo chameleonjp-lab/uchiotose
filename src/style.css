@@ -925,7 +925,7 @@ p {
   #app[data-mode="normal"] .announcement { bottom: auto; }
 }
 
-/* Settings adapted from the source game, using Kaisen-local persistence. */
+/* Settings and dialog styles for Uchiotose's independent control keys. */
 #control-settings {
   width: min(96vw, 470px);
   height: min(720px, calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 18px));
@@ -997,7 +997,6 @@ p {
 .preview-control { position:absolute; left:var(--control-x); top:var(--control-y); right:auto; bottom:auto !important; width:var(--control-size);height:var(--control-size);transform:translate(-50%,-50%);opacity:var(--control-opacity);font-size:8px; }
 .preview-control.loop-button > span { font-size:14px; }
 .preview-control b { font-size:8px; }
-#home-controls { width:100%; min-height:44px; }
 #friendly-fire-result { font-size:11px; margin:4px 0; color:var(--muted); }
 .score-readout { margin-top:5px; font-size:11px; color:#f0e4ca; }
 @media(max-height:500px) { .settings-shell {padding-top:7px} .settings-header {min-height:44px} .settings-footer {padding-top:5px} }
@@ -1027,14 +1026,16 @@ p {
 .targets .target-tally b { margin: 0; font-size: 22px; }
 .targets .target-tally small { margin: 0; font-size: 9px; }
 .hud-actions { display: flex; align-items: center; gap: 4px; pointer-events: auto; }
-#app .hud-actions #game-sound, #app .hud-actions #pause {
+#app .hud-actions #game-sound, #app .hud-actions #pause-button {
   position: static !important; inset: auto !important; width: 44px; height: 44px;
   min-width: 44px; min-height: 44px; margin: 0; padding: 0;
 }
 #app .hud-actions #game-sound { font-size: 10px; line-height: 1.2; }
 .home-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .home-actions > button { flex: 1 1 140px; min-height: 44px; margin: 0; }
-.home-actions #home-controls { width: auto; }
+.home-actions #home-settings, .home-actions #home-rules { width: auto; }
+#home-sound { display: block; width: max-content; min-width: 84px; margin: 4px auto 0; }
+#hud-score { position: absolute; top: calc(95px + var(--safe-top)); right: max(14px, env(safe-area-inset-right)); text-align: right; text-shadow: 0 1px 6px #001c26; }
 .rules-dialog {
   width: min(620px, calc(100% - 24px)); max-height: calc(100dvh - 28px - var(--safe-top) - var(--safe-bottom));
   padding: 0; border: 1px solid #799fa6; border-radius: 12px; color: #edf4ed; background: #102b39;

@@ -1,0 +1,25 @@
+{
+  "sourceRepository": "chameleonjp-lab/kaisen",
+  "sourceCommit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+  "sourcePath": "src/audio.ts",
+  "sourceBlob": "efb077f729aa3c95c3e2e8db518a47095e45fa0c",
+  "sourceSha256": "3396f7b46c42d331ccf2270c77bee5ad2037167064dca4c7710fc444bf0514e8",
+  "target": "src/audio.ts",
+  "adaptations": [
+    "Narrow audio-types adapter instead of Kaisen combat types",
+    "Remove ordnance impact category and torpedo/bomb sound logic",
+    "Default sound OFF",
+    "Add bounded distinct fire, ice, reload, respawn cues using the existing synthesizer and capacity controls"
+  ],
+  "regressionTest": {
+    "sourcePath": "tests/audio.test.ts",
+    "sourceBlob": "3af4d36e7e6434450bc569b3c4c3423b6c3e24a5",
+    "sourceSha256": "07a5b2d1c653734e13b26de21514ba7c2b773ad998a2ebacc310c704623fcdbe",
+    "target": "tests/audio.test.ts",
+    "adaptations": [
+      "Use narrow audio-types import",
+      "Explicitly enable sound in fixtures to preserve OFF-by-default product behavior",
+      "Add lifecycle and bounded resource assertions for new status cues"
+    ]
+  }
+}

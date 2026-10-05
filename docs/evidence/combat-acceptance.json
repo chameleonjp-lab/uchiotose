@@ -1,0 +1,55 @@
+{
+  "scope": "P3-P5 pure combat logic; browser and real-device performance are separate checks",
+  "sourceSha256": {
+    "src/aircraft-damage.ts": "54a07697c3910b8dc0557d2d4c66b4f058df7d892af53bbe0639ab324ff0e3bc",
+    "src/ammunition.ts": "6af07b74034ffcb0a3cfbb3e6d03a1ec6637014686a6c4ff574f60fa15ef82e3",
+    "src/attack-budget.ts": "d3eafee05a56f7972a1b22b7c109aebca0d1680ed51d0b14e4cdb1234344b562",
+    "src/projectiles.ts": "96e0cd526aca562e61edb96b4e4c8471eafdda25d31d7f461edefa6951c6534a",
+    "src/scoring.ts": "23226fa8e6dcfd447f0fa72c9085c0f859cbfbf72d30692aa6f11f265208fe56",
+    "src/simulation.ts": "044bf252b0fc9fbde6494c3c5e70234e93f22a607feacc95dcf6406db01dc415",
+    "src/status-effects.ts": "b7411f8ab005c18d2769846c7b81df3ec52d8898a3e841d5aaf4ad688a62caa5",
+    "tests/combat.test.ts": "808069e9bab567f6437ef6c89755fe36a26bf8c181681dcf28f562d62d3d79fe",
+    "tests/status-effects.test.ts": "a1dedaf279a5738c2658d1cd3e42e49bf2d256a1495102003566d46f151a05c3"
+  },
+  "sourceReferences": {
+    "repository": "chameleonjp-lab/kaisen",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "blobs": {
+      "src/ammunition.ts": "eafa7449c789e6861a1f4ead20a2099723194dc4",
+      "src/aircraft-damage.ts": "fe0c48ff296a31db70c7f93a0cdab64244ba939b"
+    },
+    "adaptations": {
+      "src/ammunition.ts": "Keep 288/96 shared six-second reload contract; pure deadline reducers, finite IDs, wing reloads, atomic volley emission and odd final rounds.",
+      "src/aircraft-damage.ts": "Keep four exact damage bands and cumulative muzzle-to-impact distance; omit enemy aircraft weapons."
+    }
+  },
+  "checks": [
+    {
+      "command": "node --import tsx --test tests/status-effects.test.ts tests/combat.test.ts",
+      "status": "pass",
+      "tests": 32,
+      "acceptance": [
+        "A05 (combat portion)",
+        "A08",
+        "A09",
+        "A10",
+        "A11",
+        "A12",
+        "A13",
+        "A14",
+        "A18 (pure logic portion)"
+      ]
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "status": "pass"
+    }
+  ],
+  "notes": [
+    "Subsequent final candidate and long-session checks are recorded by the P8 verifier.",
+    "A final odd round is fired once, using the normal weapon clock; no ammunition is stranded or synthesized.",
+    "Results freeze nested losses and breakdown; raw totals round only once into the result integer.",
+    "Independent reviewer identified budget aliasing and array-order risks, which have explicit frozen-state and reversed-storage regression tests.",
+    "Fractional distance-reduced damage regression prevents near-zero HP from surviving because of a separately accumulated score cap."
+  ]
+}

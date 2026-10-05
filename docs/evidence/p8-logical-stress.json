@@ -1,0 +1,78 @@
+{
+  "checkedAt": "2026-10-05",
+  "scope": "Pure deterministic simulation, logical projectile pools, and long-session fixtures; this report does not claim browser, GPU, audio, or physical-device performance.",
+  "candidateAtRun": {
+    "head": "df519dae14a09295112f8d7cb9e781b3043bdff4",
+    "tree": "57a4ac4e2be375df07adcfd2965f5fc73f7eda96",
+    "workingTree": "dirty during the run; integration files had not yet been committed",
+    "testFile": "tests/p8-long-session.test.ts"
+  },
+  "suite": {
+    "command": "node --import tsx --test tests/*.test.ts",
+    "result": "114/114 passed",
+    "elapsedMs": 123156
+  },
+  "noInputCadence": {
+    "seed": 20261005,
+    "mode": "easy",
+    "renderSchedulesFps": [30, 60, 120],
+    "scheduledWallSeconds": 600,
+    "requestedLogicalTicks": 36000,
+    "stepCallsPerRun": 26684,
+    "resultTick": 26684,
+    "activeMissionSeconds": 444.73333333333335,
+    "ticksNotRunAfterTerminal": 9316,
+    "outcome": "victory",
+    "reason": "all-enemies-defeated",
+    "score": 3400,
+    "losses": { "player": 0, "wing": 13, "ships": 4, "enemies": 100 },
+    "maxProjectiles": { "aircraft": 96, "magic": 193, "antiAir": 6 },
+    "capacities": { "aircraft": 2048, "magic": 256, "antiAir": 64 },
+    "maxBurns": 24,
+    "maxEvents": 14,
+    "shots": { "aircraft": 4074, "enemy": 11672, "ship": 111 },
+    "poolBlocked": { "aircraft": 0, "magic": 0, "antiAir": 0 },
+    "checkpoints": [
+      { "tick": 6000, "hash": "28e17d87f58f6cde3da6fd36b7e7e4c6f89514dc73d3b1ae0c9b805a55b3e644" },
+      { "tick": 12000, "hash": "4d4164da17a3cfc0f975c2b775ae544cac2887b77fc2b20db7d46cb7bb20a201" },
+      { "tick": 18000, "hash": "41a8cb4eafd5148642f65d04565103d1cc860487cca517f41008adb3e6d09bdb" },
+      { "tick": 24000, "hash": "0956fb12b91f05b5eedf6b308bdd8389e094e2a5f8e4867c2c80993fe29ee312" },
+      { "tick": 26684, "hash": "37c9fbee9bf69ab418197324861e51056d3eeb44c8f1cd385d6e0a2b8afa7b27" }
+    ],
+    "sameCheckpointHashesAtAllFps": true,
+    "finalHash": "37c9fbee9bf69ab418197324861e51056d3eeb44c8f1cd385d6e0a2b8afa7b27"
+  },
+  "activeTenMinuteFixture": {
+    "seed": 7070,
+    "activeTicks": 36000,
+    "activeSeconds": 600,
+    "input": "fixed turn=0.3, no fire/loop",
+    "testFixtureOverrides": "Aircraft, enemies, and ships had their weapons/reload deadlines disabled during the fixture to prevent terminal combat; this is not normal gameplay.",
+    "countsAtEvery6000Ticks": { "activeAircraft": 8, "activeEnemies": 24, "aliveShips": 10, "projectiles": 0, "burns": 0, "events": 0, "scoreEntries": 100 },
+    "hashes": [
+      { "tick": 6000, "hash": "ffa7079e17ec156af21b99f80460a8d5271ea3a9f143ee56fe8f9fba5cc0f46e" },
+      { "tick": 12000, "hash": "b175ca94a2383b0cec85890047a4e99c27ff33ed04f561ae35de28024f4fa552" },
+      { "tick": 18000, "hash": "d193b2088464f9411063bfaf4fa9b46df5c932d34eca55ba5aa31cf5032b16e1" },
+      { "tick": 24000, "hash": "e3f86fd346c59af8586f117755b0695922bb8a8bdc90ce616eb0aff4d14a31c5" },
+      { "tick": 30000, "hash": "c44121fa12aa8b42b3a177a6d5c43d82b841ea3445dcb0b13ad6f3e69a3f97f2" },
+      { "tick": 36000, "hash": "024c8cc9e874881b3250fb58e9d20c66c017e32a656ca3add3aaf4b74453da48" }
+    ],
+    "interpretation": "Ten active minutes of deterministic full-roster movement and bounded logical collections; not a ten-minute browser/GPU/performance run."
+  },
+  "retries": {
+    "result": "passed",
+    "attempts": 5,
+    "ticksPerAttempt": 1200,
+    "assertions": "Every reset begins at tick 0 with fresh mission ID, zero projectiles, fresh projectile ordinal, zero pool counters, initial roster counts, and unchanged fixed capacities."
+  },
+  "forcedPoolExhaustion": {
+    "result": "passed",
+    "capacities": { "aircraft": 0, "magic": 0, "antiAir": 0 },
+    "assertions": "Each emitter records a blocked attempt; projectile counts and shot counters stay zero; ammunition and firing deadlines do not advance. This synthetic guard case is distinct from the zero-blocked natural no-input case."
+  },
+  "pending": {
+    "browserTenMinuteWallClock": "pending until the renderer runtime stall is resolved; use browser-tests/p8-long-browser-session.mjs",
+    "visualCapture": "pending until the renderer runtime stall is resolved; use browser-tests/p8-visual-capture.mjs",
+    "physicalIPhoneSafari": "not tested; no physical device available"
+  }
+}

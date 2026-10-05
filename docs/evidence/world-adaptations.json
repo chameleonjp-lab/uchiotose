@@ -1,0 +1,189 @@
+[
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/aircraft.ts",
+    "blob": "e4e3009464bb8c4ae473b7cfc46d010198c27149",
+    "sha256": "1a9c18f93e5a48869882b2aa2946cdeb352dc4a8acd76b4fd9beade8ded621d5",
+    "bytes": 34835,
+    "status": "copied",
+    "destination": "src/aircraft.ts",
+    "change_reason": "Unchanged procedural aircraft shape, dimensions, materials, canopy, control surfaces and propeller; pool IDs are kept outside the factory."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/aircraft-batch.ts",
+    "blob": "6aed47adeb8d22f976b99f0630bb2e841bb054b9",
+    "sha256": "cd69fdcd03507faffca251b311f253f4ccd10aa0bb11fbfc767626a4960c5428",
+    "bytes": 8097,
+    "status": "copied",
+    "destination": "src/aircraft-batch.ts",
+    "change_reason": "Unchanged geometry/material batching; the factory owns source resources and the batch cache owns merged geometry."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/ocean.ts",
+    "blob": "22c6bfd0278455fbc60cc365e82846161819deab",
+    "sha256": "0f2263700d5b9c5516e81d77fd4e2b6341c94a257b6edb2893f8d41ddbb574d0",
+    "bytes": 3105,
+    "status": "copied",
+    "destination": "src/ocean.ts",
+    "change_reason": "Unchanged sea geometry and wave coefficients for presentation; Uchiotose fatal sea plane remains y=0 under R07."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/atmosphere.ts",
+    "blob": "7c6bb5925aeffc850596061fcbb1563048bcc96a",
+    "sha256": "e6b9c95f0685bb2732926e72730c96712251813a2c6c6faa150a21793c2c1f7a",
+    "bytes": 3372,
+    "status": "copied",
+    "destination": "src/atmosphere.ts",
+    "change_reason": "Unchanged sky, water, sun and haze shaders; no external images, fonts or audio assets."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/render-queue.ts",
+    "blob": "2540d37e7cb098515979c39eb461b2ab64ee112e",
+    "sha256": "8ec4611984beb7168ead1a7e758faf399b0cc0b73939502352be984ab35648f7",
+    "bytes": 5659,
+    "status": "copied",
+    "destination": "src/render-queue.ts",
+    "change_reason": "Unchanged one-fence GPU queue and 1 second in-flight stall policy; loading warm-up behavior is adapted in WorldRenderer."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/flight.ts",
+    "blob": "3019be9650863c11cc1c57f7bb7e09ab815c9c07",
+    "sha256": "8fe62d521bc2cfa11b0ab8cb3c0609c54a3d80355eff15a72257eea1aa4770a5",
+    "bytes": 8687,
+    "status": "adapted",
+    "destination": "src/flight.ts",
+    "change_reason": "Same aerodynamic equations, 65/110/141 m/s baseline envelope, 18 m/s² throttle trim, 5 second loop and 2 second cooldown. Plain numeric vector/quaternion adapter; ice affects displacement and speed-dependent turn authority once."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/types.ts",
+    "blob": "54b740b9895be8d02e37054aa7a8aeab48610b53",
+    "sha256": "84ac0a3bf79cbe8b2230a6062b99b2317c154251cdb3238e88fdea644c2b8f1f",
+    "bytes": 4654,
+    "status": "adapted",
+    "destination": "src/flight-types.ts",
+    "change_reason": "Only fixed flight input/controller contracts retained; excluded bombs, torpedoes, source mission rules and source combat entity types."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/flight-view.ts",
+    "blob": "87f83928a00092338391442ec2d7e87e3b4e33da",
+    "sha256": "1f9b7e040c2270de5838f24bad93c7ac1c75c7827ba3c1b58591ef6271a20363",
+    "bytes": 2325,
+    "status": "adapted",
+    "destination": "src/flight-view.ts",
+    "change_reason": "Same 64 degree FOV, (0,11,29) chase offset, 45% camera bank and fixed Normal/Easy look. Numeric adapter and entity handoff reset; no render FPS enters simulation."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/flight-assist.ts",
+    "blob": "799efdfb97c3b9ba435e8eaf4080f65b74326773",
+    "sha256": "49b671ad892fc3a0b350e84ce15e5c9fd659aaca71c2483272aefcae4f856486",
+    "bytes": 7922,
+    "status": "adapted",
+    "destination": "src/flight-assist.ts",
+    "change_reason": "Retained Easy steering/camera response and 35%/0.028/0.16 rad correction and 1200 m auto-fire gate; winged warrior targets provide actual velocity and are filtered by island sight."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/gun-sight.ts",
+    "blob": "1cdbd4bb3cf49d963c78f87a1cb00a42fb3b222b",
+    "sha256": "436c9e7c6a6864513489de6d8172d85d97bd1bf685b60678890f848a9acd2b71",
+    "bytes": 871,
+    "status": "adapted",
+    "destination": "src/gun-sight.ts",
+    "change_reason": "Retained 500 m manual bore convergence and projection, adapted to numeric poses."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/aircraft-tracers.ts",
+    "blob": "ba741ce4953f286342079effe2d9ce0fa0c4e4be",
+    "sha256": "fb6cd860fcabe4f541b75ae167a6fb4b83f063e195f99ef272c4aa8559a1b4b7",
+    "bytes": 3603,
+    "status": "adapted",
+    "destination": "src/aircraft-tracers.ts",
+    "change_reason": "Same 1.5 px core, 2.5 px outline, 0.045 s tail, depth test and fixed 2048 segment pool; new projectile record format and removal of source teams/legacy life counters."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/naval.ts",
+    "blob": "dcda2182f8829cd13473a389e6587341bb391717",
+    "sha256": "b02e758791bfddd6ebc06b643b25d0c209392fe3426cc900cfb02fd631396d83",
+    "bytes": 23947,
+    "status": "adapted",
+    "destination": "src/fleet-geometry.ts",
+    "change_reason": "Retained geometry-only 270.43 m hull stations, tapered keel and deckhouse solids; removed all source naval weapon rules, enemy ship scoring and independent gun HP."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/naval.ts",
+    "blob": "dcda2182f8829cd13473a389e6587341bb391717",
+    "sha256": "b02e758791bfddd6ebc06b643b25d0c209392fe3426cc900cfb02fd631396d83",
+    "bytes": 23947,
+    "status": "adapted",
+    "destination": "src/world-collision.ts",
+    "change_reason": "Retained exact tapered hull span plane sweep and deckhouse union, adapted to plain vectors and moving friendly hulls. Independent new sphere/box/intercept helpers."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/ships.ts",
+    "blob": "2e7c8406006cd34b8815b3fc7edb60a5792f8812",
+    "sha256": "78c25b5de6fd1ced806589f3378ba5a27a0741e58e28d7823d564a72ab9d95c1",
+    "bytes": 23981,
+    "status": "adapted",
+    "destination": "src/fleet-visual.ts",
+    "change_reason": "Static friendly fleet factory built from shared source hull stations/deckhouse solids and source major gun dimensions; logical AA is one battery per ship, shared geometry and bounded 10 ship roots."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/scene.ts",
+    "blob": "2611a6e6a7b57fe6f94c1d75593aa8da51d33726",
+    "sha256": "3644a30ba9062581bb046e1821d446692963c2f26964f649dc6de1cc5f1e072b",
+    "bytes": 29490,
+    "status": "adapted",
+    "destination": "src/world-renderer.ts",
+    "change_reason": "Retained sea/sky/light/tone mapping/camera/aircraft control surface presentation and fixed GPU queue. Removed source ordnance and enemy ship rules; added original closed island/winged warriors, bounded new fire/ice/owner effects, roster IDs and root disposal. Hidden shared materials warm before first full-size Home frame; loading waits for genuine GPU completion within 30 seconds like source prepare; in-flight 1 second stall unchanged."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/aim-indicator.ts",
+    "blob": "110902ee729435cab2092b290e8b9eb164b3ab98",
+    "sha256": "2f2e129e0ffbe41462577f1dc10a137b037f5cb1b280ab1ee50c182b8c155140",
+    "bytes": 1345,
+    "status": "adapted",
+    "destination": "src/world-renderer.ts",
+    "change_reason": "Retained sight radii/aim colors and radar role shapes; added island sight filtering and offscreen nearest-enemy arrow."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/flight.test.ts",
+    "blob": "f9ca0f91efcd9068d7dcf01e45ef38ff6a721e54",
+    "sha256": "281f6c4d615935b41bd7e41cfce09067b775d4d0fa2b056f88e277fb6e645c94",
+    "bytes": 4186,
+    "status": "adapted",
+    "destination": "tests/world.test.ts",
+    "change_reason": "Flight/loop/throttle regression coverage combined with a golden fixture generated by executing fixed source flight.ts. Adds R07/R08/R09/R13 collision, spawn, boundary, free-flight, ice turn authority and ID-order tests."
+  }
+]

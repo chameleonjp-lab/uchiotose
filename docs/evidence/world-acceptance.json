@@ -1,0 +1,80 @@
+{
+  "scope": "P2/P7 world, fixed aircraft/flight/camera/sea and original closed island/warrior presentation",
+  "environment": {
+    "dateUTC": "2026-10-05",
+    "os": "Linux",
+    "node": "24.19.0",
+    "browser": "Chromium 149 via Playwright 1.61.1; ANGLE SwiftShader; DPR 1; simulated viewports"
+  },
+  "workingTree": true,
+  "baseCommit": "df519dae14a09295112f8d7cb9e781b3043bdff4",
+  "referenceCommit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+  "checks": [
+    {
+      "command": "node --import tsx --test tests/world.test.ts",
+      "result": "pass",
+      "tests": 23,
+      "covers": [
+        "A05 movement/ice/following/sunk exclusion",
+        "A06 closed exact envelope, top/side/underside/rim/back/oblique/fast/short/overlap sweep and safe outlets/bounds",
+        "A07 speed/acceleration/turn envelope, fixed-source aerodynamic golden traces and Easy correction gates",
+        "A11 ice movement and turn speed adapter",
+        "R14 ID-order independence",
+        "R04/R09 handoff vs paused loop reset",
+        "R05/R08 guarded arrivals: actual aircraft/enemy/hull exclusions, all eight points blocked keeps same ID/deadline, simultaneous candidate reservations and record-order independence"
+      ]
+    },
+    {
+      "command": "npm run build",
+      "result": "pass",
+      "note": "Full current working tree TypeScript/Vite build; size warning remains 776 kB minified main chunk, 207.5 kB gzip."
+    },
+    {
+      "command": "PLAYWRIGHT_BROWSERS_PATH=/tmp/uchiotose-browsers npm run test:browser -- --project=chromium -g 'Home is ready'",
+      "result": "pass",
+      "tests": 1,
+      "testSeconds": 9.9,
+      "totalSeconds": 12.3,
+      "viewports": [
+        "393x648",
+        "568x320",
+        "1280x720"
+      ]
+    }
+  ],
+  "gpuWarmup": {
+    "sourceContract": "Kaisen scene.prepare initial GPU wait accepts pending/stalled until a real ready fence; source runtime render queue stalls at 1 s.",
+    "adaptation": "Hidden source material variants/buffers are warmed using a 16x16 loading draw. Initialization wait is bounded to 30 s and exposes initialWarmPendingMs. Main separately gates Start on a full-size Home frame fence. Runtime stall threshold is unchanged.",
+    "sourceComparison": "Independent verification measured fixed Kaisen graphicsReady at 9.17 s and initial stalled around 3.9-8.7 s on the same software GPU. This is not iPhone frame-time evidence."
+  },
+  "newAssets": {
+    "island": "Original immutable closed convex polygon rock with flat green vegetation cover; source-free procedural data; same mesh drives draw and collision.",
+    "warrior": "Original 4 m height / 8 m neutral span procedural winged warrior; body hit sphere radius 2.5 m independent of animated wings.",
+    "externalImagesFontsMusic": "None"
+  },
+  "notAssessedByThisRecord": [
+    "Final candidate SHA rerun",
+    "Full 3 viewport / 8 screen visual source comparison",
+    "Source aircraft rendered images in matching pose/camera/light",
+    "iPhone Safari hardware measurements",
+    "Full combat/final-score acceptance",
+    "Final resource stress reports"
+  ],
+  "sha256": {
+    "src/world.ts": "784a9aea829fd5730a081c6e906f51c096ae82a30b11524f829e273383f5f4c2",
+    "src/world-math.ts": "63781b62ef683a0081bc9c3865a62182d07077d1ae3f747c521d736e5edd14a9",
+    "src/world-collision.ts": "0b8e1c693842a06e13c447691c64544a0601b58e2f8eaafd094a35fbc8f2094e",
+    "src/island.ts": "e152641bf02a5c1a5f0c292ff7a31a969a6a213e85c7cc2d4f58a7f5fc544876",
+    "src/flight.ts": "b47e6f8665fe4d8facc2cc5054748a8e0afce1946b772ebd2024fdebcd120a3d",
+    "src/flight-types.ts": "2bae3f1d3737bc3e4e783edbba448535a9afef3d7213f5de758b6c6ce90e25f9",
+    "src/flight-assist.ts": "a58adc5eabee78a2ca3baf8c8e889302f717d6abbf2e9738083ff680acfd9d6a",
+    "src/flight-view.ts": "ee778e4d8800d3c0d3f7c7eeb4a94887792ffe9329738e49935be6d60d64b16a",
+    "src/gun-sight.ts": "a9fcc92d8015180ba30d21091fabbc963bb1cfd90843fc7c58b21ff8fd6e21f1",
+    "src/world-renderer.ts": "2484344068298784e7bce2ac7ce2c46a0e7f94277e688ef309b00b09b074dbe0",
+    "src/warrior-visual.ts": "b108531de5cefefc0e35bf43836d41ecb079a75c24a0db88ad0cdce51d0b96d9",
+    "src/fleet-visual.ts": "c4b1a67063b40e31f1d25c98419221f82a301543009fb29d4f9f092da71a7f69",
+    "src/fleet-geometry.ts": "76174067f95c2ccc458ec562e2e76081ed84c18cc7032d46b3bbbdc895618025",
+    "tests/world.test.ts": "f2f6a3f3628faefec5c643cb473f3aa2375ba50389aadf945085fbd50c107534",
+    "tests/fixtures/kaisen-flight.json": "c275b41011a68cb38f056e4b29f7b1a4449d407b0158bbd6437b38ae85a79961"
+  }
+}

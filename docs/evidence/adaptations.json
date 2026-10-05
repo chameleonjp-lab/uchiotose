@@ -52,7 +52,7 @@
     "bytes": 1012,
     "status": "copied",
     "destination": "playwright.config.ts",
-    "change_reason": "Existing runner configuration retained; Home-only case added, settings test not yet authored."
+    "change_reason": "Existing runner configuration retained; adapted Home/settings, input recovery, Pause focus and three-viewport HUD geometry browser checks run through the existing local server."
   },
   {
     "repository": "kaisen-reference",
@@ -63,7 +63,7 @@
     "bytes": 10622,
     "status": "adapted",
     "destination": "index.html",
-    "change_reason": "Home hierarchy retained; title, premise and finite force labels adapted. Battle/canvas/settings/audio excluded until implemented; disabled start accurately labels development state."
+    "change_reason": "Home hierarchy is retained; premise and finite force labels match Uchiotose, with flight canvas/HUD plus Home, Pause and Result screens, settings/help entry points and paired sound controls. Start becomes available when the renderer reports ready."
   },
   {
     "repository": "kaisen-reference",
@@ -74,7 +74,7 @@
     "bytes": 29533,
     "status": "adapted",
     "destination": "src/style.css",
-    "change_reason": "Home and shared styling retained; excluded bomb/torpedo/payload selectors removed. Source comment added."
+    "change_reason": "Shared Home and HUD styling is retained and adapted for the game UI, compact finite-force tallies and 44px sound/pause targets; payload-only selectors are removed."
   },
   {
     "repository": "kaisen-reference",
@@ -86,5 +86,71 @@
     "status": "copied",
     "destination": "public/third-party-notices.txt",
     "change_reason": "Unchanged dependency-specific notice, included in distributed public assets."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/input.ts",
+    "blob": "0edbd1c5f9f07a2d1088539e188bab0329ab53f0",
+    "sha256": "2d41824bdbda40c0341f922f7c1d737b4b28018f49a9ec29bb5570280be9aea9",
+    "bytes": 14803,
+    "status": "adapted",
+    "destination": "src/input.ts",
+    "change_reason": "Adapts the source control ownership, keyboard/pointer handling and physical-release gate to Uchiotose’s nine PC actions and four Normal / one Easy touch controls; excluded bomb and torpedo actions are removed."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/keyboard-settings.ts",
+    "blob": "eb143ac27b3f65b66912d10b89ec17d0efc581b2",
+    "sha256": "bcbde97cdbbf0556536c2f0732b4ff5add7876559cc38704fbdf758995d45854",
+    "bytes": 9035,
+    "status": "adapted",
+    "destination": "src/keyboard-settings.ts",
+    "change_reason": "Adapts keyboard editing, validation, conflict detection and versioned persistence to Uchiotose’s nine actions and isolated uchiotose-keyboard-v1 key; payload bindings are omitted."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/control-settings.ts",
+    "blob": "5208c4da8ebe014552cae855d84c2574ab152292",
+    "sha256": "161ed08ffcaf8393c2160a21140e4a45f9f3e37be206128202a6efe0d603fa4f",
+    "bytes": 35488,
+    "status": "adapted",
+    "destination": "src/control-settings.ts",
+    "change_reason": "Retains the source draft/save/cancel, touch layout and keyboard editor flow; adapts action inventory, separated Easy/Normal storage, input-clear hooks and session-only storage failure handling."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/control-settings.css",
+    "blob": "1235392f369ac27ef3056852512319fe6994300b",
+    "sha256": "c04d27c450da70f85a3c843bb5e7fd0905d455f1e9cf16b66609adf605fe8f4e",
+    "bytes": 5085,
+    "status": "adapted",
+    "destination": "src/control-settings.css",
+    "change_reason": "Retains the modal settings layout and touch-editor responsiveness, with Uchiotose selector/action names and updated source reference."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/dialog-focus.ts",
+    "blob": "5d10d15cb0b9d3de31871af98a7801d638a5055b",
+    "sha256": "86d631a4d618558e1ca671004c12ccc1fbdfe75516e6c5d04f962acd2c5e1996",
+    "bytes": 1234,
+    "status": "adapted",
+    "destination": "src/dialog-focus.ts",
+    "change_reason": "Retains focus containment for native settings/help dialogs and adds a shared screen-panel trap used by Pause while dialogs are closed."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/rules-guide.ts",
+    "blob": "8aa776fb9c0cebf3145d8d507a96fea3233edc87",
+    "sha256": "a03abf506bfed4d38d3310d2ea5d33fedaea35f6b78502cf2c68516a705f717c",
+    "bytes": 10125,
+    "status": "adapted",
+    "destination": "src/rules-guide.ts",
+    "change_reason": "Rewrites reference guidance for Uchiotose controls, Normal/Easy mode, effects, finite objectives and scoring; dynamic keyboard mappings and input-release behavior are included."
   }
 ]

@@ -377,8 +377,11 @@ function finalizeIfTerminal(state: MissionState): boolean {
   return true;
 }
 
+/** Geometry/occupancy predicate; failed attempts keep the same pending ID and deadline. */
+export type SpawnGuard = (entity: Aircraft | Enemy, mission: MissionState) => boolean;
+
 /** One mission-clock boundary. Paused/Home/result never advance reservation deadlines. */
-export function beginMissionTick(state: MissionState): MissionState {
+export function beginMissionTick(state: MissionState, canSpawn?: SpawnGuard): MissionState {
   if (state.phase !== 'playing' || state.finalized) return state;
   const next = cloneMission(state);
   next.tick += 1;
@@ -392,6 +395,7 @@ export function beginMissionTick(state: MissionState): MissionState {
     for (const aircraft of readyAircraft) {
       const reservation = aircraft.reservation!;
       if (reservation.missionId !== next.missionId || reservation.dueTick > next.tick) continue;
+      if (canSpawn && !canSpawn(aircraft, next)) continue;
       const { slot } = reservation;
       Object.assign(aircraft, aircraftDefaults(aircraft.id), {
         status: 'active', hp: 80, slot, role: slot === 0 ? 'player' : 'wing',
@@ -402,6 +406,7 @@ export function beginMissionTick(state: MissionState): MissionState {
     for (const enemy of byId(next.enemies.filter(item => item.status === 'pending'))) {
       const reservation = enemy.reservation!;
       if (reservation.missionId !== next.missionId || reservation.dueTick > next.tick) continue;
+      if (canSpawn && !canSpawn(enemy, next)) continue;
       Object.assign(enemy, enemyDefaults(enemy.id), {
         status: 'active', hp: 80, slot: reservation.slot, nextFireTick: next.tick,
       });
