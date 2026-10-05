@@ -1,0 +1,1595 @@
+[
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/00-00-input-method.spec.ts",
+    "blob": "0e2ad74e095bd74063ccc009d4f39bea7f52e3da",
+    "sha256": "67435db1a3d9e851df0e36e900185c8c474d43dc5a32712f7348c0709ee6c4a2",
+    "bytes": 5136,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/00-easy-victory.spec.ts",
+    "blob": "92c6db5f705b89b20c252b686de39dfff0db3abe",
+    "sha256": "00dd97a9d14af8c54d259d1df1bc47287bf293ab5c4328124ebd8c84e46fda03",
+    "bytes": 9331,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/00-normal-victory.spec.ts",
+    "blob": "65cc2627b6dde41592bbc946b9a014b1e2bdab03",
+    "sha256": "6789f06c28bdd63a66095b95de08d1127094cd29ff9476721af48367a2f986a0",
+    "bytes": 10858,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/bomb-guide.spec.ts",
+    "blob": "a916c5f35c4d0bdd2f88be202680405daa863bde",
+    "sha256": "d77374bdbbf793ff2a19d2d2536ae34e3faad3889bd3404450edfed1b483c02c",
+    "bytes": 2421,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/easy-ship-tracking.spec.ts",
+    "blob": "9e9d06ec55aef7be7de77e4de34c4a48e38b4d5d",
+    "sha256": "229db87f72c1354041eb0277bd07a54699fb374daa43801a1e93f51abf1efebf",
+    "bytes": 2928,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/feedback-runtime.spec.ts",
+    "blob": "f74e5332f274214cf2cb34522e7cbaa6b24dada9",
+    "sha256": "4f37c7fb98176f1057efffa9d79222be0f73c8f603e25799fd65a3f67387aad3",
+    "bytes": 2761,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/feedback-settings.spec.ts",
+    "blob": "ca1e9266648ce2f6eb1b19adf162110649efcdec",
+    "sha256": "e65b430b656b4a1bcd8da97a4970f4113622a4a80f8ef12621e6268510bd42f1",
+    "bytes": 6929,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/game.spec.ts",
+    "blob": "489d50675639305c5901dac0b36bdddd3f8be7ad",
+    "sha256": "8526188a42fe5dd28f041b1b143e4afb945be43a6363c34b24702c8b74ac65e9",
+    "bytes": 12646,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/mobile-settings-ui.spec.ts",
+    "blob": "c0afa5d472cceb46592199cd0ebba9c218efc2b9",
+    "sha256": "9f7e5f309bdc6923611a28ce571dca8c5a37d93856c28487398010ce5bd2c1a3",
+    "bytes": 8132,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/modes.spec.ts",
+    "blob": "3878096a29aa377890b2cc18947b3e6f98864c52",
+    "sha256": "8ea05c84db58e7e4eaae7ee422d98c0960a7127b8691706605f0d7852cda9b05",
+    "bytes": 8974,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/naval-payload.spec.ts",
+    "blob": "89ee2836909f60005ee16a2c24a27e1f7ff11cfa",
+    "sha256": "51378697dceaa8919b22553c648e267cc5de3c68de789b01acce8413b16029b0",
+    "bytes": 4252,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/reinforcement.spec.ts",
+    "blob": "c63f0da016b160c350421c789d6e42074bfc54dc",
+    "sha256": "b7156d787440c4f80fe3c9732b8aaa1d79c7f2b77794f8078aa6f6575e545cda",
+    "bytes": 3296,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/reload.spec.ts",
+    "blob": "fe4cbd78571d0dcd6dbb3a23fce55332342895f6",
+    "sha256": "f4aee40978bf4e05fd0fca8a07f1bc6c27a26432e8208dece2fed8b0610cf0ac",
+    "bytes": 6917,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/review-accessibility.spec.ts",
+    "blob": "171b43b09cce78e7a3c6b3070fa63cf5299de500",
+    "sha256": "2c15c5193b57b28a9f7067bbbbc1eb584b52de1b22960776005a71c18d0d359d",
+    "bytes": 1487,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/score-result.ts",
+    "blob": "c77692ccd8906e5ad898d2d79f1a9a665a80c2e6",
+    "sha256": "289e18feaf3d132e1f5a8acc9bb90e85041482b9636fe5de51c24a99183cfe34",
+    "bytes": 7187,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/touch-command.ts",
+    "blob": "8a3d9b40d305884c0725aa660ae6d7f81a94033e",
+    "sha256": "c16f80d161eef73c6002fc72f389cfb39a55abe0882a8b5d15a0a11bb0b2a63a",
+    "bytes": 3246,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "browser-tests/tracers.spec.ts",
+    "blob": "2393fcf59d59f764c4f2a7dd3d09bf958016b646",
+    "sha256": "b1eb536757a0486c0cab3edbe80b200e538ef249748bdcf4fe3edaf9e8da255f",
+    "bytes": 3062,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "index.html",
+    "blob": "de945a10417a2f883b3cfd3d79fadbfe3c7a4afc",
+    "sha256": "723edcad8e1b8b060ad010a7610c90a0339a075d0e7e3653886f45e2a995e5b4",
+    "bytes": 10622,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "package-lock.json",
+    "blob": "09fbe449f0cc3eee78ebf88ee27f368e25fe7b32",
+    "sha256": "5e4f59eb5c1288a252c663a8126a4b49991834bb9b1ced4b9d1cf90d724e2d78",
+    "bytes": 46399,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "package.json",
+    "blob": "6623d66d8be14ea48a9b3ee626eefc76c1c8ab3d",
+    "sha256": "519ce0e8332c9800e5ede2a1311a9a0890e078daff4bc557b69be18e312d0277",
+    "bytes": 486,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "playwright.config.ts",
+    "blob": "a69ce668122b8eaca0c5a4ef785332ecf94e30fd",
+    "sha256": "c57072bb686e5a17b730fae06358d8df42a005707323f153585fbaac2ed6bb2f",
+    "bytes": 1012,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "public/third-party-notices.txt",
+    "blob": "805bf99e222a8c6433f78eb06f407224accb120c",
+    "sha256": "97de7ac302052bcea7f20e5ae89635c10e049614f56409288d554d63fceb614f",
+    "bytes": 1082,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/ai.ts",
+    "blob": "7c75c05eaa099469b7d4654f66e94dccc5f6a1a6",
+    "sha256": "8d6050f92f08b55b053430c706c46ca37683a65901e20a86dcf9fc2242da59c2",
+    "bytes": 6417,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/aim-indicator.ts",
+    "blob": "110902ee729435cab2092b290e8b9eb164b3ab98",
+    "sha256": "2f2e129e0ffbe41462577f1dc10a137b037f5cb1b280ab1ee50c182b8c155140",
+    "bytes": 1345,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/aircraft-batch.ts",
+    "blob": "6aed47adeb8d22f976b99f0630bb2e841bb054b9",
+    "sha256": "cd69fdcd03507faffca251b311f253f4ccd10aa0bb11fbfc767626a4960c5428",
+    "bytes": 8097,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/aircraft-damage.ts",
+    "blob": "fe0c48ff296a31db70c7f93a0cdab64244ba939b",
+    "sha256": "b0a71f4b39aa1adab948ea3f08d99f0ed60e30deb5087992c8f748c9a5fade83",
+    "bytes": 1336,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/aircraft-tracers.ts",
+    "blob": "ba741ce4953f286342079effe2d9ce0fa0c4e4be",
+    "sha256": "fb6cd860fcabe4f541b75ae167a6fb4b83f063e195f99ef272c4aa8559a1b4b7",
+    "bytes": 3603,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/aircraft.ts",
+    "blob": "e4e3009464bb8c4ae473b7cfc46d010198c27149",
+    "sha256": "1a9c18f93e5a48869882b2aa2946cdeb352dc4a8acd76b4fd9beade8ded621d5",
+    "bytes": 34835,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/ally-announcements.ts",
+    "blob": "619cd5152658c31ecce26d3b470db83b93a425ce",
+    "sha256": "7b267a199a71fd993f0b92ace235eeeb175265544e2b204daad76de5c9aeb6d6",
+    "bytes": 3240,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/ammunition.ts",
+    "blob": "eafa7449c789e6861a1f4ead20a2099723194dc4",
+    "sha256": "a8cafceea6d20183f7257c2a4036d36a92feba830d5050d98fb9c9a6d5271370",
+    "bytes": 867,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/atmosphere.ts",
+    "blob": "7c6bb5925aeffc850596061fcbb1563048bcc96a",
+    "sha256": "e6b9c95f0685bb2732926e72730c96712251813a2c6c6faa150a21793c2c1f7a",
+    "bytes": 3372,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/audio.ts",
+    "blob": "efb077f729aa3c95c3e2e8db518a47095e45fa0c",
+    "sha256": "3396f7b46c42d331ccf2270c77bee5ad2037167064dca4c7710fc444bf0514e8",
+    "bytes": 28780,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/bomb-blast.ts",
+    "blob": "6a85d65f1904b0146db13c095bec2dd2be36bb8e",
+    "sha256": "76cadd55191c9d08aba199b97325a9c6f439081495d83578febafe7db45c3ee0",
+    "bytes": 2216,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/bomb-guide.ts",
+    "blob": "928ac96d68090967c789313d93cb08fb7b7f7519",
+    "sha256": "9b069f4ccda5a478adf67c7c42aa982a59b13d2e7820179d88415ee1485c762b",
+    "bytes": 5179,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/control-settings.css",
+    "blob": "1235392f369ac27ef3056852512319fe6994300b",
+    "sha256": "c04d27c450da70f85a3c843bb5e7fd0905d455f1e9cf16b66609adf605fe8f4e",
+    "bytes": 5085,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/control-settings.ts",
+    "blob": "5208c4da8ebe014552cae855d84c2574ab152292",
+    "sha256": "161ed08ffcaf8393c2160a21140e4a45f9f3e37be206128202a6efe0d603fa4f",
+    "bytes": 35488,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/dialog-focus.ts",
+    "blob": "5d10d15cb0b9d3de31871af98a7801d638a5055b",
+    "sha256": "86d631a4d618558e1ca671004c12ccc1fbdfe75516e6c5d04f962acd2c5e1996",
+    "bytes": 1234,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/flight-assist.ts",
+    "blob": "799efdfb97c3b9ba435e8eaf4080f65b74326773",
+    "sha256": "49b671ad892fc3a0b350e84ce15e5c9fd659aaca71c2483272aefcae4f856486",
+    "bytes": 7922,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/flight-view.ts",
+    "blob": "87f83928a00092338391442ec2d7e87e3b4e33da",
+    "sha256": "1f9b7e040c2270de5838f24bad93c7ac1c75c7827ba3c1b58591ef6271a20363",
+    "bytes": 2325,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/flight.ts",
+    "blob": "3019be9650863c11cc1c57f7bb7e09ab815c9c07",
+    "sha256": "8fe62d521bc2cfa11b0ab8cb3c0609c54a3d80355eff15a72257eea1aa4770a5",
+    "bytes": 8687,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/gun-sight.ts",
+    "blob": "1cdbd4bb3cf49d963c78f87a1cb00a42fb3b222b",
+    "sha256": "436c9e7c6a6864513489de6d8172d85d97bd1bf685b60678890f848a9acd2b71",
+    "bytes": 871,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/input.ts",
+    "blob": "0edbd1c5f9f07a2d1088539e188bab0329ab53f0",
+    "sha256": "2d41824bdbda40c0341f922f7c1d737b4b28018f49a9ec29bb5570280be9aea9",
+    "bytes": 14803,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/keyboard-settings.ts",
+    "blob": "eb143ac27b3f65b66912d10b89ec17d0efc581b2",
+    "sha256": "bcbde97cdbbf0556536c2f0732b4ff5add7876559cc38704fbdf758995d45854",
+    "bytes": 9035,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/main.ts",
+    "blob": "af73f3ae5b0bdcecb1b8e10d86b9342e2663d983",
+    "sha256": "b970e7a37ecb2fcd4a2b48215c152d559729bf6931ee67dbd8705b92186e2851",
+    "bytes": 28699,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/mission-hud.ts",
+    "blob": "d330b754c26936d3d71307307bc6a7ec199b8360",
+    "sha256": "447038d88df50b70a674790e38ad8b37ad97df4c99aba3d38c3dc9bf2d9d1126",
+    "bytes": 714,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/mission.ts",
+    "blob": "02a34856587ed8b237cdca930fa7feae66c063ec",
+    "sha256": "8ea4aa79ee850d8849d4c2141b246654f5d970f445dd3593a2061e401e327922",
+    "bytes": 5071,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/naval-damage.ts",
+    "blob": "42fe84430fcd7142fb35529159758189cafbe127",
+    "sha256": "af122931da2ccaf520894528d5e0663372f713bac4362fcf6ca5175e5c658084",
+    "bytes": 4266,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/naval.ts",
+    "blob": "dcda2182f8829cd13473a389e6587341bb391717",
+    "sha256": "b02e758791bfddd6ebc06b643b25d0c209392fe3426cc900cfb02fd631396d83",
+    "bytes": 23947,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/ocean.ts",
+    "blob": "22c6bfd0278455fbc60cc365e82846161819deab",
+    "sha256": "0f2263700d5b9c5516e81d77fd4e2b6341c94a257b6edb2893f8d41ddbb574d0",
+    "bytes": 3105,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/ordnance-view.ts",
+    "blob": "f3f7d6eae422f8e55e698ab03936545427716b95",
+    "sha256": "13301f6bddf0df587fbcdb4f1684e2089f45a3fcca1120559a1cc22bb099645b",
+    "bytes": 3768,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/ordnance.ts",
+    "blob": "09d03871713567c22dcf1330ab69d63c90374213",
+    "sha256": "524410fc8a90978fde49f2f8341cb39617509b2fc7ff765792c1e37e43aa86c7",
+    "bytes": 17796,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/render-queue.ts",
+    "blob": "2540d37e7cb098515979c39eb461b2ab64ee112e",
+    "sha256": "8ec4611984beb7168ead1a7e758faf399b0cc0b73939502352be984ab35648f7",
+    "bytes": 5659,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/rules-guide.ts",
+    "blob": "8aa776fb9c0cebf3145d8d507a96fea3233edc87",
+    "sha256": "a03abf506bfed4d38d3310d2ea5d33fedaea35f6b78502cf2c68516a705f717c",
+    "bytes": 10125,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/scene.ts",
+    "blob": "2611a6e6a7b57fe6f94c1d75593aa8da51d33726",
+    "sha256": "3644a30ba9062581bb046e1821d446692963c2f26964f649dc6de1cc5f1e072b",
+    "bytes": 29490,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/scoring.ts",
+    "blob": "2bb477d2f6a92525a4323f0bcdd2d2563ca52b01",
+    "sha256": "542a3860fcb6558a76d497559d08d925eb140626e5b2354f99a250e0d8d8fca3",
+    "bytes": 4276,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/sea-contact.ts",
+    "blob": "d8230ab8940d30f06f033bb5324ea86b94966c7b",
+    "sha256": "887f47926e3a2305672a5e2b9901403d402a8fc352383f01a74bf03380bc2612",
+    "bytes": 15723,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/ship-motion.ts",
+    "blob": "91c72a3df06ccced44e67cef3054f7b518cd9115",
+    "sha256": "add5748015717beb0a4a08f6f388e5a7030f679837e455b5854346ea75108dc8",
+    "bytes": 1342,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/ship-wreck.ts",
+    "blob": "4c16e51d0976629623a704c9566b140a984d48d5",
+    "sha256": "ae76873890da33d69504ef240e1cf6441f46ae0420802e4c4d5e005c67630ee3",
+    "bytes": 1309,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/ships.ts",
+    "blob": "2e7c8406006cd34b8815b3fc7edb60a5792f8812",
+    "sha256": "78c25b5de6fd1ced806589f3378ba5a27a0741e58e28d7823d564a72ab9d95c1",
+    "bytes": 23981,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/simulation.ts",
+    "blob": "537bf1e1fe0c5f73a1222d26e369ed6b6b312a3a",
+    "sha256": "b17bde2dac51a0278d1a09757c9609e134c4b023f965e0811e6839dc00f3abf3",
+    "bytes": 37111,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/style.css",
+    "blob": "66f33fdd090157f27d8c4661d0f6d42a486c6ed7",
+    "sha256": "444c78dc16d8d512fe0e528b062bde34f8c8e6c410e86e0ebf3d7542fceecbd8",
+    "bytes": 29533,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/types.ts",
+    "blob": "54b740b9895be8d02e37054aa7a8aeab48610b53",
+    "sha256": "84ac0a3bf79cbe8b2230a6062b99b2317c154251cdb3238e88fdea644c2b8f1f",
+    "bytes": 4654,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/ai.test.ts",
+    "blob": "9ec48065f3f3b5cf2176b83a856a67391d763174",
+    "sha256": "f38b01c1f6b94166b74c86db037e66290ce2eb12b2d25a06c4fcc2976ab3cee6",
+    "bytes": 9413,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/aim-indicator.test.ts",
+    "blob": "7a6c0dbab76fb3db769993a9e8d20b6255c40103",
+    "sha256": "92da31455546890b24309df8200cbbc39ceb634552fe17abca35bae35d186077",
+    "bytes": 1554,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/aircraft-batch.test.ts",
+    "blob": "2e68cf21b3a5cc65b5d87714b95f61105f40fa6f",
+    "sha256": "490c28f1449d48cc3bb68ef69826014a590211dd5d7ccbd6ce558b2199e3c4b7",
+    "bytes": 14620,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/aircraft-damage.test.ts",
+    "blob": "6ff18fb378ae7bdd430c27994dae78b409644b13",
+    "sha256": "e9666973ed017060e702dd0dedbbc06ae188ac9ca1b1e768d84d4a7f5878e765",
+    "bytes": 4246,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/aircraft-tracers.test.ts",
+    "blob": "e02b5796f1427b3138a4a932f08a40bb583fea31",
+    "sha256": "aafa3ce5fc01c8d61d1109bfb72802bac4d3e435e3f144155c77f206903fdfdb",
+    "bytes": 2836,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/ally-announcements.test.ts",
+    "blob": "4f73951000086e3d7b1ab5831a3a67c1101865d2",
+    "sha256": "548b46d02d1423f7a21f80f3987581b793befaf137cb6f0a0a833d7cf40a56dc",
+    "bytes": 5677,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/audio.test.ts",
+    "blob": "3af4d36e7e6434450bc569b3c4c3423b6c3e24a5",
+    "sha256": "07a5b2d1c653734e13b26de21514ba7c2b773ad998a2ebacc310c704623fcdbe",
+    "bytes": 17087,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/bomb-guide.test.ts",
+    "blob": "eedbb9bb43e668d4797865b8980640ae5db1f8d7",
+    "sha256": "2e38f26aa1c838a10d29a7cd0da2c5999fd7b4a52ec4be8e9745f27162b2f88c",
+    "bytes": 12163,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/browser-cadence.test.ts",
+    "blob": "3b2a598e406cd36d6105c150e85150dfe4e459aa",
+    "sha256": "a12c27c3221e9357b6643d61283b69428bde319b8f374688187475c10fa7be32",
+    "bytes": 7272,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/browser-components.test.ts",
+    "blob": "7197cd26db5de6987a6c178f5b5b5a54a7fe3bc2",
+    "sha256": "55d57fe7a531a4be8a0c3f4c92f4c5c693ad95686da00e5bb7e65233c338f279",
+    "bytes": 2354,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/consumed-input-replay.test.ts",
+    "blob": "f6a783cb1476abc273ff1c67c92707d76c490412",
+    "sha256": "5f87e37b4b5ea67836d8ef543cc7027291ef12d9ea3a8abfa860ea239a3be690",
+    "bytes": 2685,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/control-settings.test.ts",
+    "blob": "727b01547f2ff19ed47ad6e3a3374ebc512b2e27",
+    "sha256": "91a5cbd0e5ed5c4e2b7f8add1ab7fd524a622e406deddb48cb97dd11bd5b0736",
+    "bytes": 10437,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/dialog-focus.test.ts",
+    "blob": "8642f801fd14d59e96b130bf747d32bc2f0bd380",
+    "sha256": "03a7694d8923a8cd66075a640a1b4fa34d99bae930e861f0652531250a1590c5",
+    "bytes": 4509,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/easy-ship-tracking.test.ts",
+    "blob": "fa7e6d0f96b8ed5739682efd9c4fe584e4a6ec98",
+    "sha256": "05340b7d2caa3a7c4d0ff4428c461f015600d62ab780b33137efa105c4253d6f",
+    "bytes": 6724,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/easy-shot-correction.test.ts",
+    "blob": "a86ba9659facad278a65fb934e02b3d32458ce1c",
+    "sha256": "1ebc680a33d682f5f42bb65750d941d8fa24a994b2f49dd5fead9578d6aed684",
+    "bytes": 4708,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/feedback-rules.test.ts",
+    "blob": "e61008ef716becbcdab0abf0c5338646b501766f",
+    "sha256": "fd9c073c53c50bbe8beafacaec44d28a7b4cbb6da7f7bea4b3c8720db3b6a93c",
+    "bytes": 5041,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/fixtures/browser-input-acceptance-ci21.json",
+    "blob": "6843204b47eed20e0eee6e7171d505aa14caf81e",
+    "sha256": "54a49b236fdf0740f514f2d8e2ef6cac61356d7bb2cdbc5d0022a44bb84347dd",
+    "bytes": 21046,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/fixtures/browser-input-acceptance-ci26.json",
+    "blob": "2802c20c74709c5aa9142aac86f79b2f8c6cd49f",
+    "sha256": "227cf37aa4fd17cbe363ebcfbf30a1ad812a19a3314dca9b6d77c2ad55494e85",
+    "bytes": 86135,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/fixtures/browser-input-cadence-ci20.json",
+    "blob": "43cb7525a24bbd0017a0e10a0081337cf6a72f0e",
+    "sha256": "eb746e3dc810476dd30ee77f1356ccdd9009b81ba29cb291ee57e7318c4e951c",
+    "bytes": 6228,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/fixtures/browser-input-cadence.json",
+    "blob": "6e3fb8264e53b974d73f34737c2a1b5f26a6cabf",
+    "sha256": "b45bee35895e359cb53b8205ea2227be3010bd166035f42c44311865495bbc21",
+    "bytes": 2792,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/fixtures/browser-input-components-ci28.json",
+    "blob": "872a0f9fe0a12994bed2d9fd47cd5f586854abdb",
+    "sha256": "d4f41dd1d98ebc5f26f240d2dc5a1502c4e85f5db326d69af80a3b0dc89ddef6",
+    "bytes": 64120,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/fixtures/consumed-inputs-ci28.json",
+    "blob": "349a5194950ce87b1500faaa1dc9155d0f4976ae",
+    "sha256": "338f346d8460c471fa5a70a76545371445e619b85ecac4899e05d5cc15223742",
+    "bytes": 329859,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/fixtures/normal-collision-ci38.json",
+    "blob": "02b2f3847c754fe4cdc6890f543cc37967005b1c",
+    "sha256": "fa519da268334d51a1007249ae7792bf32ca05314b4e7a9cfd66757a761d34a6",
+    "bytes": 84710,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/fleet-scale.test.ts",
+    "blob": "c88432fa304d19d93d2430a938a9066fb95c5c6e",
+    "sha256": "b3ce7e8c29a1b2cc3f77bd0a38adebaba8f6523ecaa02bd826a15e84b2a470ae",
+    "bytes": 2811,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/flight.test.ts",
+    "blob": "f9ca0f91efcd9068d7dcf01e45ef38ff6a721e54",
+    "sha256": "281f6c4d615935b41bd7e41cfce09067b775d4d0fa2b056f88e277fb6e645c94",
+    "bytes": 4186,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/helpers/feedback-easy-pilot.ts",
+    "blob": "038a6d4d67a33f6c60fcc42a6aa46487658b9f14",
+    "sha256": "25a3b87ab5926187fae60e44102c68503cacccaa6e78358e761e4633936eb1b8",
+    "bytes": 4700,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/helpers/large-fleet-pilot.ts",
+    "blob": "e1468ea61e4352abd5794a23fa801e6bea891e44",
+    "sha256": "b5a6f54845d45d872e9e6990b9954a02bffa2417b3f8f6579725ddb64147fa47",
+    "bytes": 3712,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/helpers/mission-browser-pilot.ts",
+    "blob": "9f1248c4314fd74fe4cf189602edc9cc61f46b70",
+    "sha256": "d3fd1dc4d787abe4c6e53b1fddfbad729452f96744b5b14c35444d729a27a057",
+    "bytes": 19502,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/helpers/normal-mission-pilot.ts",
+    "blob": "680aae43993a36ef2052c08115ebe5bc90aefc3c",
+    "sha256": "2a2c5db744f4d58ac09a46713f36f7823b741b3abc019f2fd3fa3fd3f54068d5",
+    "bytes": 7983,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/helpers/touch-reload-pilot.ts",
+    "blob": "5435097d2cd30d1da341a3f13e845f8d044afe7c",
+    "sha256": "c4eede6d5a6b1c9c16b548d48f02ea70ce2216ccc425245d629d66bab6320e6f",
+    "bytes": 545,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/input-ownership.test.ts",
+    "blob": "074779d18ab47b48033350aa8e67e687127521b1",
+    "sha256": "f2634613ae9982e9742210fa62cd9fc4e552fcadca9cabdaf386dc8f984e66ce",
+    "bytes": 2247,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/input-recovery.test.ts",
+    "blob": "8bdfa29826a71ae54f44d5dbabf477a52588424c",
+    "sha256": "955d9debdb015869134664d8729c22587f2b760646ce912343344b8c279ab1de",
+    "bytes": 3344,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/iowa-model.test.ts",
+    "blob": "e37776dc13a95aac322afb525f0a82ae6288a3d8",
+    "sha256": "8195b3f62bfccbdca8b6fa9990dadeb3401618e6d135a09dd14947c78bfbf4ae",
+    "bytes": 9101,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/keyboard-settings.test.ts",
+    "blob": "c9147849eeaff964026792894b9f5bfaf7bb71f3",
+    "sha256": "d41cb190fbaf037ddf073c6c610e5348efa070961293aad901a07b480cb6d248",
+    "bytes": 11495,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/mission-dodge.test.ts",
+    "blob": "abf6bff6a570b425593dcf168a13fb28e363be43",
+    "sha256": "9564ef82cdcaf7b16fee1b3173af2d2d4384d777262ff6ea8b7e6330221ebdf3",
+    "bytes": 1827,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/mission-hud.test.ts",
+    "blob": "0440c1003072fff8b3ce59f85dd4c09dbd1d0b5e",
+    "sha256": "d48c25f67057f50526c7792cddbe1bda8b17f34632dd7ea240bc82720164e243",
+    "bytes": 2296,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/mission-rules.test.ts",
+    "blob": "195e054f151ecb7797cf622cbae92d745e9534ef",
+    "sha256": "57ab5f825b2e0ac5950fba787e0d0da5ecb0718286dea7cec17a7952d6378f62",
+    "bytes": 9103,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/modes.test.ts",
+    "blob": "46e154903e6bfc7a813d989a25a00618e8a36b6a",
+    "sha256": "3430284039c585af06047c639a55560a80dc8604ec416d2cadc874a517517a00",
+    "bytes": 9046,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/naval-audio.test.ts",
+    "blob": "7575412cf30699ad512bde9465731482e92698dc",
+    "sha256": "f64faceca064d76d3d12e8b13de8957fdb3b1f5b3b5bcc119b623aaced233bdc",
+    "bytes": 26355,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/naval-effects.test.ts",
+    "blob": "a030b2a4c77551e359873b8980de921c03d485f6",
+    "sha256": "b1d6361dc35a76c260871cd5f43d2ae9ad5f500478bc4b894f71bed97de871c8",
+    "bytes": 3118,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/naval-presentation.test.ts",
+    "blob": "5a897a56c6cd39b39df003eb699f8d078b13164b",
+    "sha256": "cd07f861938b4262354a2cd2a0f35a643eb25da53cc2318224c6202ffdc227a5",
+    "bytes": 10220,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/naval-weapon-roles.test.ts",
+    "blob": "89db8a1898455f55f5356548616162b56b933ab1",
+    "sha256": "aadd5e48499c71956d025070374d01b5eafe331b9221f1faf96833ceb56c852b",
+    "bytes": 7131,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/naval.test.ts",
+    "blob": "53ef0a72ad79b4591c030b22ed7356d345843f67",
+    "sha256": "4c43494265611d3b20812e5b2927b537b0c1710c19095311c523d8a99e923484",
+    "bytes": 18834,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/normal-collision-regression.test.ts",
+    "blob": "f1e13dc703631b937493a6c85ca40c9ede075939",
+    "sha256": "7ea357a0cad2c89a92e947d708f9f1c7cfe77d80094e7b4166dfe290f171c715",
+    "bytes": 3891,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/normal-mission.test.ts",
+    "blob": "2d54b3414010e7e87039aebe815a4a2f8efd7fa6",
+    "sha256": "8ee062d7f4ecfe88f1a6f051c0067e109d01b6d1bf7a5951651b6fe2a4c32c64",
+    "bytes": 11572,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/ordnance.test.ts",
+    "blob": "c3ef17c71cd9cdd4dafacacbb44421dd679b3392",
+    "sha256": "799438558eb6b1975e2c49d376cfb5d8aaaed6071f82711660949a97ab46830a",
+    "bytes": 17855,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/payload-input.test.ts",
+    "blob": "0466a7b7896e83e0889ec909bd4e515263395e6b",
+    "sha256": "7a567ecdf4681f883bce0def5ae9682c88252d0ba07afdb4606906e14e9c2787",
+    "bytes": 3833,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/render-queue.test.ts",
+    "blob": "2dcf838c63d6455f3ed05308501ccdfa1b9a43a6",
+    "sha256": "77142c2a04ce7b4ebba6a4997f789f88520d40321436302027473153e13fbbe7",
+    "bytes": 10307,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/review-event-bound.test.ts",
+    "blob": "0ca2046ca95e048fafdaefd8a11483bdd17ca11f",
+    "sha256": "08d0d4755aae2962e7b500e82e809079bd44f934935f252bb45cf83eb6c45719",
+    "bytes": 1394,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/review-input-ownership.test.ts",
+    "blob": "a08e67c906a2d91b2ccd28e1ef9c56442996bee1",
+    "sha256": "9bb4631c126566bf39a6ced3433348ceb8619ac011b844021754c0ec8fd3bd91",
+    "bytes": 3245,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/rules-guide.test.ts",
+    "blob": "b9a5e6291498451cfc13fcfb80634a9949b2c3a2",
+    "sha256": "d9688dcefc05c4e6ad8293bb5cb7ef5d0c6f4f9db69917656191718e051794c1",
+    "bytes": 2037,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/scene-lifecycle.test.ts",
+    "blob": "049d3e3e58cd6c6b419d2bd91b8865bb35035ecd",
+    "sha256": "8b7c74d6eeee531b9478e9ed3b25ffa8a917b4242a6a64205ec199f5616a0a9d",
+    "bytes": 2140,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/scoring.test.ts",
+    "blob": "4c61e257484d926a8619daa4d32efe15df1adcd4",
+    "sha256": "e7f4fbcb90c7dd8e390c329941178329e4cc2d382c400894ffd3dfbb7fb2e703",
+    "bytes": 13896,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/sea-contact.test.ts",
+    "blob": "9806d8ca883e64f16666fe2851a2c54de5f93c12",
+    "sha256": "385bc457275de346cf6e558cdc8b73a8c067804f60a9fdba844c5d32c302ea8d",
+    "bytes": 12723,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/ship-wreck.test.ts",
+    "blob": "5596b56d5f86bbe547b97a7a2d906de9474e8f68",
+    "sha256": "0ccd186884a363f000712763e5a163ff6a0c090358a5cff5f462de027b6ab9fa",
+    "bytes": 4410,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/simulation.test.ts",
+    "blob": "9b454f06808790144929e63fa56e7055ec743dd1",
+    "sha256": "620f462439d6874f352807f30547b948822205ece2f5d740e6acf4601e94672b",
+    "bytes": 11509,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tests/touch-reload.test.ts",
+    "blob": "db79f5170ab9b05ad83380f63bed9914d01f96d6",
+    "sha256": "a7f8dd2617b5472a421c23da9b98e70a3ddbac14baaf66bbd6719bd806be3428",
+    "bytes": 3441,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tsconfig.json",
+    "blob": "ecfd004822be0b872cc956a0c61d79c3a88ef8a8",
+    "sha256": "f57e51a36f5117844a944b784bf81573bd92714599d8511a2b6e95ac86ef2cfa",
+    "bytes": 216,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "vite.config.ts",
+    "blob": "5224ee77f3455141c99f5d6464d36bf745face15",
+    "sha256": "13c3c6f6f0f70aea9ed954d50dfba335d1425569c4b722cd18c7ac295c9e9c45",
+    "bytes": 179,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "browser-tests/aircraft-parity.spec.ts",
+    "blob": "6bce67672ef8902033f6e968d3676c13179c6591",
+    "sha256": "6a1f00c96c1e35abfd0a169b97f7aa4e86745b0c59293ebf1948a2d0318c46f9",
+    "bytes": 9903,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "browser-tests/settings-webkit.spec.ts",
+    "blob": "b432f26e8e79fae6368d1448127b88ae4b45f943",
+    "sha256": "02fc3fe8a55bc9295d2396267f7d32ced0f2601b48f0b8c46b1d01b80cf18371",
+    "bytes": 3856,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "browser-tests/shared-settings.spec.ts",
+    "blob": "409a7dcb8eebe64fba93009553c97f837e7acbd5",
+    "sha256": "72e9988d81681aa3cfdb9db907a5f3cdde094fc0e296c2d7f684a95d0a7ded1a",
+    "bytes": 6211,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "index.html",
+    "blob": "798fff4f2baf02649e83acf4c62ac85fbe681013",
+    "sha256": "7051d805a34e4d9a6572c8cd0d2a25ad301fa291673fbe8985a698049640dcbe",
+    "bytes": 17582,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "package-lock.json",
+    "blob": "68209b782a907f2eaf91c34b63e629bc6e0f9ea9",
+    "sha256": "70efc9928751a53511402489a07a5a228f474e68a14b6fb9508b4c69d5d3f9cc",
+    "bytes": 46411,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "package.json",
+    "blob": "508e11e814e1f9ad44ed34139186aff65c65403f",
+    "sha256": "071176a06a098e39703e729551ebd1c0a153a1c068b45a39f5ec1f945a8ac020",
+    "bytes": 490,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "playwright.config.ts",
+    "blob": "e611740ec944c2f3adbda39ae3a8621ca83b018a",
+    "sha256": "b695e53256f9e8fae7d7ace2729833eef25cde81eb6cfbdef4b0000dddb17edf",
+    "bytes": 863,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "public/third-party-notices.txt",
+    "blob": "8ada2a5f982916b0ba4b7a0aa7de347587e745d7",
+    "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+    "bytes": 1081,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/aim-indicator.ts",
+    "blob": "1b838a3525a891d147957e2fa252c913478a71f8",
+    "sha256": "824cc289d21ffa4f05703a68ec51530d799be6d0a7bb52812d42c93d62dd902a",
+    "bytes": 2178,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/aircraft-damage.ts",
+    "blob": "fe0c48ff296a31db70c7f93a0cdab64244ba939b",
+    "sha256": "b0a71f4b39aa1adab948ea3f08d99f0ed60e30deb5087992c8f748c9a5fade83",
+    "bytes": 1336,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/aircraft-vfx.ts",
+    "blob": "4ef6c826d822457ed827a4d5b2ef39400e49b9d8",
+    "sha256": "a69d01c0ded8aff027507f2e5c52cf42422789c2e4c5c9f310edd94705850543",
+    "bytes": 2457,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/aircraft.ts",
+    "blob": "7ea053b94f6af23eb3b46296d740dccd39209d5b",
+    "sha256": "bd36d4b5bab5c5a4fbf53d860e759b70d954ef0740fbacdcbe803e641586c729",
+    "bytes": 34834,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/audio.ts",
+    "blob": "e969de4dcf192773033b9054cf59ea0d554f605a",
+    "sha256": "cdbdcfb1489a5494786ad83c3cb803c15bca2c930daea6692c3b9206ba8b6c06",
+    "bytes": 25116,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/control-settings.css",
+    "blob": "7f48e5e53de976713ae6a20dcebe1b73a0f4ca80",
+    "sha256": "aa2730bf07eca2017f1d0ab109434649c629bb8df050750374f2ed5c7269aec1",
+    "bytes": 5317,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/control-settings.ts",
+    "blob": "b95d7743cc81c08c3ecea613b75c707469652210",
+    "sha256": "9af0591d006ac6c43c2b5ec8389a8bda8a117d797b72721856e4270c5c529b4b",
+    "bytes": 34756,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/dialog-focus.ts",
+    "blob": "5d10d15cb0b9d3de31871af98a7801d638a5055b",
+    "sha256": "86d631a4d618558e1ca671004c12ccc1fbdfe75516e6c5d04f962acd2c5e1996",
+    "bytes": 1234,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/display-diagnostics.ts",
+    "blob": "7337f5552fe3f64700bcb2f13b2a53fa188d449f",
+    "sha256": "2ba2ee7f9329ec7641dd8676d7c422fe5db635bc92b07b78ffb097717a8dd54c",
+    "bytes": 1717,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/flight-assist.ts",
+    "blob": "c2d0fdede8342c937c660d4fbd4668baae8094e5",
+    "sha256": "243af48920272f89db31ce3bd898d7e80f9b9c7596cf7835d5d0988bba10b876",
+    "bytes": 6843,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/flight-view.ts",
+    "blob": "c221e1035f83bcef29435df7c8d0042e59013174",
+    "sha256": "e656e86bebdef77cbd3515b45f933880fca524ef07e1bbe623c95199afc61486",
+    "bytes": 2324,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/flight.ts",
+    "blob": "3019be9650863c11cc1c57f7bb7e09ab815c9c07",
+    "sha256": "8fe62d521bc2cfa11b0ab8cb3c0609c54a3d80355eff15a72257eea1aa4770a5",
+    "bytes": 8687,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/gun-sight.ts",
+    "blob": "b8bbae3b570802689ff9410a1bab2b00ea945cb7",
+    "sha256": "3c1eebe8d71c9804b18ecee0e866a2abd72910fe2c8ec017383aed2de78ef021",
+    "bytes": 762,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/input.ts",
+    "blob": "88eb4ba80da3c5e4cfc7ffc9b7b5d461c460e9a3",
+    "sha256": "047295ec4db11250fc4f6757c4fe365a1819ca47a1fe498f06b7dc0d635db7a6",
+    "bytes": 14034,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/keyboard-settings.ts",
+    "blob": "8a117a562c53be20ab2b239f7b5bafdb929ef575",
+    "sha256": "21b37200ef0ccc47b17271881a275128a00a10e13d115ecd33c8ddb47f3a3a5e",
+    "bytes": 8956,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/main.ts",
+    "blob": "19e84cdee0a0072fece0b2b6ac4eb50685fbbbe9",
+    "sha256": "f30fbea772144475e33142372eefaac337c8d3caeec2c6a7fe41cfdf7c18066c",
+    "bytes": 33442,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/radar.ts",
+    "blob": "d5ce12b64212655b09dd3366ee10e9073b18d6b0",
+    "sha256": "efe52a3ed1c1a3b8436b413997b4d35e72ff3583bd585a76dcd33a8346b01d88",
+    "bytes": 5088,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/ranking-links.ts",
+    "blob": "9d8f07b68d628297c552c6e7d5914a05065b266f",
+    "sha256": "352ecebb370716cfcc0f730018c2b9827d9a49497f26feddc09941cedd35d628",
+    "bytes": 215,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/ranking.ts",
+    "blob": "9720b96ff2589531f0c9492aef2b6f4fc792681a",
+    "sha256": "468c685cee62ca1d1a8ab65fb95725047c5c9d3efc630d831df7fb701d4f095b",
+    "bytes": 44230,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/rules-guide.ts",
+    "blob": "e907728eb0f9e0607b39eed09fe7b513be855f43",
+    "sha256": "39cf733c97b8a5d3cb7d6598423886505bcf459dbf73f7668bea031c93ca45b6",
+    "bytes": 6509,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/scene.ts",
+    "blob": "be7bb6bff747afc56f2c2a76f118aa85630115fc",
+    "sha256": "b2b2d6ef37cbf93e72f21e5e3742e6abbc2e25807699849a0202bc72a02e212c",
+    "bytes": 21433,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/sharing.ts",
+    "blob": "9b6b1177813703f969a13d3862e84e6addf9869a",
+    "sha256": "168b4572d02522bdff9344c46cedd9d49f7e1bc3d6aa35c4de48bd389b02595a",
+    "bytes": 2841,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/simulation.ts",
+    "blob": "f44617307a60a39ba619b8627d0e9beae2372b9d",
+    "sha256": "cd27ba643f6e5587c52bdfa47c98e1355b8ad63378c6a9456fe1becae19c84ed",
+    "bytes": 26152,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/style.css",
+    "blob": "1d01c8e0bcb839139a01f032711051be32bf398e",
+    "sha256": "164ebf75012e06704821b6730b386e0e9086c15461a55229f3de0cd19d8db06d",
+    "bytes": 28037,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "src/types.ts",
+    "blob": "3be7e4de53b2eecf0e74b1dbd31aa6de7f22d569",
+    "sha256": "402437478c6307cd426779d222a2f9e3754536997c063b63e5791cf4abade9e2",
+    "bytes": 1708,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/aircraft-damage.test.ts",
+    "blob": "10e357e46f1109584f0ad41ffba0e827907ffffb",
+    "sha256": "952f945cc41bbfade7d9ed18231f5db330b606fb8f632fe048f48d64764e8db3",
+    "bytes": 2908,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/aircraft-display.test.ts",
+    "blob": "597ef5a61466ec090db95ca87383276c731a090a",
+    "sha256": "7441e93cb01827c92c01689781469bed74a143b41287d58de10d6c768d9eecd8",
+    "bytes": 7214,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/aircraft-parity.test.ts",
+    "blob": "a0bcc130c28a4d1029ed00f9374eadbc8559df76",
+    "sha256": "23dfcb45b7f719747fbb755efe29488e81a7e2cf83bfdc287529c57e6a5966ef",
+    "bytes": 2204,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/aircraft-pass-audio.test.ts",
+    "blob": "e8b40d3e589770c2110b437ca7e21f7af49e6f3b",
+    "sha256": "04902904d07dfef9eaccdef62e348a9b455d7b4286aa6aa473227b9ca4a6e2eb",
+    "bytes": 13758,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/aircraft-vfx.test.ts",
+    "blob": "c4513fbcb517f0435c25c4d30ce21cd084b76cdc",
+    "sha256": "56b43269decdb45ef12629e8ab25b9bc54c1a52722bc5e16974aca3c9f4adbba",
+    "bytes": 7444,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/audio.test.ts",
+    "blob": "21505c4106ece28248c734abb64afe2201cdbf55",
+    "sha256": "847788a50252e39e3ef5eeed217add78f6c12d0d1a753f221672b728e13ebdeb",
+    "bytes": 17336,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/collision.test.ts",
+    "blob": "c59118074c422ca69a30906760f8d7e61f8ea326",
+    "sha256": "fe5bab0a16369c3581b742b9d5ee006ecdbc849cb7fb3ca906ea0f19ed6730cf",
+    "bytes": 3315,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/control-settings-parity.test.ts",
+    "blob": "148bef0bf2b68f4133108cc878efc472ed6222d6",
+    "sha256": "3467cfe1abede74a2021c09894f11a8e0ddda44ba8e7ea13d19caeeff66fde87",
+    "bytes": 3748,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/control-settings-storage.test.ts",
+    "blob": "02b74f01159a32842a0fe8234deada3aee0dcc58",
+    "sha256": "75f2ab767ad037df3894b78d38430f7a20e85f3b048270a993121096f70ea2c1",
+    "bytes": 7437,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/dialog-focus.test.ts",
+    "blob": "8642f801fd14d59e96b130bf747d32bc2f0bd380",
+    "sha256": "03a7694d8923a8cd66075a640a1b4fa34d99bae930e861f0652531250a1590c5",
+    "bytes": 4509,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/flight-assist.test.ts",
+    "blob": "ac7709b4e6147e2ea419f104e830cc7425b0e27a",
+    "sha256": "618c94ef545680e18192122fdab52d0e44b500418d68af8566621c7d4bc91836",
+    "bytes": 12473,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/flight-view.test.ts",
+    "blob": "d46ba111f937609a16c90484515cff68384f4d9c",
+    "sha256": "80460f2602f0e1fc130903a462e4ff76e9f9f8748a8236c07167be8dfd6c3bac",
+    "bytes": 5171,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/input-ownership.test.ts",
+    "blob": "074779d18ab47b48033350aa8e67e687127521b1",
+    "sha256": "f2634613ae9982e9742210fa62cd9fc4e552fcadca9cabdaf386dc8f984e66ce",
+    "bytes": 2247,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/input-recovery.test.ts",
+    "blob": "8bdfa29826a71ae54f44d5dbabf477a52588424c",
+    "sha256": "955d9debdb015869134664d8729c22587f2b760646ce912343344b8c279ab1de",
+    "bytes": 3344,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/keyboard-settings.test.ts",
+    "blob": "75a78b94345fb0b8092adddf1d0194305cd2f8c8",
+    "sha256": "31bb19da901056a20e0e7e732037996fec66fc705d5cd8e95f5c6be791f863c0",
+    "bytes": 11496,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/ranking-links.test.ts",
+    "blob": "c54e252976d6f35b13d176e032cadb9fd7bd58dd",
+    "sha256": "70476d3a349677967725ea6b73d84c933d70416eaa98e1fba19055182262168d",
+    "bytes": 580,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/ranking.test.ts",
+    "blob": "25c38257d93ede392f2d43dc90f8283c1d3f187e",
+    "sha256": "09ebbc5d6e87b7db2c3204d6e671b4adf77be3c3265a07e490c3ca8d0f8bdaab",
+    "bytes": 14165,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/review-input-ownership.test.ts",
+    "blob": "a08e67c906a2d91b2ccd28e1ef9c56442996bee1",
+    "sha256": "9bb4631c126566bf39a6ced3433348ceb8619ac011b844021754c0ec8fd3bd91",
+    "bytes": 3245,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/rules-guide.test.ts",
+    "blob": "b5da34e026906a8ad5188fdd60c34703a103e047",
+    "sha256": "b8f520c0fa16ffec53081296932f1357af7276c4f358f60acaaf6a43b0bec441",
+    "bytes": 957,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/sharing.test.ts",
+    "blob": "542290a897768f79f3a70178bdc3df362ba3f422",
+    "sha256": "fb069829a92780560586a9a71df749954b6e1e61a096bbcafe229ae71648a914",
+    "bytes": 2210,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tests/simulation.test.ts",
+    "blob": "88e85db3b657d862ee5093a64ad21d278355263f",
+    "sha256": "dbd3b052fa8d6dbc59ee3f3b29b32323a7cbe4578a21539b89f2a011cdc095fb",
+    "bytes": 30999,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "tsconfig.json",
+    "blob": "f12d0fed808689c6e7b67a5645e37ba03fc6b0b6",
+    "sha256": "f18e94b76b8fd15d512f4efdb49bdd7bb019aa706418eaf10f0f2d9f4c7f4209",
+    "bytes": 215,
+    "status": "retrieved-full; pending adaptation review"
+  },
+  {
+    "repository": "ff-reference",
+    "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+    "path": "vite.config.ts",
+    "blob": "6da6394bbd95c665a3ed07a797fadf45ce717927",
+    "sha256": "2dd03415a38ac66ddbd826117343a9e2e1b33455199890e48cf44e52782eff60",
+    "bytes": 127,
+    "status": "retrieved-full; pending adaptation review"
+  }
+]
