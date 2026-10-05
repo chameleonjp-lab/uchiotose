@@ -1,0 +1,90 @@
+[
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "package.json",
+    "blob": "6623d66d8be14ea48a9b3ee626eefc76c1c8ab3d",
+    "sha256": "519ce0e8332c9800e5ede2a1311a9a0890e078daff4bc557b69be18e312d0277",
+    "bytes": 486,
+    "status": "adapted",
+    "destination": "package.json",
+    "change_reason": "Name changed to uchiotose; fixed dependency versions and existing runners retained."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "package-lock.json",
+    "blob": "09fbe449f0cc3eee78ebf88ee27f368e25fe7b32",
+    "sha256": "5e4f59eb5c1288a252c663a8126a4b49991834bb9b1ced4b9d1cf90d724e2d78",
+    "bytes": 46399,
+    "status": "adapted",
+    "destination": "package-lock.json",
+    "change_reason": "Root package name changed; dependency resolutions/integrities retained."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "tsconfig.json",
+    "blob": "ecfd004822be0b872cc956a0c61d79c3a88ef8a8",
+    "sha256": "f57e51a36f5117844a944b784bf81573bd92714599d8511a2b6e95ac86ef2cfa",
+    "bytes": 216,
+    "status": "copied",
+    "destination": "tsconfig.json",
+    "change_reason": "Unchanged TypeScript config."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "vite.config.ts",
+    "blob": "5224ee77f3455141c99f5d6464d36bf745face15",
+    "sha256": "13c3c6f6f0f70aea9ed954d50dfba335d1425569c4b722cd18c7ac295c9e9c45",
+    "bytes": 179,
+    "status": "copied",
+    "destination": "vite.config.ts",
+    "change_reason": "Unchanged relative base and local development/build config."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "playwright.config.ts",
+    "blob": "a69ce668122b8eaca0c5a4ef785332ecf94e30fd",
+    "sha256": "c57072bb686e5a17b730fae06358d8df42a005707323f153585fbaac2ed6bb2f",
+    "bytes": 1012,
+    "status": "copied",
+    "destination": "playwright.config.ts",
+    "change_reason": "Existing runner configuration retained; Home-only case added, settings test not yet authored."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "index.html",
+    "blob": "de945a10417a2f883b3cfd3d79fadbfe3c7a4afc",
+    "sha256": "723edcad8e1b8b060ad010a7610c90a0339a075d0e7e3653886f45e2a995e5b4",
+    "bytes": 10622,
+    "status": "adapted",
+    "destination": "index.html",
+    "change_reason": "Home hierarchy retained; title, premise and finite force labels adapted. Battle/canvas/settings/audio excluded until implemented; disabled start accurately labels development state."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "src/style.css",
+    "blob": "66f33fdd090157f27d8c4661d0f6d42a486c6ed7",
+    "sha256": "444c78dc16d8d512fe0e528b062bde34f8c8e6c410e86e0ebf3d7542fceecbd8",
+    "bytes": 29533,
+    "status": "adapted",
+    "destination": "src/style.css",
+    "change_reason": "Home and shared styling retained; excluded bomb/torpedo/payload selectors removed. Source comment added."
+  },
+  {
+    "repository": "kaisen-reference",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "path": "public/third-party-notices.txt",
+    "blob": "805bf99e222a8c6433f78eb06f407224accb120c",
+    "sha256": "97de7ac302052bcea7f20e5ae89635c10e049614f56409288d554d63fceb614f",
+    "bytes": 1082,
+    "status": "copied",
+    "destination": "public/third-party-notices.txt",
+    "change_reason": "Unchanged dependency-specific notice, included in distributed public assets."
+  }
+]
