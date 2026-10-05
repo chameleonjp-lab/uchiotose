@@ -15,6 +15,9 @@ export class FixedClock {
     if (!playing) { this.reset(); return false; }
     if (this.previous === null) { this.previous = nowMilliseconds; return false; }
     const elapsed = Math.max(0, (nowMilliseconds - this.previous) / 1000);
+    // Reject suspended time before stale input can advance combat or a result.
+    // Preserve the existing inclusive one-second threshold for missing visibility events.
+    if (elapsed >= 1) { this.reset(); return true; }
     this.previous = nowMilliseconds;
     this.accumulator += elapsed;
     let steps = 0;
@@ -25,8 +28,8 @@ export class FixedClock {
     }
     if (this.accumulator + 1e-10 >= this.stepSeconds) this.overloadedFrames += 1;
     else this.overloadedFrames = 0;
-    // Three budget overruns, or a one-second suspension without a visibility event.
-    return this.overloadedFrames >= 3 || elapsed >= 1;
+    // Three budget overruns request a pause; long gaps were rejected above.
+    return this.overloadedFrames >= 3;
   }
 
   get interpolation(): number { return Math.min(1, this.accumulator / this.stepSeconds); }
