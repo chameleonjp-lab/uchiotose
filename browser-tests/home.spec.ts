@@ -135,15 +135,27 @@ test('HUD header controls fit three planned viewports and Pause traps keyboard f
       return {
         viewportWidth: document.documentElement.clientWidth,
         clock: rect('.time-block'),
+        clockText: rect('#hud-time'),
         targets: rect('.targets'),
         actions: rect('.hud-actions'),
+        tallyText: ['#hud-aircraft', '#hud-enemies', '#hud-ships'].map(rect),
       };
     });
     for (const region of [layout.clock, layout.targets, layout.actions]) {
       expect(region.left).toBeGreaterThanOrEqual(0);
       expect(region.right).toBeLessThanOrEqual(layout.viewportWidth);
     }
-    expect(layout.clock.right).toBeLessThanOrEqual(layout.targets.left);
+    const disjoint = (a: typeof layout.clock, b: typeof layout.clock) =>
+      a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top;
+    expect(disjoint(layout.clockText, layout.targets)).toBe(true);
+    expect(disjoint(layout.clockText, layout.actions)).toBe(true);
+    expect(layout.clockText.left).toBeGreaterThanOrEqual(layout.clock.left);
+    expect(layout.clockText.right).toBeLessThanOrEqual(layout.clock.right);
+    for (const text of layout.tallyText) {
+      expect(text.left).toBeGreaterThanOrEqual(layout.targets.left);
+      expect(text.right).toBeLessThanOrEqual(layout.targets.right);
+      expect(disjoint(text, layout.actions)).toBe(true);
+    }
     expect(layout.targets.right).toBeLessThanOrEqual(layout.actions.left);
   }
 

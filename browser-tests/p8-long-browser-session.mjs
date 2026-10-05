@@ -92,9 +92,28 @@ async function readSample(page, cdp, markMs, wallMs) {
         cdp.send('Memory.getDOMCounters'),
         cdp.send('Performance.getMetrics'),
       ]);
+      let eventListeners;
+      try {
+        const listeners = await cdp.send('Runtime.evaluate', {
+          expression: `(() => {
+            const targets = [window, document, ...document.querySelectorAll('*')];
+            const byType = {}; let total = 0;
+            for (const target of targets) for (const [type, entries] of Object.entries(getEventListeners(target))) {
+              total += entries.length; byType[type] = (byType[type] ?? 0) + entries.length;
+            }
+            return { targets: targets.length, total, byType };
+          })()`,
+          returnByValue: true,
+          includeCommandLineAPI: true,
+        });
+        eventListeners = listeners.result?.value ?? null;
+      } catch (error) {
+        eventListeners = { unavailable: String(error) };
+      }
       browserMemory = {
         domCounters: counters,
         performanceMetrics: Object.fromEntries((performance.metrics ?? []).map(({ name, value }) => [name, value])),
+        eventListeners,
       };
     } catch (error) {
       browserMemory = { unavailable: String(error) };
