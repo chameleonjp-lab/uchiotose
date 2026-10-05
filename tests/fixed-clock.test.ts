@@ -33,3 +33,39 @@ test('terminal step prevents further ticks in the same frame', () => {
   clock.frame(100, true, () => { ticks++; return false; });
   assert.equal(ticks, 1);
 });
+
+
+test('one-second or longer gaps stop before applying suspended input', () => {
+  for (const gapMilliseconds of [1000, 1001, 5000]) {
+    const clock = new FixedClock();
+    let ticks = 0;
+    const step = () => { ticks++; return true; };
+    clock.frame(100, true, step);
+    assert.equal(clock.frame(100 + gapMilliseconds, true, step), true);
+    assert.equal(ticks, 0, `${gapMilliseconds} ms gap does not execute stale input`);
+    assert.equal(clock.interpolation, 0);
+
+    // After explicit resume, the first frame establishes a fresh epoch.
+    assert.equal(clock.frame(200 + gapMilliseconds, true, step), false);
+    assert.equal(ticks, 0);
+    assert.equal(clock.frame(300 + gapMilliseconds, true, step), false);
+    assert.equal(ticks, 6);
+  }
+});
+
+test('a sub-second gap retains the existing eight-tick overload budget', () => {
+  const clock = new FixedClock();
+  let ticks = 0;
+  const step = () => { ticks++; return true; };
+  clock.frame(100, true, step);
+  assert.equal(clock.frame(1099, true, step), false);
+  assert.equal(ticks, 8);
+});
+
+test('a long gap cannot finalize a mission before the pause is shown', () => {
+  const clock = new FixedClock();
+  let finalized = false;
+  clock.frame(100, true, () => true);
+  assert.equal(clock.frame(1100, true, () => { finalized = true; return false; }), true);
+  assert.equal(finalized, false);
+});
