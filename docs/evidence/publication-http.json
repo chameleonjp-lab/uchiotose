@@ -1,0 +1,54 @@
+{
+  "url": "https://uchiotose.chameleonjp.chatgpt.site",
+  "audience": "public; no supplied authentication",
+  "tlsVerification": "curl default validation with the configured environment CA; no insecure flags",
+  "files": [
+    {
+      "path": "assets/index-9zuTiUNp.js",
+      "httpStatus": 200,
+      "sslVerifyResult": 0,
+      "bytes": 784753,
+      "sha256": "10e11722468205f51a1691405019d3ae588022f8337642027de747c739973e0a",
+      "identicalToValidatedBuild": true
+    },
+    {
+      "path": "assets/index-jjlx_KNJ.css",
+      "httpStatus": 200,
+      "sslVerifyResult": 0,
+      "bytes": 28496,
+      "sha256": "2dfeffc8772c95dc1673934db5bf8048ddde79d6e3a541dbf81dcaf3b36d1382",
+      "identicalToValidatedBuild": true
+    },
+    {
+      "path": "index.html",
+      "httpStatus": 200,
+      "sslVerifyResult": 0,
+      "bytes": 7456,
+      "sha256": "1e81cd9af73688d75542af13e28e4a46e0f4441d0f6b7b1f01cd8a924bef0230",
+      "identicalToValidatedBuild": true
+    },
+    {
+      "path": "release.json",
+      "httpStatus": 200,
+      "sslVerifyResult": 0,
+      "bytes": 112,
+      "sha256": "42379d000f9d37455c800976b6cb87fef48ae6d29e8cbbc78c6b133a84a13414",
+      "identicalToValidatedBuild": true
+    },
+    {
+      "path": "third-party-notices.txt",
+      "httpStatus": 200,
+      "sslVerifyResult": 0,
+      "bytes": 1082,
+      "sha256": "97de7ac302052bcea7f20e5ae89635c10e049614f56409288d554d63fceb614f",
+      "identicalToValidatedBuild": true
+    }
+  ],
+  "status": "passed",
+  "release": {
+    "commit": "aac2b36e651024bc3ccca851e2374f5dd373a3b1",
+    "rulesVersion": "uchiotose-1",
+    "ranking": false
+  },
+  "browserVerificationLimit": "Direct public Chromium navigation was blocked by the environment proxy CA trust. Automatic approval review rejected a persistent NSS trust-store change because of its effect on future certificate validation. TLS validation stayed enabled; the fetched identical payload is tested locally instead."
+}

@@ -1,0 +1,29 @@
+{
+  "publicURL": "https://uchiotose.chameleonjp.chatgpt.site",
+  "publicAudience": "public",
+  "projectId": "appgprj_6ac32eccd3bc8191a5e3919dc4eac0f5",
+  "sitesVersion": "appgprj_6ac32eccd3bc8191a5e3919dc4eac0f5~appgver_0e7e075907288191b31e9ff3a97fc69c",
+  "sitesSourceCommit": "c9fec3d157b82b2bb0f1c30371a85dccd63d5e83",
+  "archive": {
+    "archive_format": "tar",
+    "sediment_file_id": "file_0000000096a08207882558bef73933a3",
+    "content_hash": "sha256:eb02e29a21ef86766e3fbb9578c654036c5ad375018d92b956b556507f47066b",
+    "size_bytes": 829440,
+    "file_count": 7
+  },
+  "deployment": {
+    "id": "appgdep_6ac32f8b937c8191bb39f1c3b2010010",
+    "status": "succeeded",
+    "updatedAt": "2026-10-05T05:03:22.719318+00:00"
+  },
+  "gameSourceCommit": "aac2b36e651024bc3ccca851e2374f5dd373a3b1",
+  "validatedCodeCommit": "da017ad25fce53e4ee06920053cfdb99aeae6970",
+  "githubPages": {
+    "branch": "gh-pages",
+    "commit": "391ac84cb5fb68cae2aa1332b5b978e6a87cb1bb",
+    "configurationStatus": 403,
+    "error": "Resource not accessible by integration",
+    "siteEnabled": false
+  },
+  "hostingChoice": "Public Sites fallback after the authorized GitHub Pages configuration was denied by GitHub integration permissions."
+}

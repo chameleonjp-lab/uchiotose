@@ -1,0 +1,34 @@
+{
+  "checkedAt": "2026-10-05T05:15:27.215Z",
+  "url": "http://127.0.0.1:4180",
+  "gameCommit": "aac2b36e651024bc3ccca851e2374f5dd373a3b1",
+  "audience": "fresh browser context without authentication",
+  "errors": [],
+  "assets": [
+    {
+      "path": "./assets/index-9zuTiUNp.js",
+      "status": 200,
+      "bytes": 784753,
+      "sha256": "10e11722468205f51a1691405019d3ae588022f8337642027de747c739973e0a",
+      "identicalToLocalBuild": true
+    },
+    {
+      "path": "./assets/index-jjlx_KNJ.css",
+      "status": 200,
+      "bytes": 28496,
+      "sha256": "2dfeffc8772c95dc1673934db5bf8048ddde79d6e3a541dbf81dcaf3b36d1382",
+      "identicalToLocalBuild": true
+    }
+  ],
+  "checks": [
+    "Home ready; default sound OFF; development API absent",
+    "release commit and JS/CSS bytes match validated main build",
+    "DOM Normal start/250ms trusted touch fire hold/pause/frozen clock/rules/resume after initial input-release gate"
+  ],
+  "release": {
+    "commit": "aac2b36e651024bc3ccca851e2374f5dd373a3b1",
+    "rulesVersion": "uchiotose-1",
+    "ranking": false
+  },
+  "status": "passed"
+}

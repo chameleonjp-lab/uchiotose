@@ -1,6 +1,8 @@
 # uchiotose
 ウチオトセ
 
+[公開ゲームをプレイする](https://uchiotose.chameleonjp.chatgpt.site)
+
 味方艦隊とともに、浮遊島から来る飛行戦士を迎撃する3D飛行ゲームです。Normal/Easy、タッチ・PC操作、設定、一時停止、有限の戦闘と結果表示を実装しています。ランキング連携は含みません。
 
 `npm ci`、`npm run dev`で起動できます。検証記録は[実装・公開記録](docs/IMPLEMENTATION_RELEASE.md)、公開方法は[公開手順](docs/DEPLOYMENT.md)を参照してください。
