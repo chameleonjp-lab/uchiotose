@@ -393,3 +393,22 @@ test('invariant checker catches duplicate reservations, invalid HP, roles and id
   state = mission(); state.enemies[99].id = 'E099';
   assert.throws(() => assertRosterInvariants(state), /unique identifiers/);
 });
+
+
+test('blocked spawn retains the original ID and deadline until the occupancy guard allows entry', () => {
+  let state=advanceMissionTick(mission(),{missionId:'mission-1',aircraftIds:['A001'],enemyIds:['E001']});
+  const aircraft=state.aircraft.find(a=>a.status==='pending' && a.slot===0)!;
+  const enemy=state.enemies.find(e=>e.status==='pending')!;
+  const aircraftDeadline=aircraft.reservation!.dueTick, enemyDeadline=enemy.reservation!.dueTick;
+  while(state.tick < aircraftDeadline + 5) {
+    state=completeMissionTick(beginMissionTick(state,()=>false),{missionId:state.missionId});
+  }
+  assert.equal(state.aircraft.find(a=>a.id===aircraft.id)!.reservation!.dueTick,aircraftDeadline);
+  assert.equal(state.enemies.find(e=>e.id===enemy.id)!.reservation!.dueTick,enemyDeadline);
+  assert.equal(state.controlledAircraftId,null);
+  assertRosterInvariants(state);
+  state=beginMissionTick(state,()=>true);
+  assert.equal(state.controlledAircraftId,aircraft.id);
+  assert.equal(state.enemies.find(e=>e.id===enemy.id)!.status,'active');
+  assertRosterInvariants(state);
+});

@@ -1,0 +1,74 @@
+{
+  "checkedAt": "2026-10-05",
+  "target": "chameleonjp-lab/uchiotose",
+  "references": [
+    {
+      "repository": "chameleonjp-lab/kaisen",
+      "purpose": "UI, aircraft, camera, and flight comparison baseline",
+      "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+      "tree": "1134d5e67196bc10fb9d6fc1df4d4b783e07c18b",
+      "checkout": "/workspace/kaisen-reference",
+      "state": "detached and clean"
+    },
+    {
+      "repository": "chameleonjp-lab/faitofuraito",
+      "purpose": "shared control-contract comparison",
+      "commit": "c2b313d37875b93458032d98636fcf5b5d30a138",
+      "tree": "bb6cc03dcdfcb92a7cdddcda8338dfc8e964ca72",
+      "checkout": "/workspace/fightflight-reference",
+      "state": "detached and clean"
+    }
+  ],
+  "candidate": {
+    "commit": null,
+    "note": "Record the exact candidate HEAD after P0-P7 integration before final comparison."
+  },
+  "visualCapture": {
+    "status": "prepared; captures pending completed candidate",
+    "browser": "Google Chrome for Testing 149.0.7827.55 from PLAYWRIGHT_BROWSERS_PATH=/tmp/uchiotose-browsers; Playwright 1.61.1",
+    "deviceScaleFactor": 1,
+    "viewports": [
+      { "width": 393, "height": 648 },
+      { "width": 568, "height": 320 },
+      { "width": 1280, "height": 720 }
+    ],
+    "screens": [
+      "home",
+      "normal-hud",
+      "easy-hud",
+      "pause",
+      "touch-settings",
+      "pc-key-settings",
+      "rules",
+      "result"
+    ],
+    "aircraftCameraComparison": "pending"
+  },
+  "referenceSmoke": {
+    "repository": "chameleonjp-lab/kaisen",
+    "commit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "browser": "Google Chrome for Testing 149.0.7827.55",
+    "environment": "Linux, Chromium SwiftShader, viewport 393x648, DPR 1, Playwright touch emulation",
+    "graphicsReadyElapsedMs": 9173,
+    "renderQueueDuringPreparation": [
+      { "elapsedMs": 3887, "status": "stalled" },
+      { "elapsedMs": 6270, "status": "stalled" },
+      { "elapsedMs": 8672, "status": "stalled" },
+      { "elapsedMs": 9173, "status": "pending" }
+    ],
+    "startInteraction": "Start enabled at graphicsReady; ordinary Normal Start entered playing, HUD visible, tick 26 after 0.433 seconds; no page or console errors",
+    "rendererAtSample": {
+      "geometries": 50,
+      "textures": 4,
+      "triangles": 230896,
+      "planes": 10,
+      "ships": 4,
+      "lastCompletedPendingMs": 381,
+      "skippedFrames": 514
+    },
+    "result": "Reference startup smoke only; not a physical-device result or candidate acceptance."
+  },
+  "device": {
+    "iphoneSafari": "not tested on a physical device"
+  }
+}

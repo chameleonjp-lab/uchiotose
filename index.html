@@ -2,71 +2,117 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1,viewport-fit=cover"
-    />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <meta name="theme-color" content="#071e2b" />
-    <meta
-      name="description"
-      content="味方50機と10隻で、浮遊島に現れた敵100人を撃破する。"
-    />
+    <meta name="description" content="味方50機と10隻で、浮遊島から出撃する飛行戦士100人を迎え撃つ。" />
     <title>ウチオトセ</title>
   </head>
   <body>
     <main id="app" data-screen="home" data-mode="easy">
+      <canvas id="flight" tabindex="-1" aria-label="飛行戦場"></canvas>
+      <canvas id="markers" aria-hidden="true"></canvas>
+      <div class="vignette" aria-hidden="true"></div>
+
       <section id="home" class="screen home-screen" aria-labelledby="title">
         <div class="brand-line">
           <span class="brand-mark" aria-hidden="true">U</span>
           <span>AIR &amp; ISLAND DEFENSE</span>
-          <span class="version">開発中</span>
+          <span class="version">ゼロ：シリーズ</span>
         </div>
         <div class="home-copy">
           <p class="eyebrow">浮遊島からの迎撃作戦</p>
           <h1 id="title">ウチオトセ</h1>
-          <p class="intro">
-            浮遊島に現れた飛行戦士を、<br />味方の飛行隊と艦隊で迎え撃つ。
-          </p>
+          <p class="intro">浮遊島に現れた飛行戦士を、<br />味方の飛行隊と艦隊で迎え撃つ。</p>
         </div>
         <div class="briefing">
           <div class="mission-data" aria-label="作戦戦力">
-            <div>
-              <span>味方航空隊</span>
-              <strong>50<small>機</small></strong>
-              <em>総残機</em>
-            </div>
-            <div>
-              <span>敵の飛行戦士</span>
-              <strong>100<small>人</small></strong>
-              <em>有限の敵戦力</em>
-            </div>
-            <div>
-              <span>味方艦隊</span>
-              <strong>10<small>隻</small></strong>
-              <em>作戦全艦</em>
-            </div>
+            <div><span>味方航空隊</span><strong>50<small>機</small></strong><em>自機を含む総残機</em></div>
+            <div><span>敵の飛行戦士</span><strong>100<small>人</small></strong><em>総敵戦力</em></div>
+            <div><span>味方艦隊</span><strong>10<small>隻</small></strong><em>作戦全艦</em></div>
           </div>
           <fieldset class="mode-picker">
             <legend>操作モード</legend>
-            <label>
-              <input type="radio" name="game-mode" value="easy" checked />
-              <span>イージー</span>
-            </label>
-            <label>
-              <input type="radio" name="game-mode" value="normal" />
-              <span>ノーマル</span>
-            </label>
+            <label><input type="radio" name="game-mode" value="easy" checked /><span>イージー</span></label>
+            <label><input type="radio" name="game-mode" value="normal" /><span>ノーマル</span></label>
           </fieldset>
-          <button id="start" class="primary" type="button" disabled>
-            作戦開始は準備中です
-          </button>
-          <p id="p1-status" class="controls-guide" role="status">
-            開発中のため、まだ出撃できません。
-          </p>
+          <button id="start" class="primary" type="button" disabled>作戦開始</button>
+          <p id="p1-status" class="controls-guide" role="status" aria-live="polite">3D戦場を準備しています。</p>
+          <div class="home-actions">
+            <button id="home-settings" class="secondary" type="button">操作設定</button>
+            <button id="home-rules" class="secondary" type="button">ルールと操作方法</button>
+          </div>
+          <button id="home-sound" class="text-button" type="button" aria-pressed="false" aria-label="音声をオンにする">音声 OFF</button>
+          <p class="keyboard-guide">イージーは補助操縦・自動射撃、ノーマルは手動操縦・手動射撃です。</p>
         </div>
-        <footer class="home-footer">
-          <span>UCHIOTOSE / ウチオトセ</span>
-        </footer>
+        <footer class="home-footer"><span>UCHIOTOSE / ウチオトセ</span><span>初期音声 OFF</span></footer>
+      </section>
+
+      <section id="hud" class="screen" aria-label="作戦状況" hidden>
+        <div class="hud-top">
+          <div class="time-block"><span>作戦時間</span><strong id="hud-time">00:00</strong><span id="hud-mode">イージー</span></div>
+          <div class="targets" aria-label="味方と敵の残数">
+            <div class="target-tally"><span>味方総残機</span><b id="hud-aircraft">50/50</b><small id="hud-aircraft-active">出撃 8/8</small></div>
+            <div class="target-tally"><span>敵残数</span><b id="hud-enemies">100/100</b><small id="hud-enemies-active">出撃 24/24</small></div>
+            <div class="target-tally"><span>味方艦隊</span><b id="hud-ships">10/10</b><small>生存艦</small></div>
+          </div>
+          <div class="hud-actions">
+            <button id="game-sound" class="icon-button" type="button" aria-pressed="false">音 OFF</button>
+            <button id="pause-button" class="icon-button" type="button" aria-label="作戦を一時停止">Ⅱ</button>
+          </div>
+        </div>
+        <div class="flight-data">
+          <div class="health-label"><span>自機 HP</span><b id="hud-hp">80 / 80</b></div>
+          <div class="health-track" aria-hidden="true"><i></i></div>
+          <div class="instrument"><span>速度</span><b id="hud-speed">396 km/h</b></div>
+          <div class="instrument"><span>高度</span><b id="hud-altitude">— m</b></div>
+          <p id="hud-effects" class="ammo">状態異常なし</p>
+          <p id="hud-respawn" class="ammo" role="status"></p>
+        </div>
+        <p id="hud-warning" class="warning" role="status" aria-live="polite"></p>
+        <p id="hud-ammo" class="flight-tip">機銃 288 / 機関砲 96 · 装填 6秒</p>
+        <p id="hud-score" class="score-readout">0点</p>
+        <div class="bottom-controls" aria-label="タッチ操作">
+          <button id="touch-brake" class="flight-button throttle-button" type="button">減速</button>
+          <button id="touch-accelerate" class="flight-button throttle-button" type="button">加速</button>
+          <button id="touch-loop" class="flight-button loop-button" type="button" aria-label="宙返り"><span aria-hidden="true">↻</span><b>宙返り</b></button>
+          <button id="touch-fire" class="flight-button fire-button" type="button">射撃</button>
+        </div>
+      </section>
+
+      <section id="pause-screen" class="screen modal-screen" aria-labelledby="pause-title" hidden>
+        <div class="panel">
+          <p class="eyebrow">MISSION PAUSED</p>
+          <h2 id="pause-title">一時停止</h2>
+          <p id="pause-reason">作戦時計と戦場は停止しています。</p>
+          <button id="resume" class="primary" type="button">作戦再開</button>
+          <button id="pause-restart" class="secondary" type="button">再出撃</button>
+          <button id="home-return" class="text-button" type="button">ホームへ戻る</button>
+          <div class="home-actions">
+            <button id="pause-settings" class="secondary" type="button">操作設定</button>
+            <button id="pause-rules" class="secondary" type="button">ルールと操作方法</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="result" class="screen modal-screen" aria-labelledby="result-title" hidden>
+        <div class="panel result-panel">
+          <p class="eyebrow">MISSION RESULT</p>
+          <h2 id="result-title">作戦結果</h2>
+          <p id="result-reason"></p>
+          <p id="result-mode" class="mode-label"></p>
+          <div class="result-time"><span id="result-time-label">経過時間</span><strong id="result-time">00:00</strong></div>
+          <p class="result-score-total">最終スコア<strong id="result-score">0</strong></p>
+          <div class="score-breakdown">
+            <h3>得点内訳</h3>
+            <dl id="result-breakdown"></dl>
+            <p id="result-score-version" class="result-note"></p>
+          </div>
+          <div class="home-actions">
+            <button id="retry" class="primary" type="button">再出撃</button>
+            <button id="result-settings" class="secondary" type="button">操作設定</button>
+            <button id="result-home" class="text-button" type="button">ホームへ戻る</button>
+          </div>
+        </div>
       </section>
     </main>
     <script type="module" src="/src/main.ts"></script>
