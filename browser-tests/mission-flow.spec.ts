@@ -98,6 +98,19 @@ test('Result fixture displays one immutable score and all loss contributions, th
 
 test('WebGL context loss pauses, clears held input, and recovery requires explicit resume', async ({page}) => {
   await page.goto('/'); await expect(page.locator('#start')).toBeEnabled();
+  const homeExtensionAvailable=await page.evaluate(() => Boolean((document.querySelector('#flight') as HTMLCanvasElement).getContext('webgl2')?.getExtension('WEBGL_lose_context')));
+  test.skip(!homeExtensionAvailable,'The browser does not expose the standard test extension');
+  await expect(page.locator('#p1-status')).toBeHidden();
+  await page.evaluate(() => {
+    const extension = (document.querySelector('#flight') as HTMLCanvasElement).getContext('webgl2')!.getExtension('WEBGL_lose_context')!;
+    Object.assign(window, {__homeLostContextExtension: extension}); extension.loseContext();
+  });
+  await expect(page.locator('#start')).toBeDisabled();
+  await expect(page.locator('#p1-status')).toBeVisible();
+  await expect(page.locator('#p1-status')).toContainText('復旧を待って');
+  await page.evaluate(() => (window as unknown as {__homeLostContextExtension: WEBGL_lose_context}).__homeLostContextExtension.restoreContext());
+  await expect(page.locator('#start')).toBeEnabled();
+  await expect(page.locator('#p1-status')).toBeHidden();
   await page.locator('#start').click();
   await expect.poll(async () => (await snapshot(page)).mission.tick).toBeGreaterThan(2);
   const available=await page.evaluate(() => Boolean((document.querySelector('#flight') as HTMLCanvasElement).getContext('webgl2')?.getExtension('WEBGL_lose_context')));

@@ -224,6 +224,7 @@ function frame(now: number): void {
   } catch (error) {
     if (renderer?.renderer.getContext().isContextLost()) {
       contextLost = true;
+      homeStatus('描画が中断されました。復旧を待ってください');
       pause('描画が中断されました。復旧を待って再開してください');
       text('pause-reason','描画が中断されました。復旧を待って再開してください');
       screen();
@@ -246,6 +247,7 @@ window.addEventListener('resize', () => { ui.controls.clear(); renderer?.resize(
 canvas.addEventListener('webglcontextlost', event => {
   event.preventDefault(); contextLost = true; el<HTMLButtonElement>('resume').disabled = true; pause('描画が中断されました。復旧を待って再開してください');
   el<HTMLButtonElement>('start').disabled = true;
+  homeStatus('描画が中断されました。復旧を待ってください');
   text('pause-reason','描画が中断されました。復旧を待って再開してください');
   screen();
 }, options);
@@ -281,6 +283,7 @@ canvas.addEventListener('webglcontextrestored', () => {
     const recoveryTimeout = setTimeout(() => fail(new Error('Graphics recovery timed out')), 30000);
     target.resetRenderQueue(); target.resize(); target.resetCamera();
     text('pause-reason','描画の復旧を準備しています');
+    homeStatus('描画の復旧を準備しています');
     void target.prepare().then(async () => {
       if (!current()) return;
       target.render(state.world, state.mission, state.projectiles, mode, 1);
@@ -288,6 +291,7 @@ canvas.addEventListener('webglcontextrestored', () => {
       if (!current()) return;
       clearTimeout(recoveryTimeout);
       contextLost = false;
+      homeStatus('準備完了 · 操作設定とルールを確認して出撃できます', true);
       el<HTMLButtonElement>('start').disabled = !ready;
       screen();
       text('pause-reason','描画が復旧しました。再開できます');
