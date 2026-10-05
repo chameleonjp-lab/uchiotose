@@ -1,4 +1,5 @@
 {
+  "side": "reference",
   "source": "http://127.0.0.1:4177",
   "screen": "home",
   "viewport": {
@@ -6,1871 +7,67 @@
     "height": 720
   },
   "deviceScaleFactor": 1,
+  "provenance": {
+    "candidateCodeCommit": "1de85aa933c0ed69a1115c6da744c4b0e72d641e",
+    "candidateCodeTree": "b63eafd40a62f4ae6f020a04f1527023d1c28dae",
+    "candidateSourceSha256": "3dbe1b33573695448e942535a9f6fcfe67e36824a3c3785d4c8f194183058c5d",
+    "loadedSourceRepository": "/workspace/kaisen-reference",
+    "loadedSourceCommit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "loadedSourceTree": "1134d5e67196bc10fb9d6fc1df4d4b783e07c18b",
+    "loadedSourceSha256": "d55b4f590db2aa6f0c18779646f33487a36ba214c5b2783ea9332556626d3642",
+    "loadedSourceWorktree": "clean"
+  },
+  "stalledFrameRecoveries": [],
   "inputEmulation": "mouse/keyboard",
   "title": "カイセン",
-  "capturedAt": "2026-10-05T01:52:21.001Z",
-  "errors": [],
+  "capturedAt": "2026-10-05T04:13:15.579Z",
+  "capturePath": "ordinary DOM/UI flow",
   "appScreen": "home",
   "appMode": "easy",
-  "gameState": {
+  "focusedElement": {
+    "tag": "body",
+    "id": null,
+    "text": "KAIR & SEA / TIME ATTACK試作 02\n        \n        \n          空と海、その先へ\n          カイセン\n          \n       "
+  },
+  "scroll": {
+    "x": 0,
+    "y": 0,
+    "bodyWidth": 1280,
+    "bodyHeight": 720,
+    "viewportWidth": 1280,
+    "viewportHeight": 720
+  },
+  "observation": {
     "phase": "ready",
     "mode": "easy",
     "selectedMode": "easy",
-    "config": {
-      "shipCount": 4,
-      "mode": "easy"
-    },
-    "gunSight": null,
-    "graphicsReady": false,
     "screen": "home",
     "tick": 0,
     "elapsed": 0,
-    "reinforcementsSpawned": false,
-    "player": {
-      "kind": "aircraft",
-      "id": 1,
-      "team": "friendly",
-      "role": "player",
-      "position": {
-        "x": 0,
-        "y": 300,
-        "z": 240
-      },
-      "previous": {
-        "x": 0,
-        "y": 300,
-        "z": 240
-      },
-      "quaternion": [
-        0,
-        0,
-        0,
-        1
-      ],
-      "yaw": 0,
-      "pitch": 0,
-      "bank": 0,
-      "speed": 110,
-      "health": 80,
-      "maxHealth": 80,
-      "mg": 288,
-      "cannon": 96,
-      "reloadTicksRemaining": 0,
-      "generation": "initial",
-      "fireClock": 0,
-      "cannonClock": 0,
-      "bombs": 2,
-      "torpedoes": 1,
-      "bombReloadTicks": 0,
-      "torpedoReloadTicks": 0,
-      "payloadCooldown": 0,
-      "aiBomb": false,
-      "loopProgress": 0,
-      "loopCooldown": 0,
-      "mode": "pursue",
-      "age": 0,
-      "targetId": null,
-      "aiPhase": "approach",
-      "aiPhaseTime": 0,
-      "aiWaypoint": {
-        "x": 0,
-        "y": 300,
-        "z": 240
-      },
-      "aiTurn": 0,
-      "aiClimb": 0,
-      "aiFire": false
-    },
-    "allies": [
-      {
-        "kind": "aircraft",
-        "id": 2,
-        "team": "friendly",
-        "role": "interceptor",
-        "position": {
-          "x": -62,
-          "y": 300,
-          "z": 316
-        },
-        "previous": {
-          "x": -62,
-          "y": 300,
-          "z": 316
-        },
-        "quaternion": [
-          0,
-          0,
-          0,
-          1
-        ],
-        "yaw": 0,
-        "pitch": 0,
-        "bank": 0,
-        "speed": 110,
-        "health": 80,
-        "maxHealth": 80,
-        "mg": 288,
-        "cannon": 96,
-        "reloadTicksRemaining": 0,
-        "generation": "initial",
-        "fireClock": 0,
-        "cannonClock": 0,
-        "bombs": 2,
-        "torpedoes": 1,
-        "bombReloadTicks": 0,
-        "torpedoReloadTicks": 0,
-        "payloadCooldown": 0,
-        "aiBomb": false,
-        "loopProgress": 0,
-        "loopCooldown": 0,
-        "mode": "pursue",
-        "age": 0,
-        "targetId": 12,
-        "aiPhase": "approach",
-        "aiPhaseTime": 0,
-        "aiWaypoint": {
-          "x": -62,
-          "y": 300,
-          "z": 316
-        },
-        "aiTurn": 0,
-        "aiClimb": 0,
-        "aiFire": false
-      },
-      {
-        "kind": "aircraft",
-        "id": 3,
-        "team": "friendly",
-        "role": "interceptor",
-        "position": {
-          "x": 62,
-          "y": 313,
-          "z": 316
-        },
-        "previous": {
-          "x": 62,
-          "y": 313,
-          "z": 316
-        },
-        "quaternion": [
-          0,
-          0,
-          0,
-          1
-        ],
-        "yaw": 0,
-        "pitch": 0,
-        "bank": 0,
-        "speed": 110,
-        "health": 80,
-        "maxHealth": 80,
-        "mg": 288,
-        "cannon": 96,
-        "reloadTicksRemaining": 0,
-        "generation": "initial",
-        "fireClock": 0,
-        "cannonClock": 0,
-        "bombs": 2,
-        "torpedoes": 1,
-        "bombReloadTicks": 0,
-        "torpedoReloadTicks": 0,
-        "payloadCooldown": 0,
-        "aiBomb": false,
-        "loopProgress": 0,
-        "loopCooldown": 0,
-        "mode": "pursue",
-        "age": 0,
-        "targetId": 13,
-        "aiPhase": "approach",
-        "aiPhaseTime": 0,
-        "aiWaypoint": {
-          "x": 62,
-          "y": 313,
-          "z": 316
-        },
-        "aiTurn": 0,
-        "aiClimb": 0,
-        "aiFire": false
-      },
-      {
-        "kind": "aircraft",
-        "id": 4,
-        "team": "friendly",
-        "role": "strike",
-        "position": {
-          "x": -124,
-          "y": 326,
-          "z": 352
-        },
-        "previous": {
-          "x": -124,
-          "y": 326,
-          "z": 352
-        },
-        "quaternion": [
-          0,
-          0,
-          0,
-          1
-        ],
-        "yaw": 0,
-        "pitch": 0,
-        "bank": 0,
-        "speed": 110,
-        "health": 80,
-        "maxHealth": 80,
-        "mg": 288,
-        "cannon": 96,
-        "reloadTicksRemaining": 0,
-        "generation": "initial",
-        "fireClock": 0,
-        "cannonClock": 0,
-        "bombs": 2,
-        "torpedoes": 1,
-        "bombReloadTicks": 0,
-        "torpedoReloadTicks": 0,
-        "payloadCooldown": 0,
-        "aiBomb": false,
-        "loopProgress": 0,
-        "loopCooldown": 0,
-        "mode": "pursue",
-        "age": 0,
-        "targetId": 100,
-        "aiPhase": "approach",
-        "aiPhaseTime": 0,
-        "aiWaypoint": {
-          "x": -124,
-          "y": 326,
-          "z": 352
-        },
-        "aiTurn": 0,
-        "aiClimb": 0,
-        "aiFire": false
-      },
-      {
-        "kind": "aircraft",
-        "id": 5,
-        "team": "friendly",
-        "role": "strike",
-        "position": {
-          "x": 124,
-          "y": 339,
-          "z": 352
-        },
-        "previous": {
-          "x": 124,
-          "y": 339,
-          "z": 352
-        },
-        "quaternion": [
-          0,
-          0,
-          0,
-          1
-        ],
-        "yaw": 0,
-        "pitch": 0,
-        "bank": 0,
-        "speed": 110,
-        "health": 80,
-        "maxHealth": 80,
-        "mg": 288,
-        "cannon": 96,
-        "reloadTicksRemaining": 0,
-        "generation": "initial",
-        "fireClock": 0,
-        "cannonClock": 0,
-        "bombs": 2,
-        "torpedoes": 1,
-        "bombReloadTicks": 0,
-        "torpedoReloadTicks": 0,
-        "payloadCooldown": 0,
-        "aiBomb": false,
-        "loopProgress": 0,
-        "loopCooldown": 0,
-        "mode": "pursue",
-        "age": 0,
-        "targetId": 102,
-        "aiPhase": "approach",
-        "aiPhaseTime": 0,
-        "aiWaypoint": {
-          "x": 124,
-          "y": 339,
-          "z": 352
-        },
-        "aiTurn": 0,
-        "aiClimb": 0,
-        "aiFire": false
-      }
-    ],
-    "enemies": [
-      {
-        "kind": "aircraft",
-        "id": 10,
-        "team": "enemy",
-        "role": "interceptor",
-        "position": {
-          "x": -230,
-          "y": 334.44160831859335,
-          "z": -520
-        },
-        "previous": {
-          "x": -230,
-          "y": 334.44160831859335,
-          "z": -520
-        },
-        "quaternion": [
-          0,
-          0,
-          0,
-          1
-        ],
-        "yaw": 0,
-        "pitch": 0,
-        "bank": 0,
-        "speed": 110,
-        "health": 80,
-        "maxHealth": 80,
-        "mg": 288,
-        "cannon": 96,
-        "reloadTicksRemaining": 0,
-        "generation": "initial",
-        "fireClock": 0,
-        "cannonClock": 0,
-        "bombs": 2,
-        "torpedoes": 1,
-        "bombReloadTicks": 0,
-        "torpedoReloadTicks": 0,
-        "payloadCooldown": 0,
-        "aiBomb": false,
-        "loopProgress": 0,
-        "loopCooldown": 0,
-        "mode": "pursue",
-        "age": 0,
-        "targetId": 1,
-        "aiPhase": "approach",
-        "aiPhaseTime": 0,
-        "aiWaypoint": {
-          "x": -230,
-          "y": 334.44160831859335,
-          "z": -520
-        },
-        "aiTurn": 0,
-        "aiClimb": 0,
-        "aiFire": false
-      },
-      {
-        "kind": "aircraft",
-        "id": 11,
-        "team": "enemy",
-        "role": "interceptor",
-        "position": {
-          "x": -115,
-          "y": 362.6217103842646,
-          "z": -435
-        },
-        "previous": {
-          "x": -115,
-          "y": 362.6217103842646,
-          "z": -435
-        },
-        "quaternion": [
-          0,
-          0,
-          0,
-          1
-        ],
-        "yaw": 0,
-        "pitch": 0,
-        "bank": 0,
-        "speed": 110,
-        "health": 80,
-        "maxHealth": 80,
-        "mg": 288,
-        "cannon": 96,
-        "reloadTicksRemaining": 0,
-        "generation": "initial",
-        "fireClock": 0,
-        "cannonClock": 0,
-        "bombs": 2,
-        "torpedoes": 1,
-        "bombReloadTicks": 0,
-        "torpedoReloadTicks": 0,
-        "payloadCooldown": 0,
-        "aiBomb": false,
-        "loopProgress": 0,
-        "loopCooldown": 0,
-        "mode": "pursue",
-        "age": 0,
-        "targetId": 2,
-        "aiPhase": "approach",
-        "aiPhaseTime": 0,
-        "aiWaypoint": {
-          "x": -115,
-          "y": 362.6217103842646,
-          "z": -435
-        },
-        "aiTurn": 0,
-        "aiClimb": 0,
-        "aiFire": false
-      },
-      {
-        "kind": "aircraft",
-        "id": 12,
-        "team": "enemy",
-        "role": "interceptor",
-        "position": {
-          "x": 0,
-          "y": 384.1601468389854,
-          "z": -350
-        },
-        "previous": {
-          "x": 0,
-          "y": 384.1601468389854,
-          "z": -350
-        },
-        "quaternion": [
-          0,
-          0,
-          0,
-          1
-        ],
-        "yaw": 0,
-        "pitch": 0,
-        "bank": 0,
-        "speed": 110,
-        "health": 80,
-        "maxHealth": 80,
-        "mg": 288,
-        "cannon": 96,
-        "reloadTicksRemaining": 0,
-        "generation": "initial",
-        "fireClock": 0,
-        "cannonClock": 0,
-        "bombs": 2,
-        "torpedoes": 1,
-        "bombReloadTicks": 0,
-        "torpedoReloadTicks": 0,
-        "payloadCooldown": 0,
-        "aiBomb": false,
-        "loopProgress": 0,
-        "loopCooldown": 0,
-        "mode": "pursue",
-        "age": 0,
-        "targetId": 3,
-        "aiPhase": "approach",
-        "aiPhaseTime": 0,
-        "aiWaypoint": {
-          "x": 0,
-          "y": 384.1601468389854,
-          "z": -350
-        },
-        "aiTurn": 0,
-        "aiClimb": 0,
-        "aiFire": false
-      },
-      {
-        "kind": "aircraft",
-        "id": 13,
-        "team": "enemy",
-        "role": "interceptor",
-        "position": {
-          "x": 115,
-          "y": 377.04826427274384,
-          "z": -435
-        },
-        "previous": {
-          "x": 115,
-          "y": 377.04826427274384,
-          "z": -435
-        },
-        "quaternion": [
-          0,
-          0,
-          0,
-          1
-        ],
-        "yaw": 0,
-        "pitch": 0,
-        "bank": 0,
-        "speed": 110,
-        "health": 80,
-        "maxHealth": 80,
-        "mg": 288,
-        "cannon": 96,
-        "reloadTicksRemaining": 0,
-        "generation": "initial",
-        "fireClock": 0,
-        "cannonClock": 0,
-        "bombs": 2,
-        "torpedoes": 1,
-        "bombReloadTicks": 0,
-        "torpedoReloadTicks": 0,
-        "payloadCooldown": 0,
-        "aiBomb": false,
-        "loopProgress": 0,
-        "loopCooldown": 0,
-        "mode": "pursue",
-        "age": 0,
-        "targetId": 5,
-        "aiPhase": "approach",
-        "aiPhaseTime": 0,
-        "aiWaypoint": {
-          "x": 115,
-          "y": 377.04826427274384,
-          "z": -435
-        },
-        "aiTurn": 0,
-        "aiClimb": 0,
-        "aiFire": false
-      },
-      {
-        "kind": "aircraft",
-        "id": 14,
-        "team": "enemy",
-        "role": "interceptor",
-        "position": {
-          "x": 230,
-          "y": 355.48902679700404,
-          "z": -520
-        },
-        "previous": {
-          "x": 230,
-          "y": 355.48902679700404,
-          "z": -520
-        },
-        "quaternion": [
-          0,
-          0,
-          0,
-          1
-        ],
-        "yaw": 0,
-        "pitch": 0,
-        "bank": 0,
-        "speed": 110,
-        "health": 80,
-        "maxHealth": 80,
-        "mg": 288,
-        "cannon": 96,
-        "reloadTicksRemaining": 0,
-        "generation": "initial",
-        "fireClock": 0,
-        "cannonClock": 0,
-        "bombs": 2,
-        "torpedoes": 1,
-        "bombReloadTicks": 0,
-        "torpedoReloadTicks": 0,
-        "payloadCooldown": 0,
-        "aiBomb": false,
-        "loopProgress": 0,
-        "loopCooldown": 0,
-        "mode": "pursue",
-        "age": 0,
-        "targetId": 4,
-        "aiPhase": "approach",
-        "aiPhaseTime": 0,
-        "aiWaypoint": {
-          "x": 230,
-          "y": 355.48902679700404,
-          "z": -520
-        },
-        "aiTurn": 0,
-        "aiClimb": 0,
-        "aiFire": false
-      }
-    ],
-    "ships": [
-      {
-        "kind": "ship",
-        "id": 100,
-        "team": "enemy",
-        "variant": "flagship",
-        "position": {
-          "x": 0,
-          "y": 0,
-          "z": -220
-        },
-        "previous": {
-          "x": 0,
-          "y": 0,
-          "z": -220
-        },
-        "yaw": 1.15,
-        "quaternion": [
-          0,
-          0.5438347906836426,
-          0,
-          0.8391923024206541
-        ],
-        "previousQuaternion": [
-          0,
-          0.5438347906836426,
-          0,
-          0.8391923024206541
-        ],
-        "velocity": {
-          "x": -5.476583641563127,
-          "y": 0,
-          "z": -2.4509246453049434
-        },
-        "health": 4000,
-        "maxHealth": 4000,
-        "length": 270.43,
-        "width": 32.97,
-        "height": 42,
-        "guns": [
-          {
-            "mountId": "main-fore-1",
-            "yaw": 0,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.5899999999999999,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "main-fore-2",
-            "yaw": 0,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 0.69,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "main-aft",
-            "yaw": 3.141592653589793,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 0.96,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "secondary-fore",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.23,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "secondary-aft",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.5,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "secondary-port",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 0.6,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "secondary-starboard",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 0.87,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-port-1",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.1400000000000001,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-port-2",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.41,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-port-3",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.6800000000000002,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-starboard-1",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.78,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-starboard-2",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.0499999999999998,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-starboard-3",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.3199999999999998,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-port-1",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.5899999999999999,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-port-2",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.69,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-port-3",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.96,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-port-4",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.23,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-starboard-1",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.5,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-starboard-2",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.6,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-starboard-3",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.87,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-starboard-4",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.1400000000000001,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          }
-        ],
-        "wreck": null,
-        "age": 0,
-        "superstructureHealth": 240,
-        "maxSuperstructureHealth": 240
-      },
-      {
-        "kind": "ship",
-        "id": 101,
-        "team": "enemy",
-        "variant": "escort",
-        "position": {
-          "x": -360,
-          "y": 0,
-          "z": -650
-        },
-        "previous": {
-          "x": -360,
-          "y": 0,
-          "z": -650
-        },
-        "yaw": 1.15,
-        "quaternion": [
-          0,
-          0.5438347906836426,
-          0,
-          0.8391923024206541
-        ],
-        "previousQuaternion": [
-          0,
-          0.5438347906836426,
-          0,
-          0.8391923024206541
-        ],
-        "velocity": {
-          "x": -5.476583641563127,
-          "y": 0,
-          "z": -2.4509246453049434
-        },
-        "health": 2400,
-        "maxHealth": 2400,
-        "length": 270.43,
-        "width": 32.97,
-        "height": 42,
-        "guns": [
-          {
-            "mountId": "main-fore-1",
-            "yaw": 0,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.0499999999999998,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "main-fore-2",
-            "yaw": 0,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.3199999999999998,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "main-aft",
-            "yaw": 3.141592653589793,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.5899999999999999,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "secondary-fore",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 0.69,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "secondary-aft",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 0.96,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "secondary-port",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.23,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "secondary-starboard",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.5,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-port-1",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.6,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-port-2",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.87,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-port-3",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.1400000000000001,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-starboard-1",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.41,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-starboard-2",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.6800000000000002,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-starboard-3",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.78,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-port-1",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.0499999999999998,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-port-2",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.3199999999999998,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-port-3",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.5899999999999999,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-port-4",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.69,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-starboard-1",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.96,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-starboard-2",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.23,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-starboard-3",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.5,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-starboard-4",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.6,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          }
-        ],
-        "wreck": null,
-        "age": 0,
-        "superstructureHealth": 240,
-        "maxSuperstructureHealth": 240
-      },
-      {
-        "kind": "ship",
-        "id": 102,
-        "team": "enemy",
-        "variant": "escort",
-        "position": {
-          "x": 360,
-          "y": 0,
-          "z": -700
-        },
-        "previous": {
-          "x": 360,
-          "y": 0,
-          "z": -700
-        },
-        "yaw": 1.15,
-        "quaternion": [
-          0,
-          0.5438347906836426,
-          0,
-          0.8391923024206541
-        ],
-        "previousQuaternion": [
-          0,
-          0.5438347906836426,
-          0,
-          0.8391923024206541
-        ],
-        "velocity": {
-          "x": -5.476583641563127,
-          "y": 0,
-          "z": -2.4509246453049434
-        },
-        "health": 2400,
-        "maxHealth": 2400,
-        "length": 270.43,
-        "width": 32.97,
-        "height": 42,
-        "guns": [
-          {
-            "mountId": "main-fore-1",
-            "yaw": 0,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.6800000000000002,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "main-fore-2",
-            "yaw": 0,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 0.78,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "main-aft",
-            "yaw": 3.141592653589793,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.0499999999999998,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "secondary-fore",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.3199999999999998,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "secondary-aft",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.5899999999999999,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "secondary-port",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 0.69,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "secondary-starboard",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 0.96,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-port-1",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.23,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-port-2",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.5,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-port-3",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.6,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-starboard-1",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.87,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-starboard-2",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.1400000000000001,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-starboard-3",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.41,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-port-1",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.6800000000000002,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-port-2",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.78,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-port-3",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.0499999999999998,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-port-4",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.3199999999999998,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-starboard-1",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.5899999999999999,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-starboard-2",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.69,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-starboard-3",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.96,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-starboard-4",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.23,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          }
-        ],
-        "wreck": null,
-        "age": 0,
-        "superstructureHealth": 240,
-        "maxSuperstructureHealth": 240
-      },
-      {
-        "kind": "ship",
-        "id": 103,
-        "team": "enemy",
-        "variant": "escort",
-        "position": {
-          "x": 0,
-          "y": 0,
-          "z": -1050
-        },
-        "previous": {
-          "x": 0,
-          "y": 0,
-          "z": -1050
-        },
-        "yaw": 1.15,
-        "quaternion": [
-          0,
-          0.5438347906836426,
-          0,
-          0.8391923024206541
-        ],
-        "previousQuaternion": [
-          0,
-          0.5438347906836426,
-          0,
-          0.8391923024206541
-        ],
-        "velocity": {
-          "x": -5.476583641563127,
-          "y": 0,
-          "z": -2.4509246453049434
-        },
-        "health": 2400,
-        "maxHealth": 2400,
-        "length": 270.43,
-        "width": 32.97,
-        "height": 42,
-        "guns": [
-          {
-            "mountId": "main-fore-1",
-            "yaw": 0,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.1400000000000001,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "main-fore-2",
-            "yaw": 0,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.41,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "main-aft",
-            "yaw": 3.141592653589793,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.6800000000000002,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "secondary-fore",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 0.78,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "secondary-aft",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.0499999999999998,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "secondary-port",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.3199999999999998,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "secondary-starboard",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.06981317007977318,
-            "targetId": null,
-            "cooldown": 1.5899999999999999,
-            "health": 400,
-            "maxHealth": 400,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-port-1",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.69,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-port-2",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.96,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-port-3",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.23,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-starboard-1",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.5,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-starboard-2",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.6,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "heavy-starboard-3",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.87,
-            "health": 120,
-            "maxHealth": 120,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 0,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-port-1",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.1400000000000001,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-port-2",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.41,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-port-3",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.6800000000000002,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-port-4",
-            "yaw": 1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.78,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-starboard-1",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.0499999999999998,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-starboard-2",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.3199999999999998,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-starboard-3",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 1.5899999999999999,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          },
-          {
-            "mountId": "light-starboard-4",
-            "yaw": -1.5707963267948966,
-            "elevation": 0.3490658503988659,
-            "targetId": null,
-            "cooldown": 0.69,
-            "health": 60,
-            "maxHealth": 60,
-            "lastShotTick": -10000,
-            "roundsInMagazine": 4,
-            "salvo": 0
-          }
-        ],
-        "wreck": null,
-        "age": 0,
-        "superstructureHealth": 240,
-        "maxSuperstructureHealth": 240
-      }
-    ],
-    "bullets": 0,
-    "ordnance": [],
-    "bombGuide": null,
-    "bombForecastTiming": {
-      "lastMs": 0,
-      "peakMs": 0,
-      "calculations": 0
-    },
-    "result": null,
-    "stats": {
-      "playerAircraftKills": 0,
-      "playerShipKills": 0,
-      "allyAircraftKills": 0,
-      "allyShipKills": 0,
-      "shots": 0,
-      "hits": 0,
-      "loops": 0,
-      "damageTaken": 0,
-      "friendlyDamage": 0,
-      "friendlyKills": 0,
-      "score": 0
-    },
-    "deathCause": null,
-    "allyRespawnAt": {},
-    "allyActivity": {
-      "visible": [],
-      "pendingGroups": 0,
-      "pendingEvents": 0,
-      "totals": [
-        {
-          "lost": 0,
-          "returned": 0,
-          "victory": 0
-        },
-        {
-          "lost": 0,
-          "returned": 0,
-          "victory": 0
-        },
-        {
-          "lost": 0,
-          "returned": 0,
-          "victory": 0
-        },
-        {
-          "lost": 0,
-          "returned": 0,
-          "victory": 0
-        }
-      ]
-    },
-    "controlsInput": {
-      "turn": 0,
-      "climb": 0,
-      "steerPointer": null,
-      "heldPointers": {
-        "fire": [],
-        "loop": [],
-        "accelerate": [],
-        "brake": [],
-        "bomb": [],
-        "torpedo": []
-      },
-      "keys": []
-    },
-    "settingsOpen": false,
-    "rulesOpen": false,
-    "render": {
+    "graphicsReady": true,
+    "renderStatus": "pending",
+    "lastInterruption": null,
+    "renderer": {
       "queue": {
         "status": "pending",
         "failure": null,
-        "pendingMs": 267.79999999981374,
-        "lastCompletedPendingMs": null,
+        "pendingMs": 172.59999999962747,
+        "lastCompletedPendingMs": 2851.2000000011176,
         "completedFrameIntervalMs": null,
-        "submittedCount": 1,
-        "completedCount": 0,
-        "skippedCount": 17
+        "submittedCount": 2,
+        "completedCount": 1,
+        "skippedCount": 192
       },
       "calls": 176,
       "triangles": 230896,
       "geometries": 50,
       "textures": 4,
       "particles": 0,
-      "navalFlashes": 0,
       "planes": 10,
       "ships": 4,
       "width": 1280,
       "height": 720,
-      "pixelRatio": 1,
-      "aircraftTracers": {
-        "segments": 0,
-        "capacity": 2048,
-        "corePx": 1.5,
-        "outlinePx": 2.5,
-        "tailSeconds": 0.045,
-        "depthTest": true,
-        "resolution": [
-          1280,
-          720
-        ]
-      }
+      "pixelRatio": 1
     },
     "audio": {
       "enabled": false,
@@ -1879,22 +76,40 @@
       "voices": 0,
       "sources": 0
     },
-    "frameIntervals": [],
-    "lastFrameGap": 0,
-    "lastInterruption": null,
-    "renderStatus": "ready",
-    "pauseReasons": [],
-    "updateTimes": []
+    "frameIntervals": {
+      "samples": 0,
+      "medianMs": null,
+      "p95Ms": null,
+      "maxMs": null
+    },
+    "heap": {
+      "usedJSHeapSize": 27600000,
+      "totalJSHeapSize": 47400000,
+      "jsHeapSizeLimit": 3760000000
+    }
   },
+  "errors": [],
   "layout": [
     {
       "tag": "main",
       "id": "app",
       "className": "",
-      "text": "K\nAIR & SEA / TIME ATTACK\n試作 02\n\n空と海、その先へ\n\nカイセン\n\n僚機とともに、敵機と艦隊を撃破。\nすべてを倒すまでの、時間を競う。\n\n味方編隊\n5機\n自機 + 僚機4\n敵航空隊\n5機\n40秒ごとに敵5機まで",
+      "text": "K AIR & SEA / TIME ATTACK 試作 02 空と海、その先へ カイセン 僚機とともに、敵機と艦隊を撃破。 すべてを倒すまでの、時間を競う。 味方編隊 5機 自機 + 僚機4 敵航空隊 5機 40秒ごとに敵5機まで補充 敵艦隊 4隻 初期構成 操作モード イージ",
       "bounds": {
         "x": 0,
         "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
         "width": 1280,
         "height": 720
       },
@@ -1927,6 +142,59 @@
         "width": 1280,
         "height": 720
       },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "css": {
+        "display": "block",
+        "position": "absolute",
+        "zIndex": "auto",
+        "overflow": "clip",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(239, 244, 237)"
+      }
+    },
+    {
+      "tag": "canvas",
+      "id": "markers",
+      "className": "",
+      "text": "",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 1280,
+        "height": 720
+      },
       "css": {
         "display": "block",
         "position": "absolute",
@@ -1949,12 +217,24 @@
       "tag": "section",
       "id": "home",
       "className": "screen home-screen",
-      "text": "K\nAIR & SEA / TIME ATTACK\n試作 02\n\n空と海、その先へ\n\nカイセン\n\n僚機とともに、敵機と艦隊を撃破。\nすべてを倒すまでの、時間を競う。\n\n味方編隊\n5機\n自機 + 僚機4\n敵航空隊\n5機\n40秒ごとに敵5機まで",
+      "text": "K AIR & SEA / TIME ATTACK 試作 02 空と海、その先へ カイセン 僚機とともに、敵機と艦隊を撃破。 すべてを倒すまでの、時間を競う。 味方編隊 5機 自機 + 僚機4 敵航空隊 5機 40秒ごとに敵5機まで補充 敵艦隊 4隻 初期構成 操作モード イージ",
       "bounds": {
         "x": 0,
         "y": 0,
         "width": 1280,
         "height": 720
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 1280,
+        "height": 926
       },
       "css": {
         "display": "flex",
@@ -1978,10 +258,22 @@
       "tag": "div",
       "id": null,
       "className": "brand-line",
-      "text": "K\nAIR & SEA / TIME ATTACK\n試作 02",
+      "text": "K AIR & SEA / TIME ATTACK 試作 02",
       "bounds": {
         "x": 54,
         "y": 36,
+        "width": 1172,
+        "height": 37
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
         "width": 1172,
         "height": 37
       },
@@ -2007,12 +299,24 @@
       "tag": "div",
       "id": null,
       "className": "home-copy",
-      "text": "空と海、その先へ\n\nカイセン\n\n僚機とともに、敵機と艦隊を撃破。\nすべてを倒すまでの、時間を競う。",
+      "text": "空と海、その先へ カイセン 僚機とともに、敵機と艦隊を撃破。 すべてを倒すまでの、時間を競う。",
       "bounds": {
         "x": 54,
         "y": 137.796875,
         "width": 364.640625,
         "height": 225.375
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 365,
+        "height": 225
       },
       "css": {
         "display": "block",
@@ -2033,6 +337,47 @@
       }
     },
     {
+      "tag": "p",
+      "id": null,
+      "className": "eyebrow",
+      "text": "空と海、その先へ",
+      "bounds": {
+        "x": 54,
+        "y": 137.796875,
+        "width": 364.640625,
+        "height": 17
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 365,
+        "height": 17
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "10px",
+        "lineHeight": "17px",
+        "fontWeight": "600",
+        "color": "rgb(228, 200, 139)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px 0px 14px",
+        "border": "0px none rgb(228, 200, 139)"
+      }
+    },
+    {
       "tag": "h1",
       "id": "title",
       "className": "",
@@ -2041,6 +386,18 @@
         "x": 54,
         "y": 168.796875,
         "width": 364.640625,
+        "height": 125
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 365,
         "height": 125
       },
       "css": {
@@ -2062,15 +419,68 @@
       }
     },
     {
+      "tag": "p",
+      "id": null,
+      "className": "intro",
+      "text": "僚機とともに、敵機と艦隊を撃破。 すべてを倒すまでの、時間を競う。",
+      "bounds": {
+        "x": 54,
+        "y": 308.796875,
+        "width": 364.640625,
+        "height": 54.375
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 365,
+        "height": 54
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "fontWeight": "400",
+        "color": "rgb(230, 238, 234)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(230, 238, 234)"
+      }
+    },
+    {
       "tag": "div",
       "id": null,
       "className": "briefing",
-      "text": "味方編隊\n5機\n自機 + 僚機4\n敵航空隊\n5機\n40秒ごとに敵5機まで補充\n敵艦隊\n4隻\n初期構成\n操作モード\nイージー\nノーマル\n画面を準備しています\n\nキーボードで操縦\n照準円内・1.2km以内へ自動射撃 · 弾道を見て少し先を狙う\n",
+      "text": "味方編隊 5機 自機 + 僚機4 敵航空隊 5機 40秒ごとに敵5機まで補充 敵艦隊 4隻 初期構成 操作モード イージー ノーマル 出撃する ↗ キーボードで操縦 照準円内・1.2km以内へ自動射撃 · 弾道を見て少し先を狙う ルールと操作方法 操作設定 キーボード：← 左旋回",
       "bounds": {
         "x": 54,
         "y": 403.171875,
         "width": 340,
         "height": 424.78125
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": true
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 340,
+        "height": 425
       },
       "css": {
         "display": "block",
@@ -2094,12 +504,24 @@
       "tag": "div",
       "id": null,
       "className": "mission-data",
-      "text": "味方編隊\n5機\n自機 + 僚機4\n敵航空隊\n5機\n40秒ごとに敵5機まで補充\n敵艦隊\n4隻\n初期構成",
+      "text": "味方編隊 5機 自機 + 僚機4 敵航空隊 5機 40秒ごとに敵5機まで補充 敵艦隊 4隻 初期構成",
       "bounds": {
         "x": 54,
         "y": 403.171875,
         "width": 340,
         "height": 117.1875
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 340,
+        "height": 115
       },
       "css": {
         "display": "grid",
@@ -2130,6 +552,18 @@
         "width": 166,
         "height": 44
       },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 164,
+        "height": 42
+      },
       "css": {
         "display": "flex",
         "position": "static",
@@ -2156,6 +590,18 @@
       "bounds": {
         "x": 100.5,
         "y": 579.859375,
+        "width": 13,
+        "height": 13
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
         "width": 13,
         "height": 13
       },
@@ -2188,6 +634,18 @@
         "width": 166,
         "height": 44
       },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 164,
+        "height": 42
+      },
       "css": {
         "display": "flex",
         "position": "static",
@@ -2217,6 +675,18 @@
         "width": 13,
         "height": 13
       },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 13,
+        "height": 13
+      },
       "css": {
         "display": "block",
         "position": "static",
@@ -2239,12 +709,24 @@
       "tag": "button",
       "id": "start",
       "className": "primary",
-      "text": "画面を準備しています",
+      "text": "出撃する ↗",
       "bounds": {
         "x": 54,
         "y": 620.359375,
         "width": 340,
         "height": 52
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 338,
+        "height": 50
       },
       "css": {
         "display": "flex",
@@ -2265,6 +747,47 @@
       }
     },
     {
+      "tag": "p",
+      "id": null,
+      "className": "controls-guide",
+      "text": "キーボードで操縦 照準円内・1.2km以内へ自動射撃 · 弾道を見て少し先を狙う",
+      "bounds": {
+        "x": 54,
+        "y": 687.359375,
+        "width": 340,
+        "height": 39.59375
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": true
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 340,
+        "height": 40
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "11px",
+        "lineHeight": "19.8px",
+        "fontWeight": "400",
+        "color": "rgb(173, 196, 198)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "15px 0px 7px",
+        "border": "0px none rgb(173, 196, 198)"
+      }
+    },
+    {
       "tag": "button",
       "id": "home-rules",
       "className": "secondary",
@@ -2274,6 +797,18 @@
         "y": 733.953125,
         "width": 166,
         "height": 44
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": true
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 164,
+        "height": 42
       },
       "css": {
         "display": "flex",
@@ -2304,6 +839,18 @@
         "width": 166,
         "height": 44
       },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": true
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 166,
+        "height": 44
+      },
       "css": {
         "display": "block",
         "position": "static",
@@ -2323,6 +870,47 @@
       }
     },
     {
+      "tag": "p",
+      "id": "keyboard-guide",
+      "className": "keyboard-guide",
+      "text": "キーボード：← 左旋回 · → 右旋回 · ↑ 上昇 · ↓ 下降 · L 宙返り · Z 爆弾 · X 魚雷 · Esc 一時停止・再開",
+      "bounds": {
+        "x": 54,
+        "y": 785.953125,
+        "width": 340,
+        "height": 34
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": true
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 340,
+        "height": 34
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "10px",
+        "lineHeight": "17px",
+        "fontWeight": "400",
+        "color": "rgb(184, 203, 206)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "8px 0px",
+        "border": "0px none rgb(184, 203, 206)"
+      }
+    },
+    {
       "tag": "button",
       "id": "home-sound",
       "className": "text-button",
@@ -2330,6 +918,18 @@
       "bounds": {
         "x": 306,
         "y": 845.953125,
+        "width": 88,
+        "height": 44
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": true
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
         "width": 88,
         "height": 44
       },

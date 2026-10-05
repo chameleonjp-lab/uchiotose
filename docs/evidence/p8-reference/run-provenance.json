@@ -1,0 +1,50 @@
+{
+  "side": "reference",
+  "source": "http://127.0.0.1:4177",
+  "startedAtProvenance": {
+    "candidateCodeCommit": "da017ad25fce53e4ee06920053cfdb99aeae6970",
+    "candidateCodeTree": "a3e9a18e1a00d5188a9b95805ce20bf5888f8529",
+    "candidateSourceSha256": "33a86b8766493683623473e725646f4015eb62403fd844a1d28cfbe077088c6a",
+    "loadedSourceRepository": "/workspace/kaisen-reference",
+    "loadedSourceCommit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "loadedSourceTree": "1134d5e67196bc10fb9d6fc1df4d4b783e07c18b",
+    "loadedSourceSha256": "d55b4f590db2aa6f0c18779646f33487a36ba214c5b2783ea9332556626d3642",
+    "loadedSourceWorktree": "clean"
+  },
+  "endedAtProvenance": {
+    "candidateCodeCommit": "da017ad25fce53e4ee06920053cfdb99aeae6970",
+    "candidateCodeTree": "a3e9a18e1a00d5188a9b95805ce20bf5888f8529",
+    "candidateSourceSha256": "33a86b8766493683623473e725646f4015eb62403fd844a1d28cfbe077088c6a",
+    "loadedSourceRepository": "/workspace/kaisen-reference",
+    "loadedSourceCommit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "loadedSourceTree": "1134d5e67196bc10fb9d6fc1df4d4b783e07c18b",
+    "loadedSourceSha256": "d55b4f590db2aa6f0c18779646f33487a36ba214c5b2783ea9332556626d3642",
+    "loadedSourceWorktree": "clean"
+  },
+  "sourceUnchanged": true,
+  "captureFailure": null,
+  "browserErrorCount": 0,
+  "viewports": [
+    {
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "screens": [
+    "pause"
+  ],
+  "captureAircraft": false,
+  "stalledFrameRecoveries": [],
+  "renderConditions": [
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "screen": "pause",
+      "rendererBackend": null,
+      "softwareRenderer": null,
+      "pixelRatio": 1
+    }
+  ]
+}

@@ -233,6 +233,7 @@ async function showScreen(page, screen, recoveryLog) {
     await openGame(page, 'normal', recoveryLog);
     await click(page, isReference ? '#pause' : '#pause-button');
     await page.locator('#pause-screen').waitFor({ state: 'visible' });
+    await page.locator('#resume').focus();
   } else if (screen === 'result') {
     await ensureHome(page);
     if (isReference) {

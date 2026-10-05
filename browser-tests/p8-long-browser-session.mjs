@@ -145,9 +145,9 @@ try {
     const start = document.querySelector('#start');
     return start instanceof HTMLButtonElement && !start.disabled;
   }, null, { timeout: 60000 });
-  await page.locator('#home-sound').click();
+  await page.locator('#home-sound').tap();
   await page.locator('input[name="game-mode"][value="easy"]').check();
-  await page.locator('#start').click();
+  await page.locator('#start').tap();
   await page.waitForFunction(() => document.querySelector('#app')?.getAttribute('data-screen') === 'playing', null, { timeout: 15000 });
   await page.waitForTimeout(500);
   try {

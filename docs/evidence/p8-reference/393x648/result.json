@@ -1,0 +1,914 @@
+{
+  "side": "reference",
+  "source": "http://127.0.0.1:4177",
+  "screen": "result",
+  "viewport": {
+    "width": 393,
+    "height": 648
+  },
+  "deviceScaleFactor": 1,
+  "provenance": {
+    "candidateCodeCommit": "1de85aa933c0ed69a1115c6da744c4b0e72d641e",
+    "candidateCodeTree": "b63eafd40a62f4ae6f020a04f1527023d1c28dae",
+    "candidateSourceSha256": "3dbe1b33573695448e942535a9f6fcfe67e36824a3c3785d4c8f194183058c5d",
+    "loadedSourceRepository": "/workspace/kaisen-reference",
+    "loadedSourceCommit": "3d751051dc6212482a129e8da596ddd349b2f9f5",
+    "loadedSourceTree": "1134d5e67196bc10fb9d6fc1df4d4b783e07c18b",
+    "loadedSourceSha256": "d55b4f590db2aa6f0c18779646f33487a36ba214c5b2783ea9332556626d3642",
+    "loadedSourceWorktree": "clean"
+  },
+  "stalledFrameRecoveries": [],
+  "inputEmulation": "touch emulation",
+  "title": "カイセン",
+  "capturedAt": "2026-10-05T04:12:48.174Z",
+  "capturePath": "ordinary ArrowDown held to natural sea-impact defeat",
+  "appScreen": "result",
+  "appMode": "normal",
+  "focusedElement": {
+    "tag": "button",
+    "id": "retry",
+    "text": "もう一度出撃"
+  },
+  "scroll": {
+    "x": 0,
+    "y": 0,
+    "bodyWidth": 393,
+    "bodyHeight": 648,
+    "viewportWidth": 393,
+    "viewportHeight": 648
+  },
+  "observation": {
+    "phase": "ended",
+    "mode": "normal",
+    "selectedMode": "normal",
+    "screen": "result",
+    "tick": 209,
+    "elapsed": 3.4833333333333334,
+    "graphicsReady": true,
+    "renderStatus": "pending",
+    "lastInterruption": null,
+    "renderer": {
+      "queue": {
+        "status": "pending",
+        "failure": null,
+        "pendingMs": 51.70000000111759,
+        "lastCompletedPendingMs": 51,
+        "completedFrameIntervalMs": 52.79999999888241,
+        "submittedCount": 43,
+        "completedCount": 42,
+        "skippedCount": 1530
+      },
+      "calls": 50,
+      "triangles": 93984,
+      "geometries": 50,
+      "textures": 4,
+      "particles": 179,
+      "planes": 10,
+      "ships": 4,
+      "width": 393,
+      "height": 648,
+      "pixelRatio": 1
+    },
+    "audio": {
+      "enabled": false,
+      "active": false,
+      "failed": false,
+      "voices": 0,
+      "sources": 0
+    },
+    "frameIntervals": {
+      "samples": 0,
+      "medianMs": null,
+      "p95Ms": null,
+      "maxMs": null
+    },
+    "heap": {
+      "usedJSHeapSize": 26000000,
+      "totalJSHeapSize": 44700000,
+      "jsHeapSizeLimit": 3760000000
+    }
+  },
+  "errors": [],
+  "layout": [
+    {
+      "tag": "main",
+      "id": "app",
+      "className": "",
+      "text": "MISSION REPORT 作戦終了 ノーマル 海面に機体が接触しました 経過時間 00:03.48 最終スコア 0 スコアの内訳 初期敵機への貢献 0 初期敵艦への貢献 0 クリアボーナス 0 速さボーナス 0 損傷回避ボーナス 0 味方への損傷減点 0 味方撃墜の減点 0 ",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 393,
+        "height": 648
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 393,
+        "height": 648
+      },
+      "css": {
+        "display": "block",
+        "position": "relative",
+        "zIndex": "auto",
+        "overflow": "hidden",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(239, 244, 237)"
+      }
+    },
+    {
+      "tag": "canvas",
+      "id": "flight",
+      "className": "",
+      "text": "海上の航空戦闘画面",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 393,
+        "height": 648
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 393,
+        "height": 648
+      },
+      "css": {
+        "display": "block",
+        "position": "absolute",
+        "zIndex": "auto",
+        "overflow": "clip",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(239, 244, 237)"
+      }
+    },
+    {
+      "tag": "canvas",
+      "id": "markers",
+      "className": "",
+      "text": "",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 393,
+        "height": 648
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 393,
+        "height": 648
+      },
+      "css": {
+        "display": "block",
+        "position": "absolute",
+        "zIndex": "auto",
+        "overflow": "clip",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px",
+        "border": "0px none rgb(239, 244, 237)"
+      }
+    },
+    {
+      "tag": "section",
+      "id": "result",
+      "className": "screen modal-screen",
+      "text": "MISSION REPORT 作戦終了 ノーマル 海面に機体が接触しました 経過時間 00:03.48 最終スコア 0 スコアの内訳 初期敵機への貢献 0 初期敵艦への貢献 0 クリアボーナス 0 速さボーナス 0 損傷回避ボーナス 0 味方への損傷減点 0 味方撃墜の減点 0 ",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 393,
+        "height": 648
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 393,
+        "height": 1264
+      },
+      "css": {
+        "display": "flex",
+        "position": "absolute",
+        "zIndex": "3",
+        "overflow": "auto",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(3, 25, 39, 0.85)",
+        "borderRadius": "0px",
+        "padding": "24px 22px",
+        "margin": "0px",
+        "border": "0px none rgb(239, 244, 237)"
+      }
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "className": "panel result-panel",
+      "text": "MISSION REPORT 作戦終了 ノーマル 海面に機体が接触しました 経過時間 00:03.48 最終スコア 0 スコアの内訳 初期敵機への貢献 0 初期敵艦への貢献 0 クリアボーナス 0 速さボーナス 0 損傷回避ボーナス 0 味方への損傷減点 0 味方撃墜の減点 0 ",
+      "bounds": {
+        "x": 22,
+        "y": 24,
+        "width": 349,
+        "height": 1216.234375
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": true
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 347,
+        "height": 1214
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "5px",
+        "padding": "28px 22px",
+        "margin": "0px",
+        "border": "1px solid rgba(171, 198, 197, 0.18)"
+      }
+    },
+    {
+      "tag": "p",
+      "id": "result-kicker",
+      "className": "eyebrow",
+      "text": "MISSION REPORT",
+      "bounds": {
+        "x": 45,
+        "y": 53,
+        "width": 303,
+        "height": 17
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 303,
+        "height": 17
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "10px",
+        "lineHeight": "17px",
+        "fontWeight": "600",
+        "color": "rgb(228, 200, 139)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px 0px 14px",
+        "border": "0px none rgb(228, 200, 139)"
+      }
+    },
+    {
+      "tag": "h2",
+      "id": "result-title",
+      "className": "",
+      "text": "作戦終了",
+      "bounds": {
+        "x": 45,
+        "y": 84,
+        "width": 303,
+        "height": 44
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 303,
+        "height": 44
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "\"Hiragino Mincho ProN\", \"Yu Mincho\", serif",
+        "fontSize": "30px",
+        "lineHeight": "normal",
+        "fontWeight": "500",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px 0px 14px",
+        "border": "0px none rgb(239, 244, 237)"
+      }
+    },
+    {
+      "tag": "p",
+      "id": "result-mode",
+      "className": "mode-label",
+      "text": "ノーマル",
+      "bounds": {
+        "x": 45,
+        "y": 136,
+        "width": 303,
+        "height": 20.390625
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 303,
+        "height": 20
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "12px",
+        "lineHeight": "20.4px",
+        "fontWeight": "400",
+        "color": "rgb(181, 203, 208)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "-6px 0px 14px",
+        "border": "0px none rgb(181, 203, 208)"
+      }
+    },
+    {
+      "tag": "p",
+      "id": "result-reason",
+      "className": "",
+      "text": "海面に機体が接触しました",
+      "bounds": {
+        "x": 45,
+        "y": 170.390625,
+        "width": 303,
+        "height": 20.390625
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 303,
+        "height": 20
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "12px",
+        "lineHeight": "20.4px",
+        "fontWeight": "400",
+        "color": "rgb(181, 203, 208)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "12px 0px",
+        "border": "0px none rgb(181, 203, 208)"
+      }
+    },
+    {
+      "tag": "p",
+      "id": null,
+      "className": "result-score-total",
+      "text": "最終スコア 0",
+      "bounds": {
+        "x": 45,
+        "y": 357.78125,
+        "width": 303,
+        "height": 82.1875
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 303,
+        "height": 82
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "14px",
+        "lineHeight": "23.8px",
+        "fontWeight": "400",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "18px 0px",
+        "border": "0px none rgb(239, 244, 237)"
+      }
+    },
+    {
+      "tag": "section",
+      "id": null,
+      "className": "score-breakdown",
+      "text": "スコアの内訳 初期敵機への貢献 0 初期敵艦への貢献 0 クリアボーナス 0 速さボーナス 0 損傷回避ボーナス 0 味方への損傷減点 0 味方撃墜の減点 0 撃破数には増援を含みます。加点は初期敵機と艦の船体へ、自機が与えた損傷に応じます。増援の撃墜はHP回復のみです。 内訳は",
+      "bounds": {
+        "x": 45,
+        "y": 457.96875,
+        "width": 303,
+        "height": 418.578125
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": true
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 303,
+        "height": 417
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "16px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "14px 0px",
+        "margin": "0px",
+        "border": ""
+      }
+    },
+    {
+      "tag": "h3",
+      "id": "score-breakdown-title",
+      "className": "",
+      "text": "スコアの内訳",
+      "bounds": {
+        "x": 45,
+        "y": 472.96875,
+        "width": 303,
+        "height": 21
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": false
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 303,
+        "height": 21
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "15px",
+        "lineHeight": "normal",
+        "fontWeight": "500",
+        "color": "rgb(239, 244, 237)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "0px 0px 12px",
+        "border": "0px none rgb(239, 244, 237)"
+      }
+    },
+    {
+      "tag": "p",
+      "id": "score-scope-note",
+      "className": "",
+      "text": "撃破数には増援を含みます。加点は初期敵機と艦の船体へ、自機が与えた損傷に応じます。増援の撃墜はHP回復のみです。",
+      "bounds": {
+        "x": 45,
+        "y": 698.96875,
+        "width": 303,
+        "height": 59.390625
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": true
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 303,
+        "height": 59
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "12px",
+        "lineHeight": "19.8px",
+        "fontWeight": "400",
+        "color": "rgb(184, 204, 204)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "12px 0px 0px",
+        "border": "0px none rgb(184, 204, 204)"
+      }
+    },
+    {
+      "tag": "p",
+      "id": "score-rounding-note",
+      "className": "",
+      "text": "内訳は小数第2位まで表示します。最終スコアは丸める前の値を合計し、最後に一度だけ整数に丸めます。表示した内訳の合計とは差が出ることがあります。",
+      "bounds": {
+        "x": 45,
+        "y": 770.359375,
+        "width": 303,
+        "height": 59.390625
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": true
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 303,
+        "height": 59
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "12px",
+        "lineHeight": "19.8px",
+        "fontWeight": "400",
+        "color": "rgb(184, 204, 204)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "12px 0px 0px",
+        "border": "0px none rgb(184, 204, 204)"
+      }
+    },
+    {
+      "tag": "p",
+      "id": "result-score-version",
+      "className": "",
+      "text": "得点ルール1 · 貢献スコア",
+      "bounds": {
+        "x": 45,
+        "y": 841.75,
+        "width": 303,
+        "height": 19.796875
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": true
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 303,
+        "height": 20
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "12px",
+        "lineHeight": "19.8px",
+        "fontWeight": "400",
+        "color": "rgb(184, 204, 204)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "12px 0px 0px",
+        "border": "0px none rgb(184, 204, 204)"
+      }
+    },
+    {
+      "tag": "p",
+      "id": "friendly-fire-result",
+      "className": "",
+      "text": "誤射 0.0 HP · 味方撃墜 0機",
+      "bounds": {
+        "x": 45,
+        "y": 880.546875,
+        "width": 303,
+        "height": 18.6875
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": true
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 303,
+        "height": 19
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "11px",
+        "lineHeight": "18.7px",
+        "fontWeight": "400",
+        "color": "rgb(184, 203, 206)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "4px 0px",
+        "border": "0px none rgb(184, 203, 206)"
+      }
+    },
+    {
+      "tag": "button",
+      "id": "retry",
+      "className": "primary",
+      "text": "もう一度出撃",
+      "bounds": {
+        "x": 45,
+        "y": 1017.234375,
+        "width": 303,
+        "height": 52
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": true
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 301,
+        "height": 50
+      },
+      "css": {
+        "display": "flex",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "15px",
+        "lineHeight": "normal",
+        "fontWeight": "650",
+        "color": "rgb(21, 44, 53)",
+        "backgroundColor": "rgb(229, 204, 152)",
+        "borderRadius": "3px",
+        "padding": "1px 6px",
+        "margin": "25px 0px 0px",
+        "border": "1px solid rgb(245, 229, 189)"
+      }
+    },
+    {
+      "tag": "button",
+      "id": "result-home",
+      "className": "secondary",
+      "text": "ホームへ戻る",
+      "bounds": {
+        "x": 45,
+        "y": 1080.234375,
+        "width": 303,
+        "height": 48
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": true
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 301,
+        "height": 46
+      },
+      "css": {
+        "display": "flex",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "15px",
+        "lineHeight": "normal",
+        "fontWeight": "650",
+        "color": "rgb(226, 234, 228)",
+        "backgroundColor": "rgba(173, 202, 197, 0.063)",
+        "borderRadius": "3px",
+        "padding": "1px 6px",
+        "margin": "11px 0px 0px",
+        "border": "1px solid rgba(157, 186, 189, 0.35)"
+      }
+    },
+    {
+      "tag": "button",
+      "id": "result-controls",
+      "className": "text-button",
+      "text": "操作設定",
+      "bounds": {
+        "x": 170.5,
+        "y": 1140.234375,
+        "width": 52,
+        "height": 44
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": true
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 52,
+        "height": 44
+      },
+      "css": {
+        "display": "inline-block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "12px",
+        "lineHeight": "normal",
+        "fontWeight": "400",
+        "color": "rgb(200, 216, 213)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "8px 2px",
+        "margin": "12px 0px 0px",
+        "border": "0px none rgb(200, 216, 213)"
+      }
+    },
+    {
+      "tag": "p",
+      "id": null,
+      "className": "result-note",
+      "text": "この試作ではオンライン送信は行いません",
+      "bounds": {
+        "x": 45,
+        "y": 1194.234375,
+        "width": 303,
+        "height": 17
+      },
+      "outsideViewport": {
+        "left": false,
+        "top": false,
+        "right": false,
+        "bottom": true
+      },
+      "scroll": {
+        "left": 0,
+        "top": 0,
+        "width": 303,
+        "height": 17
+      },
+      "css": {
+        "display": "block",
+        "position": "static",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "visibility": "visible",
+        "fontFamily": "system-ui, -apple-system, \"Hiragino Kaku Gothic ProN\", \"Noto Sans JP\", sans-serif",
+        "fontSize": "10px",
+        "lineHeight": "17px",
+        "fontWeight": "400",
+        "color": "rgb(181, 203, 208)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "padding": "0px",
+        "margin": "10px 0px 0px",
+        "border": "0px none rgb(181, 203, 208)"
+      }
+    }
+  ]
+}

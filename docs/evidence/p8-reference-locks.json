@@ -20,11 +20,13 @@
     }
   ],
   "candidate": {
-    "commit": null,
-    "note": "Record the exact candidate HEAD after P0-P7 integration before final comparison."
+    "commit": "da017ad25fce53e4ee06920053cfdb99aeae6970",
+    "tree": "a3e9a18e1a00d5188a9b95805ce20bf5888f8529",
+    "trackedSourceSha256": "33a86b8766493683623473e725646f4015eb62403fd844a1d28cfbe077088c6a",
+    "state": "clean at capture start and end"
   },
   "visualCapture": {
-    "status": "prepared; captures pending completed candidate",
+    "status": "24 reference/candidate screen pairs captured and independently reviewed",
     "browser": "Google Chrome for Testing 149.0.7827.55 from PLAYWRIGHT_BROWSERS_PATH=/tmp/uchiotose-browsers; Playwright 1.61.1",
     "deviceScaleFactor": 1,
     "viewports": [
@@ -42,7 +44,9 @@
       "rules",
       "result"
     ],
-    "aircraftCameraComparison": "pending"
+    "touchSettings": "Normal mode, Fire selected, preview scrolled into view on both sides",
+    "aircraftCameraComparison": "six Easy/Normal pairs at three viewports; all image SHA-256 pairs match",
+    "perScreenJson": "authoritative source provenance for each capture; reference capture used several filtered runs"
   },
   "referenceSmoke": {
     "repository": "chameleonjp-lab/kaisen",
@@ -69,6 +73,7 @@
     "result": "Reference startup smoke only; not a physical-device result or candidate acceptance."
   },
   "device": {
-    "iphoneSafari": "not tested on a physical device"
+    "iphoneSafari": "not tested on a physical device",
+    "softwareRenderer": "candidate used SwiftShader with pixelRatio 0.75; Kaisen reference pixelRatio was 1.0"
   }
 }
