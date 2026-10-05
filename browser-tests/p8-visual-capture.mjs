@@ -117,7 +117,8 @@ async function collectLayout(page) {
     const props = ['display', 'position', 'zIndex', 'overflow', 'visibility', 'fontFamily', 'fontSize', 'lineHeight', 'fontWeight', 'color', 'backgroundColor', 'borderRadius', 'padding', 'margin', 'border'];
     const selectors = [
       '#app', '#flight', '#markers', '#home', '#hud', '#hud-time', '#hud-mode', '#hud-aircraft',
-      '#hud-aircraft-active', '#hud-ships', '#hud-enemies', '#hud-score', '#pause-screen', '#result',
+      '#hud-aircraft-active', '#hud-ships', '#hud-enemies', '#hud-score', '#hud-warning',
+      '.hud-top', '.time-block', '.target-tally', '#pause-screen', '#result',
       '#control-settings', '#rules-guide', '.brand-line', '.home-copy', '.briefing', '.mission-data',
       '.panel', '.settings-shell', '.settings-main', '.control-preview', '.keyboard-settings-list',
       '.rules-content', '.result-panel', '.score-breakdown',
@@ -203,10 +204,13 @@ async function showScreen(page, screen, recoveryLog) {
   } else if (screen === 'touch-settings' || screen === 'pc-key-settings') {
     await ensureHome(page);
     await waitForStart(page);
+    await chooseMode(page, 'normal');
     await click(page, isReference ? '#home-controls' : '#home-settings');
     await page.locator('#control-settings').waitFor({ state: 'visible' });
+    await click(page, '#control-editor-touch');
+    await page.locator('#control-mode').selectOption('normal');
+    await page.locator('#control-target').selectOption('fire');
     if (screen === 'touch-settings') {
-      await click(page, '#control-editor-touch');
       await page.locator('.control-preview').scrollIntoViewIfNeeded();
     }
     else await click(page, '#control-editor-keyboard');
@@ -408,6 +412,22 @@ async function capture(page, viewport, screen) {
       focusedElement: await page.evaluate(() => ({ tag: document.activeElement?.tagName.toLowerCase(), id: document.activeElement?.id || null, text: (document.activeElement?.textContent || '').trim().slice(0, 100) })),
       scroll: await page.evaluate(() => ({ x: scrollX, y: scrollY, bodyWidth: document.body.scrollWidth, bodyHeight: document.body.scrollHeight, viewportWidth: innerWidth, viewportHeight: innerHeight })),
       observation: await readObservation(page),
+      settingsComparison: await page.evaluate(() => {
+        const app = document.querySelector('#app')?.getBoundingClientRect();
+        const preview = document.querySelector('#control-preview');
+        const previewRect = preview?.getBoundingClientRect();
+        const controls = [...(preview?.querySelectorAll('.preview-control') ?? [])];
+        return preview ? {
+          adjustmentMode: document.querySelector('#control-mode')?.value ?? null,
+          selectedControl: document.querySelector('#control-target')?.value ?? null,
+          previewScale: app?.width && previewRect?.width ? previewRect.width / app.width : null,
+          previewBounds: previewRect ? { x: previewRect.x, y: previewRect.y, width: previewRect.width, height: previewRect.height } : null,
+          visibleControls: controls.filter((node) => !node.hidden).map((node) => {
+            const rect = node.getBoundingClientRect();
+            return { control: node.getAttribute('data-control'), label: node.textContent?.trim(), bounds: { x: rect.x, y: rect.y, width: rect.width, height: rect.height } };
+          }),
+        } : null;
+      }),
       errors,
       layout: await collectLayout(page),
     };

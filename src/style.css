@@ -1061,9 +1061,14 @@ p {
   .hud-actions { align-self: center; flex-shrink: 0; }
   .flight-data { top: calc(125px + var(--safe-top)); }
   #hud-score { top: calc(124px + var(--safe-top)); }
-  .warning { top: calc(216px + var(--safe-top)); }
+  .warning { top: calc(236px + var(--safe-top)); }
+  #app[data-mode="normal"] .warning { top: calc(280px + var(--safe-top)); }
 }
 .warning:empty { display: none; }
+.warning { margin: 0; line-height: 1.2; }
+@media (orientation: landscape) and (max-height: 600px) {
+  .home-copy h1 { font-size: 40px; white-space: nowrap; }
+}
 @media (orientation: landscape) and (max-height: 600px) {
   .targets { min-width: 218px; }
   .rules-header { padding: 8px 14px; }

@@ -16,6 +16,10 @@ function el<T extends HTMLElement = HTMLElement>(id: string): T {
   return node as T;
 }
 function text(id: string, value: string): void { const node = document.getElementById(id); if (node && node.textContent !== value) node.textContent = value; }
+function homeStatus(message: string, prepared = false): void {
+  text('p1-status', message);
+  el('p1-status').hidden = prepared;
+}
 function time(seconds: number): string {
   return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(Math.floor(seconds % 60)).padStart(2, '0')}`;
 }
@@ -227,7 +231,7 @@ function frame(now: number): void {
     }
     faulted = true; ready = false;
     el<HTMLButtonElement>('start').disabled = true;
-    text('p1-status','描画または作戦処理が中断されました。ページを再読み込みしてください');
+    homeStatus('描画または作戦処理が中断されました。ページを再読み込みしてください');
     pause('処理を継続できません。ページを再読み込みしてください');
     text('pause-reason','処理を継続できません。ページを再読み込みしてください');
     screen();
@@ -271,7 +275,7 @@ canvas.addEventListener('webglcontextrestored', () => {
       if (!current()) return;
       ++recoveryGeneration; faulted = true; ready = false; screen();
       text('pause-reason','描画を復旧できません。ページを再読み込みしてください');
-      text('p1-status','描画を復旧できません。ページを再読み込みしてください');
+      homeStatus('描画を復旧できません。ページを再読み込みしてください');
       console.error(error);
     };
     const recoveryTimeout = setTimeout(() => fail(new Error('Graphics recovery timed out')), 30000);
@@ -313,7 +317,7 @@ if (import.meta.env.DEV) {
 function preparationFailed(error: unknown): void {
   ready = false; faulted = true;
   el<HTMLButtonElement>('start').disabled = true;
-  text('p1-status','3D描画を起動できません。WebGL対応ブラウザで再読み込みしてください');
+  homeStatus('3D描画を起動できません。WebGL対応ブラウザで再読み込みしてください');
   console.error(error);
 }
 try {
@@ -332,7 +336,7 @@ try {
       if (status !== 'ready' || contextLost) { preparationFailed(new Error(`Graphics preparation ${status}`)); return; }
       ready = true;
       el<HTMLButtonElement>('start').disabled = false;
-      text('p1-status','準備完了 · 操作設定とルールを確認して出撃できます');
+      homeStatus('準備完了 · 操作設定とルールを確認して出撃できます', true);
       screen(); frameId = requestAnimationFrame(frame);
     };
     frameId = requestAnimationFrame(checkPreparation);

@@ -64,12 +64,26 @@ export function createUIController(options: UIControllerOptions): UIController {
   }, () => controls.clear());
   let soundEnabled = false;
 
+  const renderGuides = (mode: UIMode): void => {
+    const touch = presentation.value === 'touch';
+    requiredElement('input-guide').textContent = touch ? '画面をドラッグして操縦' : 'キーボードで操縦';
+    requiredElement('mode-guide').textContent = mode === 'easy'
+      ? '補助操縦・自動射撃 · 宙返りで回避'
+      : '手動操縦・手動射撃 · 加速・減速で速度調整';
+    const keyboardGuide = requiredElement('keyboard-guide');
+    keyboardGuide.hidden = touch;
+    keyboardGuide.textContent = touch ? '' : keyboard.describe(mode);
+  };
+  const unsubscribePresentation = presentation.subscribe(() => renderGuides(options.mode()));
+  const unsubscribeKeyboard = keyboard.subscribe(() => renderGuides(options.mode()));
+
   const setMode = (mode: UIMode): void => {
     if (!isMode(mode)) return;
     app.dataset.mode = mode;
     for (const radio of document.querySelectorAll<HTMLInputElement>('input[name="game-mode"]')) radio.checked = radio.value === mode;
     controls.setMode(mode);
     settings.setActiveMode(mode);
+    renderGuides(mode);
     for (const name of ['fire', 'loop', 'accelerate', 'brake'] as const) {
       buttons[name].hidden = mode === 'easy' && name !== 'loop';
       buttons[name].setAttribute('aria-hidden', String(buttons[name].hidden));
@@ -175,6 +189,8 @@ export function createUIController(options: UIControllerOptions): UIController {
     openRules,
     dispose(): void {
       abort.abort();
+      unsubscribePresentation();
+      unsubscribeKeyboard();
       guide.dispose();
       settings.dispose();
       presentation.dispose();

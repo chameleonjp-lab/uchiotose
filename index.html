@@ -35,14 +35,15 @@
             <label><input type="radio" name="game-mode" value="easy" checked /><span>イージー</span></label>
             <label><input type="radio" name="game-mode" value="normal" /><span>ノーマル</span></label>
           </fieldset>
-          <button id="start" class="primary" type="button" disabled>作戦開始</button>
+          <button id="start" class="primary" type="button" disabled>作戦開始 <span aria-hidden="true">↗</span></button>
+          <p class="controls-guide"><span id="input-guide">画面をドラッグして操縦</span><br /><span id="mode-guide">補助操縦・自動射撃 · 宙返りで回避</span></p>
           <p id="p1-status" class="controls-guide" role="status" aria-live="polite">3D戦場を準備しています。</p>
           <div class="home-actions">
-            <button id="home-settings" class="secondary" type="button">操作設定</button>
             <button id="home-rules" class="secondary" type="button">ルールと操作方法</button>
+            <button id="home-settings" class="text-button" type="button">操作設定</button>
           </div>
           <button id="home-sound" class="text-button" type="button" aria-pressed="false" aria-label="音声をオンにする">音声 OFF</button>
-          <p class="keyboard-guide">イージーは補助操縦・自動射撃、ノーマルは手動操縦・手動射撃です。</p>
+          <p id="keyboard-guide" class="keyboard-guide" hidden></p>
         </div>
         <footer class="home-footer"><span>UCHIOTOSE / ウチオトセ</span><span>初期音声 OFF</span></footer>
       </section>
@@ -87,10 +88,8 @@
           <button id="resume" class="primary" type="button">作戦再開</button>
           <button id="pause-restart" class="secondary" type="button">再出撃</button>
           <button id="home-return" class="text-button" type="button">ホームへ戻る</button>
-          <div class="home-actions">
-            <button id="pause-settings" class="secondary" type="button">操作設定</button>
-            <button id="pause-rules" class="secondary" type="button">ルールと操作方法</button>
-          </div>
+          <button id="pause-rules" class="secondary" type="button">ルールと操作方法</button>
+          <button id="pause-settings" class="secondary" type="button">操作設定</button>
         </div>
       </section>
 
@@ -107,11 +106,9 @@
             <dl id="result-breakdown"></dl>
             <p id="result-score-version" class="result-note"></p>
           </div>
-          <div class="home-actions">
-            <button id="retry" class="primary" type="button">再出撃</button>
-            <button id="result-settings" class="secondary" type="button">操作設定</button>
-            <button id="result-home" class="text-button" type="button">ホームへ戻る</button>
-          </div>
+          <button id="retry" class="primary" type="button">再出撃</button>
+          <button id="result-home" class="secondary" type="button">ホームへ戻る</button>
+          <button id="result-settings" class="text-button" type="button">操作設定</button>
         </div>
       </section>
     </main>
