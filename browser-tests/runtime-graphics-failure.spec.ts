@@ -1,4 +1,4 @@
-import {expect, test} from '@playwright/test';
+import {expect, test} from './local-only';
 
 test.use({viewport: {width: 393, height: 648}, trace: 'off'});
 test('a GPU wait failure while already paused disables retry and explains reload', async ({page}) => {

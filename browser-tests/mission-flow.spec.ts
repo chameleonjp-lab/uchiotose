@@ -1,4 +1,4 @@
-import {expect, test} from '@playwright/test';
+import {expect, test} from './local-only';
 
 // Planned portrait acceptance viewport; GPU measurements use the same size.
 test.use({viewport: {width: 393, height: 648}});
