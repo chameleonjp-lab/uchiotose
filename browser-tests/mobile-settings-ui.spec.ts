@@ -70,7 +70,10 @@ test('settings retain Normal 4 / Easy 1 controls and nine keys, and persist only
   await page.locator('#control-mode').selectOption('easy');
   await expect(target).toBeDisabled();
   await expect(target).toHaveValue('loop');
-  await expect(target.locator('option:not(:disabled)')).toHaveCount(1);
+  // The Easy select is intentionally disabled; inspect each option's own flag.
+  const easyAvailableControls = await target.locator('option').evaluateAll(options =>
+    options.filter(option => !(option as HTMLOptionElement).disabled).map(option => (option as HTMLOptionElement).value));
+  expect(easyAvailableControls).toEqual(['loop']);
   await editFireKey(page);
   await expect(page.locator('.keyboard-setting-row')).toHaveCount(9);
   await expect(page.locator('#control-keyboard-editor')).not.toContainText(/爆弾|魚雷/);
