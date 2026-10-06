@@ -1,4 +1,5 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './local-only';
+import { isLocalFixtureRequest, LOCAL_FIXTURE_URLS } from './network-policy';
 
 test('flight input requires physical release and recovers from a missed pointer up', async ({ page }) => {
   await page.goto('/');
@@ -78,7 +79,13 @@ test('flight input requires physical release and recovers from a missed pointer 
 });
 
 test('real multi-touch pointer capture release preserves the other held input', async ({ page }) => {
-  await page.route('**/input-probe', route => route.fulfill({
+  await page.route(LOCAL_FIXTURE_URLS.input, async route => {
+    const request = route.request();
+    if (!isLocalFixtureRequest('input', request.url(), request.method(), request.resourceType())) {
+      await route.fallback();
+      return;
+    }
+    await route.fulfill({
     contentType: 'text/html',
     body: `<!doctype html><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
       <style>html,body,#app{margin:0;width:100%;height:100%;touch-action:none}#app{position:fixed;inset:0}button{position:absolute;width:64px;height:64px;touch-action:none}#fire{left:150px;top:60px}#loop{left:230px;top:60px}#accelerate{left:310px;top:60px}#brake{left:150px;top:140px}</style>
@@ -106,7 +113,8 @@ test('real multi-touch pointer capture release preserves the other held input', 
         }
         window.__captureProbe = { controls, down, lost, observed };
       </script>`,
-  }));
+    });
+  });
   await page.goto('/input-probe');
   await page.waitForFunction(() => Boolean((window as Window & { __captureProbe?: unknown }).__captureProbe));
 

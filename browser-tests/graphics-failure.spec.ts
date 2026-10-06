@@ -1,4 +1,4 @@
-import {expect, test} from '@playwright/test';
+import {expect, test} from './local-only';
 
 test.use({launchOptions: {args: ['--disable-webgl']}});
 test('WebGL startup failure leaves an explicit explanation and usable Home guides', async ({page}) => {
