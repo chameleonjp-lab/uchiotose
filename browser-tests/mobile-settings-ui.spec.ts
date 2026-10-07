@@ -183,7 +183,8 @@ test('Normal lever uses real focused keys and pointer capture, preserving short 
       <main id="app" data-screen="playing" data-mode="normal"><section id="hud" class="screen">
         <button id="touch-fire" class="flight-button">射撃</button><button id="touch-loop" class="flight-button">宙返り</button>
         <div id="touch-throttle" class="throttle-lever" role="slider" tabindex="0" aria-label="速度レバー" aria-orientation="vertical" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="0" data-no-steering><span class="throttle-up">加速</span><span class="throttle-neutral">保持</span><span class="throttle-down">減速</span><i class="throttle-handle"></i></div>
-        <p id="throttle-layout-note" hidden></p></section></main><script type="module">
+        <p id="throttle-layout-note" hidden></p></section></main>
+        <button id="after-lever" type="button" style="position:fixed;top:8px;left:8px">レバーの次の操作</button><script type="module">
         import { FlightControls } from '/src/input.ts'; import { ControlSettings } from '/src/control-settings.ts'; import { KeyboardSettings } from '/src/keyboard-settings.ts';
         const buttons={fire:document.querySelector('#touch-fire'),loop:document.querySelector('#touch-loop'),throttle:document.querySelector('#touch-throttle')};
         const keyboard=new KeyboardSettings(), controls=new FlightControls(document.querySelector('#app'),buttons,()=>true,keyboard,'normal');
@@ -200,11 +201,21 @@ test('Normal lever uses real focused keys and pointer capture, preserving short 
   await page.keyboard.press('ArrowUp');
   expect(await page.evaluate(()=>{const c=(window as any).__leverProbe.controls;return [c.sample(false).throttle,c.sample(false).throttle,c.sampleThrottle(),c.sampleThrottle(),c.sample(false).climb];})).toEqual([1,1,1,0,0]);
   await page.keyboard.down('w'); expect(await page.evaluate(()=>(window as any).__leverProbe.controls.sample(false).throttle)).toBe(1);
-  await page.keyboard.press('Tab'); expect(await page.evaluate(()=>(window as any).__leverProbe.controls.sample(false).throttle)).toBe(0);
+  // Keep this focusout case inside the document. Tabbing past its final control
+  // would also blur the window and correctly close the product release gate;
+  // this module fixture has no main.step loop to acknowledge that separate reset.
+  await page.keyboard.press('Tab'); await expect(page.locator('#after-lever')).toBeFocused();
+  expect(await page.evaluate(()=>(window as any).__leverProbe.controls.sample(false).throttle)).toBe(0);
   await page.keyboard.up('w'); expect(await page.evaluate(()=>(window as any).__leverProbe.controls.sampleThrottle())).toBe(0);
-  await page.mouse.move(box!.x+box!.width/2,box!.y+22); await page.mouse.down();
+  expect(await page.evaluate(()=>{const c=(window as any).__leverProbe.controls;return {focused:document.hasFocus(),released:c.allReleased,gated:c.requiresRelease};})).toEqual({focused:true,released:true,gated:false});
+  // Re-read the hit target after keyboard focus navigation instead of reusing
+  // a rectangle captured before focus/scroll changes.
+  const pointerBox=await slider.boundingBox();expect(pointerBox).not.toBeNull();
+  const pointerX=pointerBox!.x+pointerBox!.width/2,pointerY=pointerBox!.y+22;
+  expect(await page.evaluate(({x,y})=>document.elementFromPoint(x,y)?.closest('#touch-throttle')?.id,{x:pointerX,y:pointerY})).toBe('touch-throttle');
+  await page.mouse.move(pointerX,pointerY); await page.mouse.down();
   expect(await page.evaluate(()=>{const c=(window as any).__leverProbe.controls;return {axis:c.sampleThrottle(),capture:document.querySelector('#touch-throttle')!.hasPointerCapture(c.peek().throttlePointer)};})).toEqual({axis:1,capture:true});
-  await page.mouse.move(box!.x+box!.width/2,box!.y+22+(box!.height-44)*.23); await page.mouse.up();
+  await page.mouse.move(pointerX,pointerY+(pointerBox!.height-44)*.23); await page.mouse.up();
   const axes=await page.evaluate(()=>{const c=(window as any).__leverProbe.controls;return [c.sample(false).throttle,c.sampleThrottle(),c.sampleThrottle(),c.requiresRelease];});
   expect(axes[0] as number).toBeCloseTo(.5,1);expect(axes[1] as number).toBeCloseTo(.5,1);expect(axes.slice(2)).toEqual([0,false]);
   await expect(slider).toHaveAttribute('aria-valuenow','0');
