@@ -37,7 +37,7 @@ test('Home is ready and fits the planned viewports', async ({ page }) => {
   }
 });
 
-test('control settings keep nine PC actions and Normal 4 / Easy 1 touch controls', async ({ page }) => {
+test('control settings keep nine PC actions and Normal 3 / Easy 1 touch controls', async ({ page }) => {
   await page.addInitScript(() => {
     localStorage.setItem('kaisen-keyboard-v1', 'legacy keyboard');
     localStorage.setItem('kaisen-controls-v1', 'legacy normal');
@@ -54,9 +54,9 @@ test('control settings keep nine PC actions and Normal 4 / Easy 1 touch controls
   await page.locator('#control-editor-touch').click();
 
   const touchTarget = page.locator('#control-target');
-  await expect(touchTarget.locator('option')).toHaveCount(4);
+  await expect(touchTarget.locator('option')).toHaveCount(3);
   await page.locator('#control-mode').selectOption('normal');
-  await expect(touchTarget.locator('option:not(:disabled)')).toHaveCount(4);
+  await expect(touchTarget.locator('option:not(:disabled)')).toHaveCount(3);
   await page.locator('#control-mode').selectOption('easy');
   await expect(touchTarget).toBeDisabled();
   const easyAvailableControls = await touchTarget.locator('option').evaluateAll(options =>

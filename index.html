@@ -73,8 +73,11 @@
         <p id="hud-ammo" class="flight-tip">機銃 288 / 機関砲 96 · 装填 6秒</p>
         <p id="hud-score" class="score-readout">0点</p>
         <div class="bottom-controls" aria-label="タッチ操作">
-          <button id="touch-brake" class="flight-button throttle-button" type="button">減速</button>
-          <button id="touch-accelerate" class="flight-button throttle-button" type="button">加速</button>
+          <div id="touch-throttle" data-flight-control="throttle" class="throttle-lever" role="slider" tabindex="0" aria-label="速度レバー" aria-describedby="throttle-description" aria-orientation="vertical" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="0" aria-valuetext="保持（速度を維持）" data-no-steering>
+            <span class="throttle-caption">速度レバー</span><span class="throttle-up">加速</span><span class="throttle-neutral">保持</span><span class="throttle-down">減速</span><i class="throttle-handle" aria-hidden="true"></i>
+          </div>
+          <span id="throttle-description" class="visually-hidden">上で加速、下で減速。離すと中央へ戻り、調整した速度は保持します。矢印キーでも操作できます。</span>
+          <p id="throttle-layout-note" class="throttle-layout-note" role="status" hidden>速度レバーを配置できません。画面を回転するか操作設定で位置・大きさを調整してください。加速・減速キーも使えます。</p>
           <button id="touch-loop" class="flight-button loop-button" type="button" aria-label="宙返り"><span aria-hidden="true">↻</span><b>宙返り</b></button>
           <button id="touch-fire" class="flight-button fire-button" type="button">射撃</button>
         </div>

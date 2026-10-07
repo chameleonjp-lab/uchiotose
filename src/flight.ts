@@ -1,4 +1,5 @@
 /** Kaisen 3d751051 flight.ts: numeric adapter; aerodynamic equations are retained. */
+import { resolveThrottleAxis } from './throttle-lever';
 import { PLAYER_MAX_PITCH } from './flight-assist';
 import { add, scale, sub, length, vec, normalize, attitudeQuaternion, quaternionAttitude, transformDirection } from './world-math';
 import type { FlightAircraft, FlightInput, GameMode } from './flight-types';
@@ -95,7 +96,7 @@ export function updatePlayerLoop(
   return completed;
 }
 export function advanceThrottle(meta: FlightController, input: FlightInput, mode: GameMode, dt: number): number {
-  const direction = mode === 'easy' ? 0 : Number(Boolean(input.accelerate)) - Number(Boolean(input.brake));
+  const direction = mode === 'easy' ? 0 : resolveThrottleAxis(input);
   meta.playerTargetSpeed = clamp(meta.playerTargetSpeed + direction * THROTTLE_ADJUST_RATE * dt, STALL_SPEED, MAX_SPEED);
   return meta.playerTargetSpeed;
 }

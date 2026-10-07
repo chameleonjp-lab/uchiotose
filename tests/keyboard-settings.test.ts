@@ -205,11 +205,11 @@ test('input editor preference suggests touch on touch-only devices but never res
   assert.equal(preferredControlEditor(false, false, 5, true), 'keyboard');
 });
 
-test('KeyboardSettings reads only the Uchiotose storage key and applies committed bindings', () => {
+test('KeyboardSettings reads only Uchiotose keyboard and recovery keys and applies committed bindings', () => {
   const data = storage({ [KEYBOARD_STORAGE_KEY]: JSON.stringify({ version: 1, bindings: DEFAULT_KEY_BINDINGS }), 'kaisen-keyboard-v1': 'untouched' });
   Object.defineProperty(globalThis, 'localStorage', { configurable: true, value: data });
   const settings = new KeyboardSettings();
-  assert.deepEqual(data.reads, [KEYBOARD_STORAGE_KEY]);
+  assert.deepEqual(data.reads, ['uchiotose-controls-recovery-v1', KEYBOARD_STORAGE_KEY]);
   assert.equal(settings.code('fire'), 'Space');
   let notifications = 0;
   settings.subscribe(() => { notifications += 1; });

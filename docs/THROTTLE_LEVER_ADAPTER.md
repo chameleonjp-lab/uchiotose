@@ -1,5 +1,7 @@
 # ウチオトセ: 速度レバー追補とadapterの実装待ち
 
+最新のローカル統合状況は末尾「2026-10-07 ローカル統合候補」を参照。以下は2026-10-05時点の記録。
+
 2026-10-05 UTC。対象main: [`df519dae14a09295112f8d7cb9e781b3043bdff4`](https://github.com/chameleonjp-lab/uchiotose/tree/df519dae14a09295112f8d7cb9e781b3043bdff4)。
 
 ## 現在の範囲
@@ -38,3 +40,28 @@ R13の氷効果は通常の目標速度・基準速度とは分離したまま�
 - 未実施/blocked: レバーの単体統合、ゲーム起動後のブラウザー操作、保存移行、端末上の操作感・性能、全ゲーム受入。既存の実装/検査履歴を本レバーの検査結果に流用しない
 
 復元は本追補のcommit差分をGitで戻す。既存文書の本文と旧v1保存は削除しない。mainへの直接push、merge/automerge、配備・公開設定・権限・ランキング変更は本追補に含めない。
+
+## 2026-10-07 ローカル統合候補（未提出・未公開）
+
+上記の2026-10-05記録は当時の未接続状態の履歴として保持する。今回の固定基点は `2a7e815c70baf9dc65721fc938909b6ab083f074`、Git commit APIで確認したroot treeは `54f157d4ace9c3ed4398b706509bd9144ba8a29e`。この基点には飛行/input/設定が揃っており、承認された共通UI・速度レバー統一のローカル候補を作成した。
+
+### 接続内容と保持境界
+
+- 既存の全幅app、Home/Pause/Result、`#touch-fire`・`#touch-loop`、UI-controller境界を保持。旧速度2ボタンを `#touch-throttle` へ置換し、Normal3/Easy1とルール・設定を整合させた。44px以上のhandleと縦slider、共通の長方形プレビューを追加。44px高で実レール長0または安全候補なしの場合はレバーを無効化し、保存を止める
+- `input.sample(false)` は描画frameで未消費入力を保持し、FixedClockの実tickだけ `sampleThrottle()` を消費する。短いW/S・再割当キー・focused矢印・pointerupは1tickへ渡し、0tick frameで失わず8tick catchupへ再生しない。軸更新後の未消費fractionも同じ扱い
+- Uchiotose既存のphysical/blockedキー・pointerとreleaseGateを維持し、レバーも参加する。capture lossは物理liftと扱わず、暗黙capture lossで別ownerを止めない。`controlResetVersion` が変わる実 `main.step` で入力を明示 `throttle: 0` に置換し、実物理releaseとsimulation側の承認を両方通す
+- focusedのW/S・再割当速度キーは入力源を追跡し、focusout/Escapeでそのhold/pendingを破棄する。物理keyup待ちを維持し、keyupで古いpulseを復活させない。レバー未接続の旧fixtureはanalog fieldを追加せず、旧accelerate/brakeと支援技術clickの互換を保つ
+- `flight-types.ts` とinput境界にoptional throttleを追加し、実 `advanceThrottle` が共通resolve関数を使う。65..141m/s、18m/s毎秒、8%deadzone、Easy巡航、空力・氷処理・50機/100戦士/10艦・補充/引継ぎ・勝敗/得点は保持。爆弾・魚雷は追加しない
+- U専用v2 normal/easyと既存keyboard-v1のみを明示保存。旧v1 raw不変、未来version・全件preflight、失敗時raw rollback、allowlist付き復元journalを追加。rollback不完了→Cancel→再open→未変更Saveもjournalを再読取して復元を再試行する。Cancel/表示/ロードは書込なし。「今回だけ使う」はメモリだけで適用する
+- 同時タブのlocalStorage読取・比較・書込は完全排他ではない。競合検出時の拒否・旧v1隔離・控え保持を検査したが、複数タブの線形化や未協調の旧コードを保証しない
+
+### ローカル証跡と残る確認
+
+- 共通pure `src/throttle-lever.ts` SHA-256 `e83fe3c570581d16cb76e08ef9a039bbe9d4a50da6575366ac7e126bf3f30cf0`。契約・fixtureは上記hashからbyte変更なし。35fixtureは製品入力/速度更新を含め検査
+- 最終単体検査205/205、製品TypeScript strict、build、今回追加/変更テスト・specのstrictはpass。独立レビューでfocused速度キー取消の不具合を再現し、修正後4/4、実main.step本文による世代交代/二段gate1/1を確認。既存長時間・world/roster/combat・30/60/120fps・1秒gap停止・8tick予算を含む
+- 任意の全tests/browser追加strictは固定基点・候補とも同じ17診断でfail、診断全文はbyte一致、新規型診断0。既存absolute browser import、Window cast、WebSocket fixture型の未修正診断をpassへ換算しない。製品buildの既存500kB超chunk警告も残る
+- Playwright collectionのみWebKit7/Chromium18を確認。ブラウザ実行・画像比較・実pointer/保存UI・200%表示・実機・音・性能はblocked/not_run。native browser socketのEPERMが確認済みで、今回起動・再試行・迂回を行っていない。DOMの模擬イベント単体検査を実ブラウザや実機合格としない
+- 基点tree226blobのうち86textを取得しGit blob SHAを全件照合。未取得140blob（docs139、`scripts/verify-publication-http.py` 1）は旧証拠/資料等を含み、削除せず変更対象外。ZIP内のsourceは完全checkoutではない。GitHub/Drive書込、PR、CI、merge、配備・公開は実行していない
+- 成果はローカルの旧source控え・候補・全変更path/hash一覧・差分patch・検査ログ・復元メモにまとめる。復元は既知基点に対する限定patch逆適用で行い、未取得パスを残したままにする。控えなし上書き、ディレクトリ全体の置換、再帰削除はしない
+
+参照規約: 採用harness `2accbc6f062c6b7932777c61051df56a02302339` のAGENTS/core.contract/core.execution/registry、ui-input/gameplay-state/security/persistence/testing/delivery。新たな外部書込や権限拡大の承認として扱わない。
