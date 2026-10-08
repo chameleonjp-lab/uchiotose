@@ -6,10 +6,13 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build",
-    "test": "node --import tsx --test tests/*.test.ts",
-    "test:browser": "playwright test",
+    "test": "node scripts/run-unit-tests.mjs",
+    "test:browser": "playwright test --config playwright.ui-only.config.ts",
     "pretest:browser": "npm run test:browser:discovery",
-    "test:browser:discovery": "node scripts/check-browser-discovery.mjs"
+    "test:browser:discovery": "node scripts/check-browser-discovery.mjs playwright.ui-only.config.ts",
+    "test:browser:legacy": "playwright test --config playwright.config.ts",
+    "test:ui:types": "tsc --project tsconfig.ui-only.json",
+    "test:long-session": "node scripts/run-unit-tests.mjs --long-session"
   },
   "dependencies": {
     "three": "0.186.1"

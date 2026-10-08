@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "allowJs": true },
+  "include": [
+    "browser-tests/ui-fixture.ts",
+    "browser-tests/ui-only.spec.ts",
+    "playwright.ui-only.config.ts",
+    "vite.ui-only.config.ts"
+  ]
+}

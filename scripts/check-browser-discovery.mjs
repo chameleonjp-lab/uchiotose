@@ -31,7 +31,7 @@ export function requireBrowserDiscovery(report) {
   return counts;
 }
 
-export function checkBrowserDiscovery() {
+export function checkBrowserDiscovery(config = 'playwright.config.ts') {
   const require = createRequire(import.meta.url);
   const env = { ...process.env };
   // Always consume JSON from stdout, independent of a caller's report-file settings.
@@ -39,7 +39,7 @@ export function checkBrowserDiscovery() {
   delete env.PLAYWRIGHT_JSON_OUTPUT_NAME;
   delete env.PLAYWRIGHT_JSON_OUTPUT_DIR;
   const result = spawnSync(process.execPath, [
-    require.resolve('@playwright/test/cli'), 'test', '--list', '--reporter=json',
+    require.resolve('@playwright/test/cli'), 'test', '--config', config, '--list', '--reporter=json',
   ], {
     cwd: fileURLToPath(new URL('..', import.meta.url)),
     env,
@@ -56,7 +56,7 @@ export function checkBrowserDiscovery() {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  try { checkBrowserDiscovery(); }
+  try { checkBrowserDiscovery(process.argv[2]); }
   catch (error) {
     console.error(error instanceof Error ? error.message : error);
     process.exitCode = 1;
