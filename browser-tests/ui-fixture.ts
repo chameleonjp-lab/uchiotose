@@ -76,7 +76,7 @@ function show(next: UIPhase, selected: GameMode = mode, outcome: 'victory' | 'de
   canvasRegions = {
     sight: {x:sight.x-radius-10,y:sight.y-radius-10,width:radius*2+20,height:radius*2+20},
     enemy: region(world.enemies.E001.position,44,42),
-    friendly: region(world.aircraft.A002.position,14,20),
+    friendly: region(world.aircraft.A002.position,14,20,0),
     ship: region({...world.ships.S001.position,y:1000},24,20,0),
     offscreen: {x:innerWidth-42,y:innerHeight/2-24,width:40,height:48},
   };

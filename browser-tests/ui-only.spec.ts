@@ -80,7 +80,35 @@ async function paintedOverlay(page: Page): Promise<void> {
     };
   });
   for (const [name, pixels] of Object.entries(painted)) {
-    expect(pixels, `${name} must paint its own product Canvas2D region`).toBeGreaterThan(2);
+    let diagnostic: unknown = null;
+    if (name === 'ship' && pixels <= 2) {
+      try {
+        diagnostic = await page.evaluate(() => {
+          const canvas = document.querySelector<HTMLCanvasElement>('#markers')!;
+          const context = canvas.getContext('2d')!;
+          const box = window.__uiOnly.canvasRegions().ship;
+          const x = Math.max(0, Math.floor(box.x)), y = Math.max(0, Math.floor(box.y));
+          const width = Math.min(Math.ceil(box.width), canvas.width - x);
+          const height = Math.min(Math.ceil(box.height), canvas.height - y);
+          const image = context.getImageData(x, y, width, height).data;
+          const colors = new Map<string, number>();
+          let alphaPixels = 0;
+          for (let i = 0; i < image.length; i += 4) {
+            if (image[i + 3] <= 128) continue;
+            alphaPixels++;
+            const rgba = `${image[i]},${image[i + 1]},${image[i + 2]},${image[i + 3]}`;
+            colors.set(rgba, (colors.get(rgba) ?? 0) + 1);
+          }
+          return {
+            box, canvas: {width: canvas.width, height: canvas.height},
+            sample: {x, y, width, height}, alphaPixels,
+            rgbaCounts: [...colors.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8),
+          };
+        });
+      } catch (error) { diagnostic = {diagnosticError: String(error)}; }
+    }
+    const details = diagnostic ? ` Canvas sample: ${JSON.stringify(diagnostic)}` : '';
+    expect(pixels, `${name} must paint its own product Canvas2D region${details}`).toBeGreaterThan(2);
   }
 }
 
