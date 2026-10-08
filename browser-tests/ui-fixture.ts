@@ -52,7 +52,7 @@ function show(next: UIPhase, selected: GameMode = mode, outcome: 'victory' | 'de
   world.aircraft.A002.position = {x: 3800, y: 1000, z: -800};
   world.enemies.E001.position = {x: 4000, y: 1000, z: -500};
   world.enemies.E002.position = {x: 4500, y: 1000, z: 100};
-  world.ships.S001.position = {x: 4250, y: 980, z: -900};
+  world.ships.S001.position = {x: 4295, y: 940, z: -900};
   mission.aircraft[0].reloadUntilTick = mission.tick + 180;
   renderHUD({mission, world}, mode);
   const canvas = el<HTMLCanvasElement>('markers');
@@ -77,7 +77,7 @@ function show(next: UIPhase, selected: GameMode = mode, outcome: 'victory' | 'de
     sight: {x:sight.x-radius-10,y:sight.y-radius-10,width:radius*2+20,height:radius*2+20},
     enemy: region(world.enemies.E001.position,44,42),
     friendly: region(world.aircraft.A002.position,14,20,0),
-    ship: region({...world.ships.S001.position,y:1000},24,20,0),
+    ship: region({...world.ships.S001.position,y:960},24,20,0),
     offscreen: {x:innerWidth-42,y:innerHeight/2-24,width:40,height:48},
   };
   text('hud-score', '15,101点');
