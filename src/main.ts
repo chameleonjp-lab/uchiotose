@@ -191,7 +191,7 @@ function step(input: FlightInput): boolean {
   if (controlResetVersion !== state.mission.controlResetVersion) {
     controlResetVersion = state.mission.controlResetVersion;
     ui.controls.clear(); renderer?.resetCamera(); pendingLoop = false;
-    input = {turn: 0, climb: 0, fire: false, loop: false, accelerate: false, brake: false};
+    input = {turn: 0, climb: 0, fire: false, loop: false, throttle: 0, accelerate: false, brake: false};
   }
   if (ui.controls.allReleased) {
     ui.controls.acknowledgeRelease(); state = releaseSimulationInput(state);
@@ -209,12 +209,12 @@ function frame(now: number): void {
     frameTimes.push(now - previousFrame); if (frameTimes.length > 36000) frameTimes.shift();
   }
   previousFrame = now;
-  const input = ui.controls.sample();
+  const input = ui.controls.sample(false);
   pendingLoop ||= input.loop;
   if (faulted) return;
   try {
     const overload = clock.frame(now, state.mission.phase === 'playing', () => {
-      const accepted = {...input, loop: pendingLoop}; pendingLoop = false; return step(accepted);
+      const accepted = {...input, throttle: ui.controls.sampleThrottle(), loop: pendingLoop}; pendingLoop = false; return step(accepted);
     });
     if (overload) pause('処理負荷が高いため停止しました。再開すると未処理時間を追いかけずに続行します');
     if (renderer && !contextLost) renderer.render(state.world, state.mission, state.projectiles, mode, state.mission.phase === 'playing' ? clock.interpolation : 1);

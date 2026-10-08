@@ -6,6 +6,94 @@ const homeViewports = [
   { width: 1280, height: 720 },
 ];
 
+test('real mission input generation blocks an old hold until release, then the Normal lever changes speed on real ticks', async ({ page }, testInfo) => {
+  // Read the existing DEV snapshot only. No state setters, synthetic events,
+  // direct control sampling, clock replacement or simulation stepping are used.
+  const read = () => page.evaluate(() => {
+    const api = (window as Window & { __uchiotose?: { snapshot(): import('../src/simulation').SimulationState } }).__uchiotose;
+    if (!api) throw new Error('The real mission snapshot is unavailable');
+    const state = api.snapshot();
+    const id = state.mission.controlledAircraftId;
+    if (!id || !state.world.aircraft[id]) throw new Error('The controlled aircraft is unavailable; do not count a handoff as input acceptance');
+    return {
+      missionId: state.mission.missionId, aircraftId: id, phase: state.mission.phase,
+      tick: state.mission.tick, version: state.mission.controlResetVersion,
+      requiresRelease: state.mission.requiresInputRelease,
+      targetSpeed: state.world.aircraft[id].controller.playerTargetSpeed,
+    };
+  });
+  await page.goto('/');
+  await expect(page.locator('#start')).toBeEnabled();
+  await page.getByLabel('ノーマル', { exact: true }).check();
+  await page.locator('#start').click();
+  await expect.poll(async () => {
+    const value = await read();
+    return value.phase === 'playing' && value.tick > 2 && !value.requiresRelease;
+  }).toBe(true);
+  const initial = await read();
+  await page.locator('#flight').focus();
+  await page.keyboard.down('w');
+  try {
+    await expect.poll(async () => (await read()).targetSpeed).toBeGreaterThan(initial.targetSpeed);
+    await page.locator('#pause-button').click();
+    await expect(page.locator('#app')).toHaveAttribute('data-screen', 'paused');
+    const paused = await read();
+    expect(paused.version).toBeGreaterThan(initial.version);
+    expect(paused.requiresRelease).toBe(true);
+    await page.locator('#resume').click();
+    await expect.poll(async () => (await read()).tick).toBeGreaterThan(paused.tick + 3);
+    const blocked = await read();
+    expect(blocked.phase).toBe('playing');
+    expect(blocked.missionId).toBe(initial.missionId);
+    expect(blocked.aircraftId).toBe(initial.aircraftId);
+    expect(blocked.version).toBeGreaterThan(paused.version);
+    expect(blocked.requiresRelease).toBe(true);
+    expect(blocked.targetSpeed).toBe(paused.targetSpeed);
+    await page.keyboard.up('w');
+    await expect.poll(async () => (await read()).requiresRelease).toBe(false);
+    const released = await read();
+    expect(released.targetSpeed).toBe(paused.targetSpeed);
+
+    const lever = page.getByRole('slider', { name: '速度レバー' });
+    await expect(lever).toBeVisible();
+    await expect(lever).toHaveAttribute('aria-disabled', 'false');
+    await lever.focus();
+    // Decelerate after the old accelerating hold, so an upper speed cap cannot
+    // conceal whether the new lever command reached the product simulation.
+    await page.keyboard.down('ArrowDown');
+    try {
+      await expect(lever).toHaveAttribute('aria-valuenow', '-100');
+      await expect.poll(async () => (await read()).targetSpeed).toBeLessThan(released.targetSpeed);
+    } finally {
+      await page.keyboard.up('ArrowDown');
+    }
+    await expect(lever).toHaveAttribute('aria-valuenow', '0');
+    const consumed = await read();
+    expect(consumed.tick).toBeGreaterThan(released.tick);
+    expect(consumed.phase).toBe('playing');
+    expect(consumed.missionId).toBe(initial.missionId);
+    expect(consumed.aircraftId).toBe(initial.aircraftId);
+    expect(consumed.version).toBe(blocked.version);
+    expect(consumed.requiresRelease).toBe(false);
+    expect(consumed.targetSpeed).toBeLessThan(released.targetSpeed);
+    await expect.poll(async () => (await read()).tick).toBeGreaterThan(consumed.tick + 3);
+    const settled = await read();
+    await expect.poll(async () => (await read()).tick).toBeGreaterThan(settled.tick + 3);
+    const retained = await read();
+    expect(retained.phase).toBe('playing');
+    expect(retained.version).toBe(blocked.version);
+    expect(retained.aircraftId).toBe(initial.aircraftId);
+    expect(retained.targetSpeed).toBe(settled.targetSpeed);
+    await testInfo.attach('real-main-input-generation-and-lever', {
+      body: JSON.stringify({ initial, paused, blocked, released, consumed, settled, retained }, null, 2),
+      contentType: 'application/json',
+    });
+  } finally {
+    await page.keyboard.up('w');
+    await page.keyboard.up('ArrowDown');
+  }
+});
+
 test('Home is ready and fits the planned viewports', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('#start')).toBeEnabled();
@@ -37,7 +125,7 @@ test('Home is ready and fits the planned viewports', async ({ page }) => {
   }
 });
 
-test('control settings keep nine PC actions and Normal 4 / Easy 1 touch controls', async ({ page }) => {
+test('control settings keep nine PC actions and Normal 3 / Easy 1 touch controls', async ({ page }) => {
   await page.addInitScript(() => {
     localStorage.setItem('kaisen-keyboard-v1', 'legacy keyboard');
     localStorage.setItem('kaisen-controls-v1', 'legacy normal');
@@ -54,9 +142,9 @@ test('control settings keep nine PC actions and Normal 4 / Easy 1 touch controls
   await page.locator('#control-editor-touch').click();
 
   const touchTarget = page.locator('#control-target');
-  await expect(touchTarget.locator('option')).toHaveCount(4);
+  await expect(touchTarget.locator('option')).toHaveCount(3);
   await page.locator('#control-mode').selectOption('normal');
-  await expect(touchTarget.locator('option:not(:disabled)')).toHaveCount(4);
+  await expect(touchTarget.locator('option:not(:disabled)')).toHaveCount(3);
   await page.locator('#control-mode').selectOption('easy');
   await expect(touchTarget).toBeDisabled();
   const easyAvailableControls = await touchTarget.locator('option').evaluateAll(options =>

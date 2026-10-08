@@ -17,6 +17,11 @@ jobs:
   acceptance:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # Match the project's locked Playwright version; browsers and OS dependencies
+    # are already installed, avoiding a slow apt mirror before tests can run.
+    container:
+      image: mcr.microsoft.com/playwright:v1.61.1-noble
+      options: --init --ipc=host
     steps:
       - uses: actions/checkout@v5
         with:
@@ -32,6 +37,5 @@ jobs:
       - run: npm run build
       - name: Require nonzero discovery in both browser projects
         run: npm run test:browser:discovery
-      - run: npx --no-install playwright install --with-deps chromium webkit
       - name: Run all browser acceptance checks
         run: npm run test:browser

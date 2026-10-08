@@ -11,17 +11,21 @@
 
 `.github/workflows/browser-acceptance.yml` はPRのhead SHA（main pushでは当該SHA）を検査し、既存の単体検査・build・Chromium検査を保ったまま上記条件を実行する。公開・デプロイ・ランキング送信は含めない。
 
+CIではブラウザと必要なシステムパッケージを準備済みの公式環境 `mcr.microsoft.com/playwright:v1.61.1-noble` を使う。毎回の `apt` ダウンロードが遅くなり、ブラウザ検査の開始前に20分の制限へ達する問題を避ける。プロジェクトのパッケージは引き続き `npm ci` で取得する。Playwrightを更新する場合は `package.json`・`package-lock.json` とこの環境のバージョンを一致させる。全検査の実行、失敗の扱い、20分の制限は維持する。[公式の実行環境の説明](https://playwright.dev/docs/docker)
+
 ## WebKitの対象
 
 `browser-tests/mobile-settings-ui.spec.ts` は製品の `ControlSettings`、`KeyboardSettings` とCSSをローカルfixtureで読み込む。設定機能をダミーに置き換えず、WebGL・ミッション開始から独立して検査する。
 
-- Normalのタッチ4操作、Easyの宙返り1操作、PCの9操作
+- Normalのタッチ3操作（射撃・宙返り・速度レバー）、Easyの宙返り1操作、PCの9操作
 - タッチ配置とキーの保存、再読込、他ゲームの保存キーの保護
 - 保存失敗後に明示的に「今回だけ使う」を選ぶまで反映しないこと、再読込での初期値復帰
 - 破棄・閉じる・Esc、再度開く操作、フォーカス復帰とTab境界
 - 320×568、393×852、568×320の両設定エディターと閉じる/保存ボタンへの到達
 
-同じ6検査をChromiumでも実行し、既存11検査は削除・置換しない。WebKit設定fixtureの合格は、ゲーム全体のWebKit描画・iPhone実機Safari・GPU性能の合格を意味しない。速度レバーの統合待ち範囲も変更しない。
+同じ7検査をChromiumでも実行し、既存のゲーム全体の検査は削除・置換しない。7件目では速度レバーのキー操作とポインターの捕捉を検査する。WebKit設定fixtureの合格は、ゲーム全体のWebKit描画・iPhone実機Safari・GPU性能の合格を意味しない。
+
+速度レバーの独立fixtureには製品の `main.step` がないため、初期画面の描画とフォーカス移動を待ち、キーとポインターがすべて離れたことを確認してから、製品と同じ `acknowledgeRelease()` で入力開始を受け付ける。この準備は操作検査の開始前に1回だけ行う。短押しの保持、1tickだけの消費、フォーカス離脱による取消、ポインターの捕捉の検査中には入力停止を解除しない。製品の初期化・中断後の入力解除は引き続き実際の `main.step` を通るゲーム全体の検査で確認する。
 
 ## 外部通信の遮断
 

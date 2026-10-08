@@ -50,8 +50,7 @@ export function createUIController(options: UIControllerOptions): UIController {
   const buttons: FlightControlButtons = {
     fire: requiredElement<HTMLButtonElement>('touch-fire'),
     loop: requiredElement<HTMLButtonElement>('touch-loop'),
-    accelerate: requiredElement<HTMLButtonElement>('touch-accelerate'),
-    brake: requiredElement<HTMLButtonElement>('touch-brake'),
+    throttle: requiredElement<HTMLElement>('touch-throttle'),
   };
   const abort = new AbortController();
   const keyboard = new KeyboardSettings();
@@ -69,7 +68,7 @@ export function createUIController(options: UIControllerOptions): UIController {
     requiredElement('input-guide').textContent = touch ? '画面をドラッグして操縦' : 'キーボードで操縦';
     requiredElement('mode-guide').textContent = mode === 'easy'
       ? '補助操縦・自動射撃 · 宙返りで回避'
-      : '手動操縦・手動射撃 · 加速・減速で速度調整';
+      : '手動操縦・手動射撃 · 速度レバーで調整・離すと保持';
     const keyboardGuide = requiredElement('keyboard-guide');
     keyboardGuide.hidden = touch;
     keyboardGuide.textContent = touch ? '' : keyboard.describe(mode);
@@ -84,9 +83,9 @@ export function createUIController(options: UIControllerOptions): UIController {
     controls.setMode(mode);
     settings.setActiveMode(mode);
     renderGuides(mode);
-    for (const name of ['fire', 'loop', 'accelerate', 'brake'] as const) {
-      buttons[name].hidden = mode === 'easy' && name !== 'loop';
-      buttons[name].setAttribute('aria-hidden', String(buttons[name].hidden));
+    for (const name of ['fire', 'loop', 'throttle'] as const) {
+      buttons[name]!.hidden = mode === 'easy' && name !== 'loop';
+      buttons[name]!.setAttribute('aria-hidden', String(buttons[name]!.hidden));
     }
   };
 
