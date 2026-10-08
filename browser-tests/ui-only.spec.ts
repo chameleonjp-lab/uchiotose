@@ -74,7 +74,7 @@ async function paintedOverlay(page: Page): Promise<void> {
     const regions = window.__uiOnly.canvasRegions();
     return {
       sight: count(regions.sight,[255,100,91]), reload: count(regions.sight,[255,210,122]),
-      enemy: count(regions.enemy,[255,198,155]), friendly: count(regions.friendly,[119,218,203]),
+      enemy: count(regions.enemy,[255,178,139]), friendly: count(regions.friendly,[119,218,203]),
       ship: count(regions.ship,[119,218,203]), offscreen: count(regions.offscreen,[255,178,139]),
       radar: count({x:canvas.width-125,y:35,width:120,height:Math.min(225,canvas.height-35)},[255,244,206]),
     };
