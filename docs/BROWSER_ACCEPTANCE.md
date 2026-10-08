@@ -1,3 +1,5 @@
+> UI-only update: the default browser command now uses [short screen checks](UI_ONLY_CHECKS.md). The original acceptance documentation below is preserved as the opt-in legacy suite; it does not describe the default UI-only command. Ordinary unit/type/build checks remain in place; only the three exact long P8 simulation integrations are explicitly opt-in.
+
 # ブラウザ受入検査
 
 ## 必須条件

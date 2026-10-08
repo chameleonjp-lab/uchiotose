@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, realpathSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, realpathSync, statSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { dirname, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -32,6 +32,8 @@ export function createAssetManifest(root = defaultRoot) {
   };
   register('/', resolve(root, 'index.html'), ['document']);
   register('/index.html', resolve(root, 'index.html'), ['document']);
+  const uiFixture = resolve(root, 'browser-tests/ui-fixture.ts');
+  if (existsSync(uiFixture)) register('/browser-tests/ui-fixture.ts', uiFixture, ['script']);
   // An explicit inert browser icon is served in memory; it never reaches the server.
   manifest.set('/favicon.ico', { physicalFile: null, resourceTypes: ['image'] });
 

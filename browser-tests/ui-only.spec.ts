@@ -1,0 +1,262 @@
+import type { Page, TestInfo } from '@playwright/test';
+import { expect, test } from './local-only';
+
+type Phase = 'home' | 'playing' | 'paused' | 'result';
+type Mode = 'normal' | 'easy';
+type UIAPI = {
+  show(phase: Phase, mode?: Mode, outcome?: 'victory' | 'defeat'): void;
+  showError(phase: 'home' | 'paused' | 'result'): void;
+  fireCode(): string;
+  showLoading(): void;
+  showHUDState(variant: 'effects' | 'warning' | 'respawn'): void;
+  canvasRegions(): Record<string, {x:number;y:number;width:number;height:number}>;
+};
+declare global { interface Window { __uiOnly: UIAPI; __uiUnhandled: string[] } }
+
+// Fail on real uncaught application errors. Error-state specimens do not throw.
+test.beforeEach(async ({page}) => {
+  await page.addInitScript(() => {
+    window.__uiUnhandled = [];
+    addEventListener('unhandledrejection', event => window.__uiUnhandled.push(String(event.reason)));
+  });
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+  Object.assign(page, {uiErrors: errors});
+});
+test.afterEach(async ({page}, info) => {
+  const consoleAndPageErrors = (page as Page & {uiErrors: string[]}).uiErrors;
+  let unhandled: string[] | null = null, collectionError: string | null = null;
+  try {
+    if (page.isClosed() || page.url() === 'about:blank') throw new Error('UI document unavailable for error collection');
+    unhandled = await page.evaluate(() => window.__uiUnhandled);
+    if (!Array.isArray(unhandled)) throw new Error('Unhandled-rejection listener did not initialize');
+  } catch (error) { collectionError = String(error); }
+  await info.attach('ui-errors.json', {body: JSON.stringify({consoleAndPageErrors, unhandled, collectionError}, null, 2), contentType:'application/json'});
+  expect(collectionError, 'UI error collection must complete').toBeNull();
+  expect(unhandled, 'No unhandled UI promise rejection').toEqual([]);
+  expect(consoleAndPageErrors, 'No uncaught UI errors').toEqual([]);
+});
+
+async function open(page: Page): Promise<void> {
+  await page.goto('/');
+  await expect(page.locator('#start')).toBeEnabled();
+}
+async function show(page: Page, phase: Phase, mode: Mode = 'normal', outcome: 'victory' | 'defeat' = 'victory'): Promise<void> {
+  await page.evaluate(({phase, mode, outcome}) => window.__uiOnly.show(phase, mode, outcome), {phase, mode, outcome});
+  await expect(page.locator('#app')).toHaveAttribute('data-screen', phase);
+}
+async function record(page: Page, info: TestInfo, name: string): Promise<void> {
+  await page.screenshot({path: info.outputPath(`${name}.png`)});
+}
+async function fitsHorizontally(page: Page, selector: string): Promise<void> {
+  const box = await page.locator(selector).evaluate(element => {
+    const r = element.getBoundingClientRect();
+    return {left: r.left, right: r.right, width: innerWidth, content: element.scrollWidth, client: element.clientWidth};
+  });
+  expect(box.left).toBeGreaterThanOrEqual(-1);
+  expect(box.right).toBeLessThanOrEqual(box.width + 1);
+  expect(box.content).toBeLessThanOrEqual(box.client + 1);
+}
+async function paintedOverlay(page: Page): Promise<void> {
+  const painted = await page.evaluate(() => {
+    const canvas = document.querySelector<HTMLCanvasElement>('#markers')!;
+    const context = canvas.getContext('2d')!;
+    const count = (box: {x:number;y:number;width:number;height:number}, color?: number[]) => {
+      const x = Math.max(0, Math.floor(box.x)), y = Math.max(0, Math.floor(box.y));
+      const image = context.getImageData(x,y,Math.min(Math.ceil(box.width),canvas.width-x),Math.min(Math.ceil(box.height),canvas.height-y)).data;
+      let pixels = 0;
+      for (let i = 0; i < image.length; i += 4) {
+        if (image[i+3] > 128 && (!color || color.every((v,n) => Math.abs(v-image[i+n]) <= 5))) pixels++;
+      }
+      return pixels;
+    };
+    const regions = window.__uiOnly.canvasRegions();
+    return {
+      sight: count(regions.sight,[255,100,91]), reload: count(regions.sight,[255,210,122]),
+      enemy: count(regions.enemy,[255,198,155]), friendly: count(regions.friendly,[119,218,203]),
+      ship: count(regions.ship,[119,218,203]), offscreen: count(regions.offscreen,[255,178,139]),
+      radar: count({x:canvas.width-125,y:35,width:120,height:Math.min(225,canvas.height-35)},[255,244,206]),
+    };
+  });
+  for (const [name, pixels] of Object.entries(painted)) {
+    expect(pixels, `${name} must paint its own product Canvas2D region`).toBeGreaterThan(2);
+  }
+}
+
+for (const viewport of [{width: 320, height: 568}, {width: 568, height: 320}, {width: 1280, height: 720}]) {
+  test(`real screens and 2D HUD fit ${viewport.width}x${viewport.height}`, async ({page}, info) => {
+    await page.setViewportSize(viewport);
+    await open(page);
+    await expect(page.locator('#title')).toHaveText('ウチオトセ');
+    await expect(page.locator('.mission-data > div')).toHaveCount(3);
+    await fitsHorizontally(page, '#home');
+    await record(page, info, 'home');
+    await page.locator('#home-rules').click();
+    await expect(page.locator('#rules-guide')).toBeVisible();
+    await fitsHorizontally(page, '#rules-guide');
+    await expect(page.locator('#rules-back')).toBeInViewport();
+    await record(page, info, 'rules');
+    await page.locator('#rules-close').click();
+    await expect(page.locator('#home-rules')).toBeFocused();
+
+    for (const mode of ['easy', 'normal'] as const) {
+      await show(page, 'playing', mode);
+      await expect(page.locator('#hud')).toBeVisible();
+      await expect(page.locator('#hud-mode')).toHaveText(mode === 'normal' ? 'ノーマル' : 'イージー');
+      await expect(page.locator('#hud-time')).toHaveText('02:03');
+      await expect(page.locator('#hud-aircraft')).toHaveText('50/50');
+      await expect(page.locator('#touch-loop')).toBeVisible();
+      await expect(page.locator('#touch-fire')).toBeVisible({visible: mode === 'normal'});
+      await expect(page.locator('#touch-throttle')).toBeVisible({visible: mode === 'normal'});
+      for (const selector of ['.time-block', '.targets', '.hud-actions']) await fitsHorizontally(page, selector);
+      const geometry = await page.evaluate(() => {
+        const rect = (selector: string) => { const r = document.querySelector(selector)!.getBoundingClientRect(); return {left:r.left,right:r.right,top:r.top,bottom:r.bottom}; };
+        return {clock:rect('#hud-time'),targets:rect('.targets'),actions:rect('.hud-actions')};
+      });
+      const disjoint = (a: typeof geometry.clock, b: typeof geometry.clock) => a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top;
+      expect(disjoint(geometry.clock, geometry.targets)).toBe(true);
+      expect(disjoint(geometry.clock, geometry.actions)).toBe(true);
+      expect(disjoint(geometry.targets, geometry.actions)).toBe(true);
+      await paintedOverlay(page);
+      await record(page, info, `hud-${mode}`);
+    }
+    await page.locator('#pause-button').click();
+    await expect(page.locator('#pause-screen')).toBeVisible();
+    await fitsHorizontally(page, '#pause-screen .panel');
+    await record(page, info, 'pause');
+    await page.locator('#pause-settings').click();
+    for (const editor of ['touch', 'keyboard']) {
+      await page.locator(`#control-editor-${editor}`).click();
+      await expect(page.locator(`#control-${editor}-editor`)).toBeVisible();
+      await fitsHorizontally(page, '#control-settings');
+      await expect(page.locator('#control-save')).toBeInViewport();
+      await expect(page.locator('#control-close')).toBeInViewport();
+      await record(page, info, `settings-${editor}`);
+    }
+    await page.locator('#control-close').click();
+    await expect(page.locator('#pause-settings')).toBeFocused();
+    for (const outcome of ['victory', 'defeat'] as const) {
+      await show(page, 'result', 'normal', outcome);
+      await expect(page.locator('#result-title')).toHaveText(outcome === 'victory' ? '作戦成功' : '作戦失敗');
+      await expect(page.locator('#result-score')).toHaveText('15,101');
+      await expect(page.locator('#result-breakdown > div')).toHaveCount(6);
+      await expect(page.locator('#result-breakdown')).toContainText('自機損失 1機');
+      await fitsHorizontally(page, '#result .panel');
+      await page.locator('#result-title').scrollIntoViewIfNeeded();
+      await record(page, info, `result-${outcome}`);
+      await page.locator('#result-settings').scrollIntoViewIfNeeded();
+      await expect(page.locator('#result-settings')).toBeInViewport();
+      await record(page, info, `result-${outcome}-actions`);
+    }
+  });
+}
+
+test('real navigation, settings save, reload and repeated cancel/close/Escape', async ({page}) => {
+  await open(page);
+  await page.getByLabel('ノーマル', {exact: true}).check();
+  await expect(page.locator('#mode-guide')).toContainText('速度レバー');
+  await page.locator('#start').click();
+  await expect(page.locator('#hud')).toBeVisible();
+  await page.locator('#pause-button').click();
+  await page.locator('#pause-settings').focus();
+  await page.keyboard.press('Tab'); await expect(page.locator('#resume')).toBeFocused();
+  await page.keyboard.press('Shift+Tab'); await expect(page.locator('#pause-settings')).toBeFocused();
+  await page.locator('#pause-rules').click();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#pause-rules')).toBeFocused();
+  await expect(page.locator('#app')).toHaveAttribute('data-screen', 'paused');
+  await page.locator('#resume').click();
+  await expect(page.locator('#app')).toHaveAttribute('data-screen', 'playing');
+  await page.locator('#pause-button').click(); await page.locator('#home-return').click();
+  await expect(page.locator('#start')).toBeFocused();
+
+  for (const dismiss of ['control-cancel', 'control-close', 'Escape']) {
+    await page.locator('#home-settings').click();
+    await page.locator('#control-editor-keyboard').click();
+    await expect(page.locator('.keyboard-setting-row')).toHaveCount(9);
+    await page.locator('[data-key-action="fire"]').click(); await page.keyboard.press('q');
+    await expect(page.locator('[data-key-action="fire"]')).toHaveText('Q');
+    if (dismiss === 'Escape') await page.keyboard.press('Escape'); else await page.locator(`#${dismiss}`).click();
+    await expect(page.locator('#home-settings')).toBeFocused();
+    expect(await page.evaluate(() => window.__uiOnly.fireCode())).toBe('Space');
+  }
+  await page.locator('#home-settings').click();
+  await page.locator('#control-editor-touch').click();
+  await page.locator('#control-mode').selectOption('normal');
+  await expect(page.locator('#control-target option:not(:disabled)')).toHaveCount(3);
+  await page.locator('#control-size').focus(); await page.keyboard.press('ArrowRight');
+  await expect(page.locator('#control-size')).toHaveValue('98');
+  await page.locator('#control-mode').selectOption('easy');
+  await expect(page.locator('#control-target')).toBeDisabled();
+  await expect(page.locator('#control-target')).toHaveValue('loop');
+  await page.locator('#control-editor-keyboard').click();
+  await page.locator('[data-key-action="fire"]').click(); await page.keyboard.press('q');
+  await page.locator('#control-save').click();
+  await expect(page.locator('#home-settings')).toBeFocused();
+  await page.reload(); await expect(page.locator('#start')).toBeEnabled();
+  expect(await page.evaluate(() => window.__uiOnly.fireCode())).toBe('KeyQ');
+  await page.locator('#home-settings').click(); await page.locator('#control-editor-touch').click();
+  await page.locator('#control-mode').selectOption('normal');
+  await expect(page.locator('#control-size')).toHaveValue('98');
+  await page.locator('#control-close').click();
+  await show(page, 'result'); await page.locator('#result-settings').click();
+  await page.keyboard.press('Escape'); await expect(page.locator('#result-settings')).toBeFocused();
+  await page.locator('#retry').click(); await expect(page.locator('#app')).toHaveAttribute('data-screen', 'playing');
+  await show(page, 'result'); await page.locator('#result-home').click();
+  await expect(page.locator('#app')).toHaveAttribute('data-screen', 'home');
+});
+
+test('storage failure shows explicit session-only settings without claiming persistence', async ({page}) => {
+  await page.addInitScript(() => {
+    const original = Storage.prototype.setItem;
+    Storage.prototype.setItem = function(key: string, value: string) {
+      if (key === 'uchiotose-keyboard-v1') throw new DOMException('UI specimen storage failure', 'QuotaExceededError');
+      original.call(this, key, value);
+    };
+  });
+  await open(page); await page.locator('#home-settings').click();
+  await page.locator('#control-editor-keyboard').click();
+  await page.locator('[data-key-action="fire"]').click(); await page.keyboard.press('q');
+  await page.locator('#control-save').click();
+  await expect(page.locator('#control-storage-note')).toBeVisible();
+  await expect(page.locator('#control-save')).toHaveText('今回だけ使う');
+  expect(await page.evaluate(() => window.__uiOnly.fireCode())).toBe('Space');
+  await page.locator('#control-save').click();
+  await expect(page.locator('#control-settings')).toBeHidden();
+  expect(await page.evaluate(() => window.__uiOnly.fireCode())).toBe('KeyQ');
+  await page.reload(); await expect(page.locator('#start')).toBeEnabled();
+  expect(await page.evaluate(() => window.__uiOnly.fireCode())).toBe('Space');
+});
+
+test('loading, HUD status and error presentations retain usable exits', async ({page}, info) => {
+  await open(page);
+  await page.evaluate(() => window.__uiOnly.showLoading());
+  await expect(page.locator('#start')).toBeDisabled();
+  await expect(page.locator('#p1-status')).toContainText('準備しています');
+  await record(page, info, 'loading');
+  for (const variant of ['effects', 'warning', 'respawn'] as const) {
+    await page.evaluate(variant => window.__uiOnly.showHUDState(variant), variant);
+    if (variant === 'effects') {
+      await expect(page.locator('#hud-effects')).toContainText('火傷');
+      await expect(page.locator('#hud-effects')).toContainText('氷');
+    } else if (variant === 'warning') await expect(page.locator('#hud-warning')).toContainText('海面接近');
+    else await expect(page.locator('#hud-respawn')).toContainText('操縦引継ぎ中');
+    await record(page, info, `hud-${variant}`);
+  }
+  for (const phase of ['home', 'paused', 'result'] as const) {
+    await page.evaluate(phase => window.__uiOnly.showError(phase), phase);
+    const action = phase === 'home' ? '#start' : phase === 'paused' ? '#resume' : '#retry';
+    await expect(page.locator(action)).toBeDisabled();
+    await expect(page.locator(phase === 'home' ? '#p1-status' : phase === 'paused' ? '#pause-reason' : '#result-reason')).toContainText('再読み込み');
+    await record(page, info, `error-${phase}`);
+    const settings = phase === 'home' ? '#home-settings' : phase === 'paused' ? '#pause-settings' : '#result-settings';
+    await page.locator(settings).click(); await expect(page.locator('#control-settings')).toBeVisible();
+    await page.locator('#control-close').click(); await expect(page.locator(settings)).toBeFocused();
+    if (phase !== 'home') {
+      await page.locator(phase === 'paused' ? '#home-return' : '#result-home').click();
+      await expect(page.locator('#app')).toHaveAttribute('data-screen', 'home');
+      await expect(page.locator('#start')).toBeDisabled();
+    }
+  }
+});
