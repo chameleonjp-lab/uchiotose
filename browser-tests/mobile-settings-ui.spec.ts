@@ -198,6 +198,26 @@ test('Normal lever uses real focused keys and pointer capture, preserving short 
   await expect(slider).toHaveAttribute('aria-disabled','false');
   const box=await slider.boundingBox();expect(box).not.toBeNull();expect(box!.width).toBeGreaterThanOrEqual(44);expect(box!.height).toBeGreaterThan(44);
   await slider.focus();
+  // Initial mobile viewport/focus events can clear the gate after module setup.
+  // This isolated fixture has no main.step loop to acknowledge that reset.
+  // Settle the real layout, then acknowledge only the physically released
+  // startup state, as the existing multi-touch fixture does. Never repeat this
+  // acknowledgement while the keyboard/pointer assertions below are running.
+  await page.evaluate(() => new Promise<void>(resolve => {
+    requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+  }));
+  const inputReady = await slider.evaluate(element => {
+    const controls = (window as any).__leverProbe.controls;
+    const allReleased = controls.allReleased;
+    const startupGate = controls.requiresRelease;
+    const acknowledged = controls.acknowledgeRelease();
+    return { focused: document.hasFocus() && document.activeElement === element,
+      allReleased, startupGate, acknowledged, requiresRelease: controls.requiresRelease };
+  });
+  const { startupGate, ...ready } = inputReady;
+  console.info('Lever fixture startup gate:', startupGate);
+  expect(ready).toEqual({ focused: true, allReleased: true,
+    acknowledged: true, requiresRelease: false });
   await page.keyboard.press('ArrowUp');
   expect(await page.evaluate(()=>{const c=(window as any).__leverProbe.controls;return [c.sample(false).throttle,c.sample(false).throttle,c.sampleThrottle(),c.sampleThrottle(),c.sample(false).climb];})).toEqual([1,1,1,0,0]);
   await page.keyboard.down('w'); expect(await page.evaluate(()=>(window as any).__leverProbe.controls.sample(false).throttle)).toBe(1);
