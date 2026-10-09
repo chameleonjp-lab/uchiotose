@@ -58,6 +58,29 @@ async function fitsHorizontally(page: Page, selector: string): Promise<void> {
   expect(box.right).toBeLessThanOrEqual(box.width + 1);
   expect(box.content).toBeLessThanOrEqual(box.client + 1);
 }
+async function scoreClearsHud(page: Page): Promise<void> {
+  const geometry = await page.evaluate(() => {
+    const rect = (selector: string) => {
+      const r = document.querySelector<HTMLElement>(selector)!.getBoundingClientRect();
+      return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height};
+    };
+    const score = rect('#hud-score');
+    const flightData = rect('.flight-data');
+    const warningElement = document.querySelector<HTMLElement>('#hud-warning')!;
+    const warning = rect('#hud-warning');
+    const radius = innerWidth < 360 ? 42 : 49;
+    const centerX = innerWidth - radius - 18;
+    const centerY = Math.min(innerHeight * .33, 180);
+    const nearestX = Math.max(score.left, Math.min(centerX, score.right));
+    const nearestY = Math.max(score.top, Math.min(centerY, score.bottom));
+    const disjoint = (a: typeof score, b: typeof score) => a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top;
+    return {radius, radarDistance:Math.hypot(centerX-nearestX,centerY-nearestY), radar:{centerX,centerY}, score, flightData, warning, warningVisible:warningElement.getClientRects().length>0 && getComputedStyle(warningElement).display!=='none', flightDataClear:disjoint(score,flightData), warningClear:disjoint(score,warning)};
+  });
+  expect(geometry.radarDistance, `#hud-score must clear the product Canvas2D radar by 4 CSS px: ${JSON.stringify(geometry)}`).toBeGreaterThan(geometry.radius + 4);
+  expect(geometry.flightDataClear, `#hud-score must not overlap flight-data: ${JSON.stringify(geometry)}`).toBe(true);
+  if (geometry.warningVisible) expect(geometry.warningClear, `#hud-score must not overlap a visible warning: ${JSON.stringify(geometry)}`).toBe(true);
+}
+
 async function paintedOverlay(page: Page): Promise<void> {
   const painted = await page.evaluate(() => {
     const canvas = document.querySelector<HTMLCanvasElement>('#markers')!;
@@ -146,9 +169,14 @@ for (const viewport of [{width: 320, height: 568}, {width: 568, height: 320}, {w
       expect(disjoint(geometry.clock, geometry.targets)).toBe(true);
       expect(disjoint(geometry.clock, geometry.actions)).toBe(true);
       expect(disjoint(geometry.targets, geometry.actions)).toBe(true);
+      await scoreClearsHud(page);
       await paintedOverlay(page);
       await record(page, info, `hud-${mode}`);
     }
+    await page.evaluate(() => window.__uiOnly.showHUDState('warning'));
+    await expect(page.locator('#hud-warning')).toBeVisible();
+    await scoreClearsHud(page);
+    await record(page, info, 'hud-warning-score-clearance');
     await page.locator('#pause-button').click();
     await expect(page.locator('#pause-screen')).toBeVisible();
     await fitsHorizontally(page, '#pause-screen .panel');
