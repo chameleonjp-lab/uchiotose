@@ -88,11 +88,13 @@ async function loopLabelStaysOnOneLine(page: Page): Promise<void> {
     range.selectNodeContents(label);
     const buttonRect = button.getBoundingClientRect();
     const labelRect = label.getBoundingClientRect();
-    return {lineCount:range.getClientRects().length,button:{left:buttonRect.left,right:buttonRect.right},label:{left:labelRect.left,right:labelRect.right}};
+    return {lineCount:range.getClientRects().length,button:{left:buttonRect.left,right:buttonRect.right,top:buttonRect.top,bottom:buttonRect.bottom},label:{left:labelRect.left,right:labelRect.right,top:labelRect.top,bottom:labelRect.bottom}};
   });
   expect(geometry.lineCount, `宙返りラベル must stay on one line: ${JSON.stringify(geometry)}`).toBe(1);
   expect(geometry.label.left).toBeGreaterThanOrEqual(geometry.button.left);
   expect(geometry.label.right).toBeLessThanOrEqual(geometry.button.right);
+  expect(geometry.label.top).toBeGreaterThanOrEqual(geometry.button.top);
+  expect(geometry.label.bottom).toBeLessThanOrEqual(geometry.button.bottom);
 }
 
 async function warningClearsTopHud(page: Page): Promise<void> {
