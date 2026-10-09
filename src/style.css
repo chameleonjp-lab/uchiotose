@@ -451,6 +451,7 @@ p {
   font-size: 12px;
   letter-spacing: 0.1em;
   margin-top: 2px;
+  white-space: nowrap;
 }
 .loop-button small {
   font-size: 8px;
@@ -789,7 +790,7 @@ p {
     bottom: 20px;
   }
   .warning {
-    top: 50px;
+    top: calc(80px + var(--safe-top));
   }
   .panel {
     padding: 18px 24px;
