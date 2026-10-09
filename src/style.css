@@ -1071,6 +1071,17 @@ p {
   #hud-score { top: calc(164px + var(--safe-top)); }
   .home-copy h1 { font-size: 40px; white-space: nowrap; }
 }
+@media (orientation: landscape) and (max-height: 600px) and (min-width: 568px) {
+  .warning {
+    left: calc(50% + 42px);
+    width: 120px;
+    box-sizing: border-box;
+    padding: 4px 5px;
+    transform: none;
+    white-space: normal;
+    text-align: center;
+  }
+}
 @media (orientation: landscape) and (max-height: 600px) {
   .targets { min-width: 218px; }
   .rules-header { padding: 8px 14px; }
