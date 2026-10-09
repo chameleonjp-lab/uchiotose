@@ -106,11 +106,22 @@ async function warningClearsTopHud(page: Page): Promise<void> {
     const gap = (a: ReturnType<typeof rect>, b: ReturnType<typeof rect>, px: number) => a.right + px <= b.left || b.right + px <= a.left || a.bottom + px <= b.top || b.bottom + px <= a.top;
     const warning = document.querySelector<HTMLElement>('#hud-warning')!;
     const warningRect = rect('#hud-warning'), targetsRect = rect('.targets'), actionsRect = rect('.hud-actions');
-    return {warningVisible:warning.getClientRects().length>0 && getComputedStyle(warning).display!=='none',warning:warningRect,targets:targetsRect,actions:actionsRect,targetsClear:gap(warningRect,targetsRect,4),actionsClear:gap(warningRect,actionsRect,0)};
+    const sightRegion = window.__uiOnly.canvasRegions().sight;
+    const sightRect = {left:sightRegion.x,right:sightRegion.x+sightRegion.width,top:sightRegion.y,bottom:sightRegion.y+sightRegion.height};
+    const radarRadius = innerWidth < 360 ? 42 : 49;
+    const radarCenterX = innerWidth - radarRadius - 18;
+    const radarCenterY = Math.min(innerHeight * .33, 180);
+    const radarRect = {left:radarCenterX-radarRadius,right:radarCenterX+radarRadius,top:radarCenterY-radarRadius,bottom:radarCenterY+radarRadius+18};
+    const landscapeCanvasHud = innerWidth >= 568 && innerHeight <= 400;
+    return {warningVisible:warning.getClientRects().length>0 && getComputedStyle(warning).display!=='none',warning:warningRect,targets:targetsRect,actions:actionsRect,targetsClear:gap(warningRect,targetsRect,4),actionsClear:gap(warningRect,actionsRect,0),landscapeCanvasHud,sight:sightRect,radar:radarRect,sightClear:!landscapeCanvasHud||gap(warningRect,sightRect,4),radarClear:!landscapeCanvasHud||gap(warningRect,radarRect,4)};
   });
   expect(geometry.warningVisible, 'HUD warning fixture must be visible').toBe(true);
   expect(geometry.targetsClear, `warning must not cover target counts: ${JSON.stringify(geometry)}`).toBe(true);
   expect(geometry.actionsClear, `warning must not cover sound/Pause actions: ${JSON.stringify(geometry)}`).toBe(true);
+  if (geometry.landscapeCanvasHud) {
+    expect(geometry.sightClear, `warning must clear the product Canvas2D sight by 4 CSS px: ${JSON.stringify(geometry)}`).toBe(true);
+    expect(geometry.radarClear, `warning must clear the product Canvas2D radar by 4 CSS px: ${JSON.stringify(geometry)}`).toBe(true);
+  }
 }
 
 async function paintedOverlay(page: Page): Promise<void> {
