@@ -1060,13 +1060,14 @@ p {
   .targets { flex: 1 1 auto; min-width: 0; margin-left: 0; }
   .hud-actions { align-self: center; flex-shrink: 0; position: absolute; top: 0; right: 0; }
   .flight-data { top: calc(139px + var(--safe-top)); }
-  #hud-score { top: calc(138px + var(--safe-top)); }
+  #hud-score { top: calc(250px + var(--safe-top)); left: 18px; right: auto; }
   .warning { top: calc(236px + var(--safe-top)); }
   #app[data-mode="normal"] .warning { top: calc(280px + var(--safe-top)); }
 }
 .warning:empty { display: none; }
 .warning { margin: 0; line-height: 1.2; }
 @media (orientation: landscape) and (max-height: 600px) {
+  #hud-score { top: calc(164px + var(--safe-top)); }
   .home-copy h1 { font-size: 40px; white-space: nowrap; }
 }
 @media (orientation: landscape) and (max-height: 600px) {
