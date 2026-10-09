@@ -81,6 +81,38 @@ async function scoreClearsHud(page: Page): Promise<void> {
   if (geometry.warningVisible) expect(geometry.warningClear, `#hud-score must not overlap a visible warning: ${JSON.stringify(geometry)}`).toBe(true);
 }
 
+async function loopLabelStaysOnOneLine(page: Page): Promise<void> {
+  const geometry = await page.locator('#touch-loop').evaluate(button => {
+    const label = button.querySelector('b')!;
+    const range = document.createRange();
+    range.selectNodeContents(label);
+    const buttonRect = button.getBoundingClientRect();
+    const labelRect = label.getBoundingClientRect();
+    return {lineCount:range.getClientRects().length,button:{left:buttonRect.left,right:buttonRect.right,top:buttonRect.top,bottom:buttonRect.bottom},label:{left:labelRect.left,right:labelRect.right,top:labelRect.top,bottom:labelRect.bottom}};
+  });
+  expect(geometry.lineCount, `宙返りラベル must stay on one line: ${JSON.stringify(geometry)}`).toBe(1);
+  expect(geometry.label.left).toBeGreaterThanOrEqual(geometry.button.left);
+  expect(geometry.label.right).toBeLessThanOrEqual(geometry.button.right);
+  expect(geometry.label.top).toBeGreaterThanOrEqual(geometry.button.top);
+  expect(geometry.label.bottom).toBeLessThanOrEqual(geometry.button.bottom);
+}
+
+async function warningClearsTopHud(page: Page): Promise<void> {
+  const geometry = await page.evaluate(() => {
+    const rect = (selector: string) => {
+      const r = document.querySelector<HTMLElement>(selector)!.getBoundingClientRect();
+      return {left:r.left,right:r.right,top:r.top,bottom:r.bottom};
+    };
+    const gap = (a: ReturnType<typeof rect>, b: ReturnType<typeof rect>, px: number) => a.right + px <= b.left || b.right + px <= a.left || a.bottom + px <= b.top || b.bottom + px <= a.top;
+    const warning = document.querySelector<HTMLElement>('#hud-warning')!;
+    const warningRect = rect('#hud-warning'), targetsRect = rect('.targets'), actionsRect = rect('.hud-actions');
+    return {warningVisible:warning.getClientRects().length>0 && getComputedStyle(warning).display!=='none',warning:warningRect,targets:targetsRect,actions:actionsRect,targetsClear:gap(warningRect,targetsRect,4),actionsClear:gap(warningRect,actionsRect,0)};
+  });
+  expect(geometry.warningVisible, 'HUD warning fixture must be visible').toBe(true);
+  expect(geometry.targetsClear, `warning must not cover target counts: ${JSON.stringify(geometry)}`).toBe(true);
+  expect(geometry.actionsClear, `warning must not cover sound/Pause actions: ${JSON.stringify(geometry)}`).toBe(true);
+}
+
 async function paintedOverlay(page: Page): Promise<void> {
   const painted = await page.evaluate(() => {
     const canvas = document.querySelector<HTMLCanvasElement>('#markers')!;
@@ -158,6 +190,7 @@ for (const viewport of [{width: 320, height: 568}, {width: 568, height: 320}, {w
       await expect(page.locator('#hud-time')).toHaveText('02:03');
       await expect(page.locator('#hud-aircraft')).toHaveText('50/50');
       await expect(page.locator('#touch-loop')).toBeVisible();
+      await loopLabelStaysOnOneLine(page);
       await expect(page.locator('#touch-fire')).toBeVisible({visible: mode === 'normal'});
       await expect(page.locator('#touch-throttle')).toBeVisible({visible: mode === 'normal'});
       for (const selector of ['.time-block', '.targets', '.hud-actions']) await fitsHorizontally(page, selector);
@@ -175,6 +208,7 @@ for (const viewport of [{width: 320, height: 568}, {width: 568, height: 320}, {w
     }
     await page.evaluate(() => window.__uiOnly.showHUDState('warning'));
     await expect(page.locator('#hud-warning')).toBeVisible();
+    await warningClearsTopHud(page);
     await scoreClearsHud(page);
     await record(page, info, 'hud-warning-score-clearance');
     await page.locator('#pause-button').click();
