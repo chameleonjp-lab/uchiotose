@@ -302,6 +302,13 @@ test('real navigation, settings save, reload and repeated cancel/close/Escape', 
   await expect(page.locator('#control-size')).toHaveValue('98');
   await page.locator('#control-close').click();
   await show(page, 'result'); await page.locator('#result-settings').click();
+  await page.locator('#control-editor-touch').click();
+  await expect(page.locator('#control-mode')).toBeEnabled();
+  await page.locator('#control-mode').selectOption('easy');
+  await expect(page.locator('#control-target')).toHaveValue('loop');
+  await page.locator('#control-mode').selectOption('normal');
+  await expect(page.locator('#app')).toHaveAttribute('data-screen', 'result');
+  await expect(page.locator('#result-score')).toHaveText('15,101');
   await page.keyboard.press('Escape'); await expect(page.locator('#result-settings')).toBeFocused();
   await page.locator('#retry').click(); await expect(page.locator('#app')).toHaveAttribute('data-screen', 'playing');
   await show(page, 'result'); await page.locator('#result-home').click();
