@@ -93,7 +93,7 @@ export function createUIController(options: UIControllerOptions): UIController {
     const phase = options.phase();
     if (phase !== 'home' && phase !== 'paused' && phase !== 'result') return;
     const trigger = source ?? (document.activeElement instanceof HTMLElement ? document.activeElement : undefined);
-    settings.open(trigger, options.mode(), phase === 'home');
+    settings.open(trigger, options.mode(), phase === 'home' || phase === 'result');
   };
 
   const openRules = (source?: HTMLElement): void => {
