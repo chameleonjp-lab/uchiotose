@@ -1,7 +1,7 @@
 import type { Quat, Vec3 } from './world-math';
 
 export type GameMode = 'normal' | 'easy';
-export interface FlightInput {
+export interface FlightInput { steeringActive?: boolean;
   turn: number; climb: number; fire: boolean; loop: boolean;
   throttle?: number; accelerate?: boolean; brake?: boolean; viewAspect?: number; steeringRevision?: number;
 }

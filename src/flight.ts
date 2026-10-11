@@ -1,3 +1,4 @@
+import { createFlightTargetLock, type FlightTargetLock } from './flight-target';
 /** Kaisen 3d751051 flight.ts: numeric adapter; aerodynamic equations are retained. */
 import { resolveThrottleAxis } from './throttle-lever';
 import { PLAYER_MAX_PITCH } from './flight-assist';
@@ -13,13 +14,14 @@ export const ENEMY_MAX_PITCH = 0.62;
 const MAX_YAW_RATE = 0.82, MAX_BANK = 0.72, EPSILON = 1e-8;
 
 export interface FlightController {
+  targetLock: FlightTargetLock;
   playerTargetSpeed: number; loopHeld: boolean; playerLoopActive: boolean;
   loopStartYaw: number; loopStartPitch: number; loopStartSteeringRevision: number | undefined;
   loopStartTurn: number; loopStartClimb: number;
   assistTurn: number; assistClimb: number; responseMultiplier: number;
 }
 export function createFlightController(player: FlightAircraft): FlightController {
-  return { playerTargetSpeed: CRUISE_SPEED, loopHeld: false, playerLoopActive: false,
+  return { targetLock: createFlightTargetLock(), playerTargetSpeed: CRUISE_SPEED, loopHeld: false, playerLoopActive: false,
     loopStartYaw: player.yaw, loopStartPitch: player.pitch, loopStartSteeringRevision: undefined,
     loopStartTurn: 0, loopStartClimb: 0, assistTurn: 0, assistClimb: 0, responseMultiplier: 1 };
 }

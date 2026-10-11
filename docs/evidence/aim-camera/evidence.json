@@ -1,0 +1,1299 @@
+{
+  "schema_version": 1,
+  "repository": "chameleonjp-lab/uchiotose",
+  "base_main": "0d00ef31a44786e23a0e93aae2bda6d78c15ccdf",
+  "branch": "codex/zero-series-aim-camera-20261012",
+  "recorded_at": "2026-10-11T16:44:33.344489+00:00",
+  "source_sha256": {
+    "src/aircraft-batch.ts": "cd69fdcd03507faffca251b311f253f4ccd10aa0bb11fbfc767626a4960c5428",
+    "src/aircraft-damage.ts": "54a07697c3910b8dc0557d2d4c66b4f058df7d892af53bbe0639ab324ff0e3bc",
+    "src/aircraft-tracers.ts": "311968f98e520a65467c339a4e8c450a1bf1ea4252ed5823029e01bbef05fdf7",
+    "src/aircraft.ts": "1a9c18f93e5a48869882b2aa2946cdeb352dc4a8acd76b4fd9beade8ded621d5",
+    "src/ammunition.ts": "6af07b74034ffcb0a3cfbb3e6d03a1ec6637014686a6c4ff574f60fa15ef82e3",
+    "src/atmosphere.ts": "e6b9c95f0685bb2732926e72730c96712251813a2c6c6faa150a21793c2c1f7a",
+    "src/attack-budget.ts": "d3eafee05a56f7972a1b22b7c109aebca0d1680ed51d0b14e4cdb1234344b562",
+    "src/audio-types.ts": "3dfb89b0fa199b52588bfa8aa7a4cdf05f49c83de1bbbbf2ae81ca156aa1d755",
+    "src/audio.ts": "598428159ac68f278bcffce3c40a7e1f208487c519bd5987617b78a7f9e2f375",
+    "src/control-obstacles.ts": "cacd1cff5a216dc45a1c9d5eba95b261d2d3343d517290d3b4c0fd85421dac67",
+    "src/control-settings.css": "2bebd897af24d0496ab347726d8664191b807b2bcd7861f1d7b17ff29e0c6e37",
+    "src/control-settings.ts": "c45dedaac40332489f8879c2203c2b15e5c02143bccb141733b9a256d7ab80c4",
+    "src/dialog-focus.ts": "00f1d4758938c92ed45c9ca0c70fa232319dd07147f0891cc6b43f5ba05086ef",
+    "src/fixed-clock.ts": "56d9e10869c34035f4e2d19c6d3d0ea67acb51228c2f6df423592c345215c5ff",
+    "src/fleet-geometry.ts": "76174067f95c2ccc458ec562e2e76081ed84c18cc7032d46b3bbbdc895618025",
+    "src/fleet-visual.ts": "c4b1a67063b40e31f1d25c98419221f82a301543009fb29d4f9f092da71a7f69",
+    "src/flight-assist.ts": "a6c0b6482389793dfd87acfc3d13c7c78f300a12155d7b70fd8387d6047f39e8",
+    "src/flight-target.ts": "d93d32e3afa7814005de2f8f5a102a624350db6cd9f5e1ebe46eb94350763961",
+    "src/flight-types.ts": "9cfd6b775acadc0614877ac4f71a4b87ee328853ae616c0a6eb302ea59f05b9d",
+    "src/flight-view.ts": "ee778e4d8800d3c0d3f7c7eeb4a94887792ffe9329738e49935be6d60d64b16a",
+    "src/flight.ts": "63dff5046d3f36f896f2d6eee80d1f85668dd97b176dd3eb749bbdeb82100d16",
+    "src/gun-sight.ts": "a9fcc92d8015180ba30d21091fabbc963bb1cfd90843fc7c58b21ff8fd6e21f1",
+    "src/hud-overlay.ts": "fa3d860348fd8a01fd41244b3e6f02e7ad43ee63a5a4e4549ab3bf09efeb65af",
+    "src/input.ts": "0bca2c7fdfe94a943e40e36bffaced338a4936740806b20b419d579b5424a1c3",
+    "src/island.ts": "e152641bf02a5c1a5f0c292ff7a31a969a6a213e85c7cc2d4f58a7f5fc544876",
+    "src/keyboard-settings.ts": "5bce03c3ebbbf5d246204c6223455f89a90933f90fa943cfb955cff3c1eab203",
+    "src/main.ts": "98b8d3b83ac9bbf9ff26a241dbdbdb5896674a32f5806230ce22f5c9beaf4a7a",
+    "src/ocean.ts": "0f2263700d5b9c5516e81d77fd4e2b6341c94a257b6edb2893f8d41ddbb574d0",
+    "src/projectiles.ts": "96e0cd526aca562e61edb96b4e4c8471eafdda25d31d7f461edefa6951c6534a",
+    "src/render-queue.ts": "8ec4611984beb7168ead1a7e758faf399b0cc0b73939502352be984ab35648f7",
+    "src/roster.ts": "db72a7a6e0a381b32af6cc4eaec4596e3d0952c31bf7eb4fa1bcdf29a747b08a",
+    "src/rules-guide.ts": "e6acd60e02b9d925d353bb2c752bdf485a7d3313babe06caf36f88fd6551a031",
+    "src/scoring.ts": "23226fa8e6dcfd447f0fa72c9085c0f859cbfbf72d30692aa6f11f265208fe56",
+    "src/settings-storage.ts": "9ccd064da08e3944a91be1cf72cf1a9a7339f00c61a42022f1562d5ca01e7b94",
+    "src/simulation.ts": "7153ea7920cd99966f66dd0fc41124f22a70f1f5b5d5a0ca150aeb54c9ee3e94",
+    "src/status-effects.ts": "b7411f8ab005c18d2769846c7b81df3ec52d8898a3e841d5aaf4ad688a62caa5",
+    "src/style.css": "950db7a8669a9e15c9d27fd02b4ad6298659f7c1fab94bf16386b13888b476b2",
+    "src/throttle-lever.ts": "e83fe3c570581d16cb76e08ef9a039bbe9d4a50da6575366ac7e126bf3f30cf0",
+    "src/ui-controller.ts": "9be40cce12ce0c3aaf776551b4abf5386a9707cb150a8c93a80d2d504bc66fc7",
+    "src/ui-view.ts": "f839a74739729b15dbbe6cbb77c5ce72fd92bcac5972403825aeff7390dc4f22",
+    "src/warrior-visual.ts": "b108531de5cefefc0e35bf43836d41ecb079a75c24a0db88ad0cdce51d0b96d9",
+    "src/world-collision.ts": "0b8e1c693842a06e13c447691c64544a0601b58e2f8eaafd094a35fbc8f2094e",
+    "src/world-math.ts": "63781b62ef683a0081bc9c3865a62182d07077d1ae3f747c521d736e5edd14a9",
+    "src/world-renderer.ts": "72647e7298c630b63d44497a2cc814a553d7f2289cf1cd63a1b0cda05b3a9ad1",
+    "src/world.ts": "d5aae777eb1ae57251ca465f81a662b622b5fb1ba3783910cf7427a398e04dbe",
+    "tests/audio.test.ts": "b2d7b3ed437428adf481342c40ba903f6d409d9ff1c6834680b257c69083c1d4",
+    "tests/browser-discovery.test.ts": "6214d332a62cf8c837a165fdf79996131007b5a73e140f33aede05f18dc1dfed",
+    "tests/browser-network-policy.test.ts": "310252dad1c93fb4bbdd685b64bd172a4c5a040c3a8bf3915a72eeb5b5932329",
+    "tests/combat.test.ts": "808069e9bab567f6437ef6c89755fe36a26bf8c181681dcf28f562d62d3d79fe",
+    "tests/control-settings.test.ts": "39722e8e3f0aeed4c007aba616f8351fbdde8e65d21e0711525fca8ce2f031f7",
+    "tests/fixed-clock.test.ts": "e4263ec4f7578aa6b999ee280e6fd8db281fc15760e5f832cd4e600072e0fb03",
+    "tests/fixtures/kaisen-flight.json": "c275b41011a68cb38f056e4b29f7b1a4449d407b0158bbd6437b38ae85a79961",
+    "tests/flight-target-regression.test.ts": "d13f9fc9c02fe47e3e18688a247dd069e0c70673026d0f8c1667131e4350ebb4",
+    "tests/input-capture.test.ts": "1288e69935ae834a1d0e75201c94b677709894d57b2c3b470510d2022653d883",
+    "tests/input-ownership-regression.test.ts": "4062682ea43611a924d2be91d6c2c5f005ea9efd05b193940c8b424ddc494195",
+    "tests/keyboard-settings.test.ts": "e431be987bc892d15f1778c71a93f0496240f57ca64f9f49ff73643bc31153ba",
+    "tests/p8-long-session.test.ts": "6f587121ca14737e17fb718d0d896179b34d47756fe6da6ee295ebb10e974458",
+    "tests/roster.test.ts": "04b0996e6fe5e42339be12217ac425fde82ae289c1f2c4a9c8cc740d9a43cd02",
+    "tests/status-effects.test.ts": "a1dedaf279a5738c2658d1cd3e42e49bf2d256a1495102003566d46f151a05c3",
+    "tests/throttle-lever.test.ts": "82b395a6997336bf5483f8dccd967dfc10a029eb7848fc5db88255f985504514",
+    "tests/world.test.ts": "f2f6a3f3628faefec5c643cb473f3aa2375ba50389aadf945085fbd50c107534",
+    "scripts/check-browser-discovery.mjs": "6fc8c6e0661bc9a636a1785dbf68d7e37f270e5345dc48c0af2d4cac58d0eeb0",
+    "scripts/prepare-pages.mjs": "42e2aa19c9a95f4ebc887ed6a118ce89402ecce7f810232b21e6b7ccd090bdb2",
+    "scripts/run-unit-tests.mjs": "d8bafcade66dd60a9c8ae3c80c07cd66c3c0a1757eca338971f98d6ed195a94e",
+    "browser-tests/asset-manifest.mjs": "393ef7d90b60e1f4094d22851ca2c34c59456333821d76fa5fdb8865fd3cba0e",
+    "browser-tests/graphics-failure.spec.ts": "2a01a7b0a80f2c2d118ff02cb141ec7fdd3f25287c05ee480299de97ae4b3f04",
+    "browser-tests/home.spec.ts": "cd5ff736c660adc82ba8cef3b2c85602feec0de8672add1fd008a104188a381e",
+    "browser-tests/input-recovery.spec.ts": "85f6b645eb15cbcbe3ae7c0cb5a14ffc2728016be23be1a262063ed130548c10",
+    "browser-tests/local-only.ts": "cac53042602ec39b93d4d1ad79bba9099ea9eb349d92ec73145bff926136341a",
+    "browser-tests/mission-flow.spec.ts": "8fa6161cc95d55bf5fee650d477ed4dcb1a6625a41ad3d055f2a3149bd3b0638",
+    "browser-tests/mobile-settings-ui.spec.ts": "07b35a010a1d2ebe54e85251343b59a9f57606b55a12affcfd32bf7cb89c9fc6",
+    "browser-tests/network-policy.ts": "16075268a9067eccc2327941455335722def4dd0a9f36d966563e1b59ef500d9",
+    "browser-tests/p8-long-browser-session.mjs": "d962acfb62d18f9612739d10a8ca14c1686208b1b9bcc9fe7e263a23f2ac9c97",
+    "browser-tests/p8-provenance.mjs": "92f5571521c20cc75c328f08108272abbe574846f7ce54bb9fe0f197c053237c",
+    "browser-tests/p8-visual-capture.mjs": "b7d5a271f3db1e3b5750d162f955bbc58cc5b7ccaac4b90ce3e90d2df97dbf15",
+    "browser-tests/publication-smoke.mjs": "82d86093c01161253f45de9edb57b960a3c5b954e0ca1e1f60ad755e7be24616",
+    "browser-tests/runtime-graphics-failure.spec.ts": "aabe69e19c2daddc87d69e85a5b758fd6981491fbe2b8dc38108022497e18e2c",
+    "browser-tests/ui-fixture.ts": "0e0e6a5a4c291a55d397a96243476268b35bb2cffb52c47795af8d52c68ed61a",
+    "browser-tests/ui-only.spec.ts": "a54b50fbb8a35250ad4e9209b5a05f5843dbc70ea7766f8c5e4de76104e03fac",
+    "docs/evidence/aim-camera/verify-normal-fire.mts": "f056e7c5a9f304f31cecee64915371abae16ab42eb4d75c647080893eb07f004"
+  },
+  "checks": {
+    "unit": {
+      "command": "npm test",
+      "exit_code": 0,
+      "passed": 214,
+      "skipped": 0,
+      "log_sha256": "a24740a46a1b3ba72f1afa95fc59a126d35eabc39482e35f3f58a22cbc5b3775",
+      "log_utc_mtime": "2026-10-11T16:09:28.686688+00:00"
+    },
+    "build": {
+      "command": "npm run build",
+      "exit_code": 0,
+      "log_sha256": "cc0e3d3447d74f8149352c0467572eb400cd6256e906dd148512a75c8424dad5"
+    },
+    "related_browser": {
+      "command": "PLAYWRIGHT_BROWSERS_PATH=<browser-cache> npm run test:browser -- --project=chromium --workers=1",
+      "result": "6 pass（指定UI suite、日本語font）。npm run test:ui:typesも終了0。",
+      "log_sha256": "ad4724b995b33349f30ec422708a8d99eb69003336b67a44f2415ee1910de947"
+    },
+    "normal_fire": {
+      "command": "node --import tsx docs/evidence/aim-camera/verify-normal-fire.mts",
+      "exit_code": 0,
+      "result_sha256": "05eef5ca05777513131f40da1d9332a59dd5df94b8a330386df252fbf3f03e9d",
+      "script_sha256": "f056e7c5a9f304f31cecee64915371abae16ab42eb4d75c647080893eb07f004"
+    }
+  },
+  "product_browser": {
+    "browser": "153.0.8010.0",
+    "engine": "Chromium / SwiftShader",
+    "built_bundle": true,
+    "font": "Noto Sans JP / @fontsource/noto-sans-jp 5.3.1, installed only in verification environment",
+    "deterministic_seed": false,
+    "note": "native start/mode/resize/pause/settings, no fixture injection; protective RAF pause may cover a live last accepted frame",
+    "rows": [
+      {
+        "repo": "uchiotose",
+        "mode": "normal",
+        "width": 320,
+        "height": 568,
+        "dpr": 1,
+        "file": "normal-320x568-dpr1.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 216,
+              "y": 16,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 264,
+              "y": 16,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-throttle",
+            "rect": {
+              "x": 22.390625,
+              "y": 362,
+              "width": 64,
+              "height": 128
+            },
+            "label": "速度レバー"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 229.59375,
+              "y": 338.875,
+              "width": 72,
+              "height": 72
+            },
+            "label": "宙返り"
+          },
+          {
+            "id": "touch-fire",
+            "rect": {
+              "x": 216,
+              "y": 429.109375,
+              "width": 96,
+              "height": 96
+            },
+            "label": "射撃"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 320,
+          "height": 568
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "normal",
+        "width": 393,
+        "height": 852,
+        "dpr": 1,
+        "file": "normal-393x852-dpr1.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 289,
+              "y": 16,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 337,
+              "y": 16,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-throttle",
+            "rect": {
+              "x": 34.796875,
+              "y": 575,
+              "width": 64,
+              "height": 128
+            },
+            "label": "速度レバー"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 290.1875,
+              "y": 526.3125,
+              "width": 72,
+              "height": 72
+            },
+            "label": "宙返り"
+          },
+          {
+            "id": "touch-fire",
+            "rect": {
+              "x": 278.1875,
+              "y": 667.671875,
+              "width": 96,
+              "height": 96
+            },
+            "label": "射撃"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 393,
+          "height": 852
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "normal",
+        "width": 852,
+        "height": 393,
+        "dpr": 1,
+        "file": "normal-852x393-dpr1.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 748,
+              "y": 12,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 796,
+              "y": 12,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-throttle",
+            "rect": {
+              "x": 113.390625,
+              "y": 231.875,
+              "width": 62.875,
+              "height": 125.75
+            },
+            "label": "速度レバー"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 675.71875,
+              "y": 227.9375,
+              "width": 62.875,
+              "height": 62.875
+            },
+            "label": "宙返り"
+          },
+          {
+            "id": "touch-fire",
+            "rect": {
+              "x": 675.71875,
+              "y": 298.671875,
+              "width": 62.875,
+              "height": 62.875
+            },
+            "label": "射撃"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 852,
+          "height": 393
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "normal",
+        "width": 568,
+        "height": 320,
+        "dpr": 1,
+        "file": "normal-568x320-dpr1.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 464,
+              "y": 12,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 512,
+              "y": 12,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-throttle",
+            "rect": {
+              "x": 70.953125,
+              "y": 188.8046875,
+              "width": 51.1875,
+              "height": 102.390625
+            },
+            "label": "速度レバー"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 445.84375,
+              "y": 185.59375,
+              "width": 51.1875,
+              "height": 51.1875
+            },
+            "label": "宙返り"
+          },
+          {
+            "id": "touch-fire",
+            "rect": {
+              "x": 445.84375,
+              "y": 243.203125,
+              "width": 51.1875,
+              "height": 51.1875
+            },
+            "label": "射撃"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 568,
+          "height": 320
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "normal",
+        "width": 1280,
+        "height": 720,
+        "dpr": 1,
+        "file": "normal-1280x720-dpr1.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 1176,
+              "y": 24,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 1224,
+              "y": 24,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-throttle",
+            "rect": {
+              "x": 185.59375,
+              "y": 476,
+              "width": 64,
+              "height": 128
+            },
+            "label": "速度レバー"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 1026.390625,
+              "y": 439.1875,
+              "width": 72,
+              "height": 72
+            },
+            "label": "宙返り"
+          },
+          {
+            "id": "touch-fire",
+            "rect": {
+              "x": 1014.390625,
+              "y": 556.796875,
+              "width": 96,
+              "height": 96
+            },
+            "label": "射撃"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 1280,
+          "height": 720
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "easy",
+        "width": 320,
+        "height": 568,
+        "dpr": 1,
+        "file": "easy-320x568-dpr1.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 216,
+              "y": 16,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 264,
+              "y": 16,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 229.59375,
+              "y": 338.875,
+              "width": 72,
+              "height": 72
+            },
+            "label": "宙返り"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 320,
+          "height": 568
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "easy",
+        "width": 393,
+        "height": 852,
+        "dpr": 1,
+        "file": "easy-393x852-dpr1.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 289,
+              "y": 16,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 337,
+              "y": 16,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 290.1875,
+              "y": 526.3125,
+              "width": 72,
+              "height": 72
+            },
+            "label": "宙返り"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 393,
+          "height": 852
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "easy",
+        "width": 852,
+        "height": 393,
+        "dpr": 1,
+        "file": "easy-852x393-dpr1.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 748,
+              "y": 12,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 796,
+              "y": 12,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 675.71875,
+              "y": 227.9375,
+              "width": 62.875,
+              "height": 62.875
+            },
+            "label": "宙返り"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 852,
+          "height": 393
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "easy",
+        "width": 568,
+        "height": 320,
+        "dpr": 1,
+        "file": "easy-568x320-dpr1.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 464,
+              "y": 12,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 512,
+              "y": 12,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 445.84375,
+              "y": 185.59375,
+              "width": 51.1875,
+              "height": 51.1875
+            },
+            "label": "宙返り"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 568,
+          "height": 320
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "easy",
+        "width": 1280,
+        "height": 720,
+        "dpr": 1,
+        "file": "easy-1280x720-dpr1.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 1176,
+              "y": 24,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 1224,
+              "y": 24,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 1026.390625,
+              "y": 439.1875,
+              "width": 72,
+              "height": 72
+            },
+            "label": "宙返り"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 1280,
+          "height": 720
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "normal",
+        "width": 320,
+        "height": 568,
+        "dpr": 2,
+        "file": "normal-320x568-dpr2.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 216,
+              "y": 16,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 264,
+              "y": 16,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-throttle",
+            "rect": {
+              "x": 22.390625,
+              "y": 362,
+              "width": 64,
+              "height": 128
+            },
+            "label": "速度レバー"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 229.59375,
+              "y": 338.875,
+              "width": 72,
+              "height": 72
+            },
+            "label": "宙返り"
+          },
+          {
+            "id": "touch-fire",
+            "rect": {
+              "x": 216,
+              "y": 429.109375,
+              "width": 96,
+              "height": 96
+            },
+            "label": "射撃"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 320,
+          "height": 568
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "normal",
+        "width": 393,
+        "height": 852,
+        "dpr": 2,
+        "file": "normal-393x852-dpr2.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 289,
+              "y": 16,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 337,
+              "y": 16,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-throttle",
+            "rect": {
+              "x": 34.796875,
+              "y": 575,
+              "width": 64,
+              "height": 128
+            },
+            "label": "速度レバー"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 290.1875,
+              "y": 526.3125,
+              "width": 72,
+              "height": 72
+            },
+            "label": "宙返り"
+          },
+          {
+            "id": "touch-fire",
+            "rect": {
+              "x": 278.1875,
+              "y": 667.671875,
+              "width": 96,
+              "height": 96
+            },
+            "label": "射撃"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 393,
+          "height": 852
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "normal",
+        "width": 852,
+        "height": 393,
+        "dpr": 2,
+        "file": "normal-852x393-dpr2.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 748,
+              "y": 12,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 796,
+              "y": 12,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-throttle",
+            "rect": {
+              "x": 113.390625,
+              "y": 231.875,
+              "width": 62.875,
+              "height": 125.75
+            },
+            "label": "速度レバー"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 675.71875,
+              "y": 227.9375,
+              "width": 62.875,
+              "height": 62.875
+            },
+            "label": "宙返り"
+          },
+          {
+            "id": "touch-fire",
+            "rect": {
+              "x": 675.71875,
+              "y": 298.671875,
+              "width": 62.875,
+              "height": 62.875
+            },
+            "label": "射撃"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 852,
+          "height": 393
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "normal",
+        "width": 568,
+        "height": 320,
+        "dpr": 2,
+        "file": "normal-568x320-dpr2.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 464,
+              "y": 12,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 512,
+              "y": 12,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-throttle",
+            "rect": {
+              "x": 70.953125,
+              "y": 188.8046875,
+              "width": 51.1875,
+              "height": 102.390625
+            },
+            "label": "速度レバー"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 445.84375,
+              "y": 185.59375,
+              "width": 51.1875,
+              "height": 51.1875
+            },
+            "label": "宙返り"
+          },
+          {
+            "id": "touch-fire",
+            "rect": {
+              "x": 445.84375,
+              "y": 243.203125,
+              "width": 51.1875,
+              "height": 51.1875
+            },
+            "label": "射撃"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 568,
+          "height": 320
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "normal",
+        "width": 1280,
+        "height": 720,
+        "dpr": 2,
+        "file": "normal-1280x720-dpr2.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 1176,
+              "y": 24,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 1224,
+              "y": 24,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-throttle",
+            "rect": {
+              "x": 185.59375,
+              "y": 476,
+              "width": 64,
+              "height": 128
+            },
+            "label": "速度レバー"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 1026.390625,
+              "y": 439.1875,
+              "width": 72,
+              "height": 72
+            },
+            "label": "宙返り"
+          },
+          {
+            "id": "touch-fire",
+            "rect": {
+              "x": 1014.390625,
+              "y": 556.796875,
+              "width": 96,
+              "height": 96
+            },
+            "label": "射撃"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 1280,
+          "height": 720
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "easy",
+        "width": 320,
+        "height": 568,
+        "dpr": 2,
+        "file": "easy-320x568-dpr2.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 216,
+              "y": 16,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 264,
+              "y": 16,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 229.59375,
+              "y": 338.875,
+              "width": 72,
+              "height": 72
+            },
+            "label": "宙返り"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 320,
+          "height": 568
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "easy",
+        "width": 393,
+        "height": 852,
+        "dpr": 2,
+        "file": "easy-393x852-dpr2.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 289,
+              "y": 16,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 337,
+              "y": 16,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 290.1875,
+              "y": 526.3125,
+              "width": 72,
+              "height": 72
+            },
+            "label": "宙返り"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 393,
+          "height": 852
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "easy",
+        "width": 852,
+        "height": 393,
+        "dpr": 2,
+        "file": "easy-852x393-dpr2.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 748,
+              "y": 12,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 796,
+              "y": 12,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 675.71875,
+              "y": 227.9375,
+              "width": 62.875,
+              "height": 62.875
+            },
+            "label": "宙返り"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 852,
+          "height": 393
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "easy",
+        "width": 568,
+        "height": 320,
+        "dpr": 2,
+        "file": "easy-568x320-dpr2.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 464,
+              "y": 12,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 512,
+              "y": 12,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 445.84375,
+              "y": 185.59375,
+              "width": 51.1875,
+              "height": 51.1875
+            },
+            "label": "宙返り"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 568,
+          "height": 320
+        }
+      },
+      {
+        "repo": "uchiotose",
+        "mode": "easy",
+        "width": 1280,
+        "height": 720,
+        "dpr": 2,
+        "file": "easy-1280x720-dpr2.png",
+        "pageErrors": [],
+        "screen": "playing",
+        "controls": [
+          {
+            "id": "game-sound",
+            "rect": {
+              "x": 1176,
+              "y": 24,
+              "width": 44,
+              "height": 44
+            },
+            "label": "音声をオンにする"
+          },
+          {
+            "id": "pause-button",
+            "rect": {
+              "x": 1224,
+              "y": 24,
+              "width": 44,
+              "height": 44
+            },
+            "label": "作戦を一時停止"
+          },
+          {
+            "id": "touch-loop",
+            "rect": {
+              "x": 1026.390625,
+              "y": 439.1875,
+              "width": 72,
+              "height": 72
+            },
+            "label": "宙返り"
+          }
+        ],
+        "sight": null,
+        "scroll": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    ],
+    "raw_image_sha256": {
+      "normal-320x568-dpr1.png": "b7a55ecdcfb2fcf0fb04306ed76b9aef3926f6776013e018b693a8f63a0da107",
+      "normal-393x852-dpr1.png": "b1c927bbb5149b2e439cac3a5c2b274ee452b97ab98a3e199fb69654e58da708",
+      "normal-852x393-dpr1.png": "3c906fa904f24bf814ff7b88126f332b3ea2107f0c305f4c1f385f81208569ee",
+      "normal-568x320-dpr1.png": "f4a93b8e7f0a4f5ffa3e4507a0fac661c6fde61baf5e97e4555b1eb4395d0467",
+      "normal-1280x720-dpr1.png": "d904d05a27f5c72e2745806d2a4f957d0512fb9815fb4d3fdb7ff1750808c1a0",
+      "easy-320x568-dpr1.png": "c58abc524df4a26ea080399b6ec079837fe31002140c2ce289c155181b6e1fed",
+      "easy-393x852-dpr1.png": "c5dfded8fd4ceb18ca1abf2363fda1fde222da30a938d62e468b4b495158f16c",
+      "easy-852x393-dpr1.png": "cb8099c88ce97dd073998224e4b5a4374147629abbfd61f6845105b9f7db1a5a",
+      "easy-568x320-dpr1.png": "ebaa47fca7339aff29e5be17a6d7d925c44e77c14813b5e3bea59d9903c031b1",
+      "easy-1280x720-dpr1.png": "a665e5b55d269c61b84675ff67884fbe8f6933ad2e1919040da0ac2727f59048",
+      "normal-320x568-dpr2.png": "ae81e911c10fc45e39ce63a8bc70a17dce54ca650fd28aaba443009f3f7cc20b",
+      "normal-393x852-dpr2.png": "b04048b8e196a351393a0fcbb4f70ef29f80a5ea5fe6092979fc043da684ded7",
+      "normal-852x393-dpr2.png": "c444af35527e21793624836e2b771e9e97c4963dbadff1fb15935571aeebfdcf",
+      "normal-568x320-dpr2.png": "2cd73537c7ec2faa5921781b86756b1549292186eb6b8848f82a6d9d825e3f20",
+      "normal-1280x720-dpr2.png": "033c193c8ad7c1553b5722f51f81713b758761b01db6a1b55a43590b3dbf812f",
+      "easy-320x568-dpr2.png": "04c120542230103e7036be60b20bb909dd348fd6fe273ede64feb427a6365c52",
+      "easy-393x852-dpr2.png": "b10534f0bd4f678a857417d01201cb402869b9586cc124d6aca6ff8652e3924d",
+      "easy-852x393-dpr2.png": "27c1774b921878b2af4861f365fbfa01075f255bf0c4c5cc116f23e5f4b219d1",
+      "easy-568x320-dpr2.png": "a7e0c29d4369d9e1e8970951eb24671a73fbd6108c0ea802e39e5e1c192ce740",
+      "easy-1280x720-dpr2.png": "174e7c18c2a55dba45dc56465dc0a2584753f7ff472744a4cbc0f6715e4a1025"
+    }
+  },
+  "committed_images": {
+    "pause-settings.jpg": "d7fdbe5fd518b91a825965ed8482a00ac3e4eda4dcae0f32dba9cf6b23c11de4",
+    "portrait-comparison.jpg": "e8e770daed39398e8868de52ec5509e696eaa40a0187ad039203094a589157a3",
+    "viewport-contact.jpg": "89d9ce16c8e8d3b874804c6c90a9edb2fac4cc1fbd6dfbe751528cad36da0518",
+    "viewport-dpr2.jpg": "a6a9d7f437c0ad52c064f651cfb264cf1e213620219b59e6d7239647a6173389"
+  },
+  "unconfirmed": [
+    "physical iPhone Safari symptom/acceptance",
+    "WebKit automation (browser download unavailable)",
+    "actual render 30/60/120Hz comparison",
+    "product bundle 200% text/safe-area overrides (UI-only checks separate)"
+  ]
+}

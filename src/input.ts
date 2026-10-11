@@ -197,6 +197,7 @@ export class FlightControls {
       fire, loop, accelerate, brake,
       ...(this.buttons.throttle ? { throttle: this.sampleThrottle(consumeThrottle) } : {}),
       steeringRevision: this.steeringRevision,
+      ...(this.steerPointer !== null || [...STEERING_ACTIONS].some(keyHeld) ? { steeringActive: true } : {}),
     };
   }
 

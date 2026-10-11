@@ -198,7 +198,7 @@ function emitProjectiles(state: SimulationState, mission: MissionState, world: W
       position: pose.position, quaternion: pose.quaternion, yaw: pose.yaw, pitch: pose.pitch, bank: pose.bank,
       speed: aircraft.baseSpeedMps, loopProgress: aircraft.loopProgress, loopCooldown: Math.max(0, aircraft.loopCooldownUntilTick - mission.tick) / 60,
     };
-    const autoTarget = aircraft.role === 'player' ? autoFireTarget(flightAircraft, visibleTargets, mode, input.viewAspect) : null;
+    const autoTarget = aircraft.role === 'player' ? autoFireTarget(flightAircraft, visibleTargets, mode, input.viewAspect, pose.controller.targetLock) : null;
     const wingTarget = aircraft.role === 'wing' ? visibleTargets.filter(target => distance(pose.position, target.position) <= 1200)
       .map(target => ({ target, direction: interceptDirection(pose.position, target.position, target.velocity, aircraft.actualSpeedMps + 820, 1.5, pose.forward) }))
       .filter(item => dot(pose.forward, item.direction) >= Math.cos(0.16))
