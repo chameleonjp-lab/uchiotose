@@ -1,3 +1,4 @@
+import { flightTargetKey, revalidateProjectedTarget, selectProjectedTarget, type FlightTargetLock } from './flight-target';
 /** Kaisen 3d751051 assistance; targets supply actual free-flight velocity. */
 import { EASY_AIM_RADIUS, FLIGHT_CAMERA_BANK_FACTOR, FLIGHT_FOV, projectFlightTarget } from './flight-view';
 import { add, scale, normalize, angle, clamp } from './world-math';
@@ -12,19 +13,22 @@ export function applyEasyShotCorrection(forward: Vec3, predicted: Vec3): Vec3 {
   const correction = Math.min(a * EASY_SHOT_CORRECTION_STRENGTH, EASY_SHOT_MAX_ANGLE);
   return normalize(add(scale(forward, Math.sin(a - correction) / Math.sin(a)), scale(predicted, Math.sin(correction) / Math.sin(a))));
 }
-export function getFlightAssist(player: FlightAircraft, enemies: readonly FlightTarget[], input: FlightInput, mode: GameMode) {
+function selectFlightTarget(player: FlightAircraft, enemies: readonly FlightTarget[], aspect: number, mode: GameMode,
+  lock?: FlightTargetLock, manual = lock?.manual ?? false, firePhase = false) {
+  const candidates = enemies.filter(e => e.hp > 0).map(enemy => ({ enemy,
+    key: flightTargetKey(enemy), projection: projectFlightTarget(player, enemy.position, aspect, mode),
+  }));
+  return firePhase && lock ? revalidateProjectedTarget(candidates, lock)
+    : selectProjectedTarget(candidates, aspect, EASY_AUTO_FIRE_RANGE, mode === 'easy' ? lock : undefined, manual);
+}
+export function getFlightAssist(player: FlightAircraft, enemies: readonly FlightTarget[], input: FlightInput, mode: GameMode, lock?: FlightTargetLock) {
   const manualTurn = clamp(input.turn, -1, 1), manualClimb = clamp(input.climb, -1, 1);
   const aspect = Number.isFinite(input.viewAspect) && input.viewAspect! > 0 ? input.viewAspect! : 393 / 852;
-  let target: { enemy: FlightTarget; projection: ReturnType<typeof projectFlightTarget> } | null = null;
-  for (const enemy of enemies) {
-    if (enemy.hp <= 0) continue;
-    const projection = projectFlightTarget(player, enemy.position, aspect, mode);
-    if (!projection.visible) continue;
-    if (!target || projection.distance < target.projection.distance) target = { enemy, projection };
-  }
+  const target = selectFlightTarget(player, enemies, aspect, mode, lock,
+    !!input.steeringActive || Math.max(Math.abs(manualTurn), Math.abs(manualClimb)) > 1e-4);
   const hasVisibleTarget = target !== null;
   const responseMultiplier = enemies.some(e => e.hp > 0) && !hasVisibleTarget ? OFFSCREEN_RESPONSE_MULTIPLIER : 1;
-  if (mode !== 'easy' || !target) return { turn: manualTurn, climb: manualClimb, responseMultiplier, hasVisibleTarget };
+  if (mode !== 'easy' || !target || input.steeringActive) return { turn: manualTurn, climb: manualClimb, responseMultiplier, hasVisibleTarget };
   const { projection } = target;
   const screenRadius = Math.hypot(projection.x * Math.max(1, aspect), projection.y * Math.max(1, 1 / aspect)) / 2;
   const manualWeight = clamp(Math.max(Math.abs(manualTurn), Math.abs(manualClimb)) / 0.35, 0, 1);
@@ -41,18 +45,13 @@ export function getFlightAssist(player: FlightAircraft, enemies: readonly Flight
     ? manualPitch : manualPitch + (assistedPitch - manualPitch) * assistFade;
   return { turn, climb: clamp(absolutePitch / PLAYER_MAX_PITCH, -1, 1), responseMultiplier, hasVisibleTarget: true };
 }
-export function autoFireTarget(player: FlightAircraft, enemies: readonly FlightTarget[], mode: GameMode, aspect?: number): FlightTarget | null {
+export function autoFireTarget(player: FlightAircraft, enemies: readonly FlightTarget[], mode: GameMode, aspect?: number, lock?: FlightTargetLock): FlightTarget | null {
   if (mode !== 'easy') return null;
   const safeAspect = Number.isFinite(aspect) && aspect! > 0 ? aspect! : 393 / 852;
-  let best: FlightTarget | null = null, bestRadius = Infinity;
-  for (const enemy of enemies) {
-    if (enemy.hp <= 0) continue;
-    const p = projectFlightTarget(player, enemy.position, safeAspect, mode);
-    const radius = Math.hypot(p.x * Math.max(1, safeAspect), p.y * Math.max(1, 1 / safeAspect));
-    if (p.inCircle && p.distance <= EASY_AUTO_FIRE_RANGE && radius < bestRadius) { best = enemy; bestRadius = radius; }
-  }
-  return best;
+  const selected = selectFlightTarget(player, enemies, safeAspect, mode, lock, lock?.manual, true);
+  return selected?.projection.inCircle && selected.projection.distance <= EASY_AUTO_FIRE_RANGE ? selected.enemy : null;
 }
+
 export function shouldAutoFire(player: FlightAircraft, enemies: readonly FlightTarget[], mode: GameMode, aspect?: number): boolean {
   return autoFireTarget(player, enemies, mode, aspect) !== null;
 }

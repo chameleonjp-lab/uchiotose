@@ -1,3 +1,4 @@
+import { clearFlightAssistance, smoothFlightAssistance } from './flight-target';
 /** P2: authoritative, serializable 60 Hz movement; presentation never enters this state. */
 import { TICKS_PER_SECOND } from './roster';
 import type { MissionState, DeathBatch, IceState, SpawnGuard } from './roster';
@@ -127,7 +128,7 @@ export function createWorldState(mission:MissionState):WorldState {
 function cloneWorld(w:WorldState):WorldState {
   const aircraft:Record<string,AircraftPose>={},enemies:Record<string,EnemyPose>={},ships:Record<string,ShipPose>={};
   for(const [id,p]of entriesById(w.aircraft))aircraft[id]={...p,position:{...p.position},previousPosition:{...p.previousPosition},
-    velocity:{...p.velocity},forward:{...p.forward},quaternion:{...p.quaternion},previousQuaternion:{...p.previousQuaternion},controller:{...p.controller}};
+    velocity:{...p.velocity},forward:{...p.forward},quaternion:{...p.quaternion},previousQuaternion:{...p.previousQuaternion},controller:{...p.controller,targetLock:{...p.controller.targetLock}}};
   for(const [id,p]of entriesById(w.enemies))enemies[id]={...p,position:{...p.position},previousPosition:{...p.previousPosition},
     velocity:{...p.velocity},forward:{...p.forward},quaternion:{...p.quaternion}};
   for(const [id,p]of entriesById(w.ships))ships[id]={...p,position:{...p.position},previousPosition:{...p.previousPosition},
@@ -159,6 +160,7 @@ export function syncWorldState(previous:WorldState,mission:MissionState):WorldSt
         player.loopCooldown=Math.max(0,(mission.aircraft.find(a=>a.id===player.id)!.loopCooldownUntilTick-mission.tick)/60);
         player.controller={...createFlightController(player),playerTargetSpeed:player.controller.playerTargetSpeed};}
       else player.controller.loopHeld=false;
+      clearFlightAssistance(player.controller);
     }
     w.controlledAircraftId=mission.controlledAircraftId;
   }
@@ -243,15 +245,10 @@ export function stepWorld(previous:WorldState,sourceMission:MissionState,input:F
   for(const a of m.aircraft){
     if(a.status!=='active')continue;const p=w.aircraft[a.id];p.previousPosition={...p.position};p.previousQuaternion={...p.quaternion};p.speed=a.baseSpeedMps;
     if(a.id===m.controlledAircraftId){
+      if(m.requiresInputRelease)clearFlightAssistance(p.controller);
       const accepted=m.requiresInputRelease?{turn:0,climb:0,fire:false,loop:false,viewAspect:input.viewAspect}:input;
-      const targets=worldFlightTargets(w,m,p.position),assist=getFlightAssist(p,targets,accepted,mode),meta=p.controller;
-      const slew=(current:number,target:number,rate:number)=>current+clamp(target-current,-rate*FIXED_WORLD_DT,rate*FIXED_WORLD_DT);
-      const manual=Math.max(Math.abs(accepted.turn),Math.abs(accepted.climb))>=.35;
-      meta.assistTurn=manual?0:slew(meta.assistTurn,assist.turn-accepted.turn,2.5);
-      meta.assistClimb=manual?0:slew(meta.assistClimb,assist.climb-accepted.climb,1.5);
-      if(meta.assistTurn*accepted.turn<0)meta.assistTurn=0;if(meta.assistClimb*accepted.climb<0)meta.assistClimb=0;
-      meta.responseMultiplier=slew(meta.responseMultiplier,assist.responseMultiplier,2.5);
-      const adjusted={...accepted,turn:accepted.turn+meta.assistTurn,climb:accepted.climb+meta.assistClimb};
+      const targets=worldFlightTargets(w,m,p.position),assist=getFlightAssist(p,targets,accepted,mode,p.controller.targetLock),meta=p.controller;
+      const adjusted={...accepted,...smoothFlightAssistance(meta,accepted,assist,FIXED_WORLD_DT)};
       const pressed=accepted.loop&&!meta.loopHeld;meta.loopHeld=accepted.loop;
       updatePlayerLoop(p,meta,adjusted,accepted,pressed,FIXED_WORLD_DT,advanceThrottle(meta,accepted,mode,FIXED_WORLD_DT),MAX_SPEED,meta.responseMultiplier,
         worldActualSpeed(p.speed,a.ice,m.tick,'aircraft'));

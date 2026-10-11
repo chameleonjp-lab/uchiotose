@@ -287,3 +287,7 @@ main反映・公開は自動工程にしない。各実装PRの承認範囲と�
 適用工程: P2の飛行、P6/P7の操作・設定・画面、P8の受入。Normalは射撃・宙返りの2ボタン＋速度レバー1本（合計3コントロール）、Easyは宙返り1ボタンのまま。PC9操作、Easy自動巡航、兵装、飛行式は維持する。
 
 現mainの飛行/input/操作設定の不足により、実装接続とQAはblocked。現状・依存・確認済み範囲はadapter追補へ記録し、先行実装PRに無断で変更を混ぜない。コードがmainへ届いた後に、共通fixtureを実入力/速度制御へ接続して全件検査し、入力寿命・アクセシビリティ・保存移行・全unit/type/build・ブラウザーと実機の未検証を最終headで整理する。文書/fixtureの追加だけでこれらを完了扱いにしない。
+
+## 2026-10-11依頼：操作・標的・照準の共通追補
+
+今回の採用契約は [ZERO_SERIES_AIM_CONTRACT.md](ZERO_SERIES_AIM_CONTRACT.md)、実行結果と未確認項目は [ZERO_SERIES_AIM_VERIFICATION.md](ZERO_SERIES_AIM_VERIFICATION.md)。R1–R8の対象・意図的な作品差・基点を明示する。過去の「未実施」「文書のみ」は当時の工程の記録で、この追補の結果やSafari実機受入とは別。main宛てDraft PRまでとし、公開/mergeは今回実施しない。
