@@ -40,6 +40,8 @@ jobs:
         run: npm run test:browser:discovery
       - name: Run UI-only screen checks (no gameplay)
         run: npm run test:browser
+      - name: Capture castle scenery and check stable GPU resources (no gameplay)
+        run: node node_modules/playwright/cli.js test --config playwright.config.ts browser-tests/castle-scenery.spec.ts --project=chromium --output=test-results/castle-scenery
       - name: Preserve UI results, screenshots, traces and errors
         if: always()
         uses: actions/upload-artifact@v4

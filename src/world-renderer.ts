@@ -11,6 +11,7 @@ import { WarriorVisualFactory,type WarriorVisual } from './warrior-visual';
 import { WebGLRenderer } from 'three';
 import { RenderQueue } from './render-queue';
 import { createOceanGeometry,oceanAnchor } from './ocean';
+import { createCastleVisual,type CastleVisual } from './castle-visual';
 import { seaVertex,seaFragment,skyVertex,skyFragment } from './atmosphere';
 import { ISLAND_TRIANGLES,ISLAND_VERTICES,lineOfSight } from './island';
 import { FLIGHT_FOV,getFlightCameraPose } from './flight-view';
@@ -35,6 +36,7 @@ export class WorldRenderer{
   private warriorBatches:WarriorBatch[]=[];private reflection=new Matrix4().makeScale(-1,1,1);
   private instanceNormal=new Matrix3();
   private fleetFactory=new FleetVisualFactory();private fleet:Group[]=[];
+  private castleVisual:CastleVisual|null=null;
   private ownedGeometries:BufferGeometry[]=[];private ownedMaterials:Material[]=[];
   private seaMaterial=new ShaderMaterial({uniforms:{uTime:{value:0}},vertexShader:seaVertex,fragmentShader:seaFragment});
   private sea=new Mesh(createOceanGeometry(),this.seaMaterial);
@@ -64,6 +66,7 @@ export class WorldRenderer{
     this.scene.background=new Color(0xaecbd0);this.scene.fog=new Fog(0xaecbd0,1400,6000);
     this.scene.add(new HemisphereLight(0xc6e5ec,0x23424e,2.3));const sun=new DirectionalLight(0xffe9b5,3.1);sun.position.set(-600,700,-350);this.scene.add(sun);
     this.scene.add(this.sea,this.sky,this.aircraftTracers.root);this.createIsland();
+    this.castleVisual=createCastleVisual();this.scene.add(this.castleVisual.group);
     for(let i=0;i<8;i++){const detail=i===0?'hero':'enemy',v=this.batches.optimize(this.aircraft.create(detail),detail);v.root.visible=false;this.planes.push(v);this.scene.add(v.root);}
     for(let i=0;i<24;i++){const v=this.warriors.create();v.root.visible=false;this.enemies.push(v);}this.createWarriorBatches();
     for(let i=0;i<10;i++){const v=this.fleetFactory.create();v.visible=false;this.fleet.push(v);this.scene.add(v);}
@@ -282,7 +285,8 @@ export class WorldRenderer{
   }
   diagnostics(){return{queue:this.queue.diagnostics(performance.now()),calls:this.renderer.info.render.calls,triangles:this.renderer.info.render.triangles,
     geometries:this.renderer.info.memory.geometries,textures:this.renderer.info.memory.textures,planes:this.planes.length,warriors:this.enemies.length,ships:this.fleet.length,
-    burstCapacity:BURST_CAPACITY,bursts:this.burstPool.filter(b=>b.active).length,warriorDrawBatches:this.warriorBatches.length,quality:this.quality,width:this.width,height:this.height,
+    burstCapacity:BURST_CAPACITY,bursts:this.burstPool.filter(b=>b.active).length,warriorDrawBatches:this.warriorBatches.length,
+    castleDrawCalls:this.castleVisual?.drawCalls??0,castleTriangles:this.castleVisual?.triangleCount??0,quality:this.quality,width:this.width,height:this.height,
     pixelRatio:this.renderer.getPixelRatio(),rendererBackend:this.rendererBackend,softwareRenderer:this.softwareRenderer,
     programs:this.renderer.info.programs?.length??0,initialWarmPendingMs:this.initialWarmPendingMs,lastSubmittedFrame:this.lastSubmittedFrame,aircraftTracers:this.aircraftTracers.diagnostics()};}
   dispose(){if(this.disposed)return;this.disposed=true;this.queue.dispose();this.aircraftTracers.dispose();
@@ -291,6 +295,7 @@ export class WorldRenderer{
     for(const enemy of this.enemies)enemy.root.removeFromParent();this.enemies=[];this.warriors.dispose();
     for(const ship of this.fleet)ship.removeFromParent();this.fleet=[];this.fleetFactory.dispose();
     for(const mesh of [this.fire,this.ice,this.burns,this.frost,this.bursts])mesh.dispose();
+    this.castleVisual?.dispose();this.castleVisual=null;
     for(const geometry of this.ownedGeometries)geometry.dispose();for(const material of this.ownedMaterials)material.dispose();
     this.sea.geometry.dispose();this.seaMaterial.dispose();this.sky.geometry.dispose();this.sky.material.dispose();
     this.previousBodies.clear();this.scene.clear();this.renderer.dispose();}
