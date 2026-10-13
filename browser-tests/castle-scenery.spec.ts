@@ -45,14 +45,19 @@ for (const viewport of [{width: 393, height: 852}, {width: 852, height: 393}]) {
       const views = [];
       for (const view of [
         {name:'front', from:[2800,2100,4000], at:[0,1750,0]},
-        {name:'near', from:[1550,1700,1900], at:[0,1650,0]},
+        {name:'near', from:[1550,1900,1900], at:[0,1850,0]},
         {name:'rear', from:[-2500,2200,-3500], at:[0,1800,0]},
       ]) {
         const diagnostic = await page.evaluate(async view => {
+          const {oceanAnchor} = await import('/src/ocean.ts');
           const renderer = (window as any).__castleScene;
           renderer.camera.position.set(...view.from);
           renderer.camera.lookAt(...view.at);
           renderer.camera.updateMatrixWorld();
+          // Match WorldRenderer.render's camera-relative sky and ocean placement.
+          renderer.sky.position.copy(renderer.camera.position);
+          renderer.sea.position.x = oceanAnchor(renderer.camera.position.x);
+          renderer.sea.position.z = oceanAnchor(renderer.camera.position.z);
           renderer.renderer.render(renderer.scene, renderer.camera);
           await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
           return renderer.diagnostics();
