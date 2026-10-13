@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-13",
+  "publicURL": "https://uchiotose.chameleonjp.chatgpt.site",
+  "gameSourceCommit": "ada778d6e6a7a7ef34b609dacdaa4617ec5bf985",
+  "pr": 17,
+  "prHead": "3eace9ca527167058965372c589a8d9604bb8d24",
+  "projectId": "appgprj_6ac32eccd3bc8191a5e3919dc4eac0f5",
+  "siteSourceCommit": "41b2f556355de64f4c328aeb66757540a7f157d2",
+  "savedVersionId": "appgprj_6ac32eccd3bc8191a5e3919dc4eac0f5~appgver_6d10b99560ec819190e13980075bdd7f",
+  "deployment": {
+    "id": "appgdep_6acd97387c00819182ca3d70b43a798b",
+    "status": "succeeded",
+    "updatedAt": "2026-10-13T02:28:23.545929+00:00",
+    "version_id": "appgprj_6ac32eccd3bc8191a5e3919dc4eac0f5~appgver_6d10b99560ec819190e13980075bdd7f"
+  },
+  "archive": {
+    "archive_format": "tar",
+    "sediment_file_id": "file_000000006e7c8206af126adeda1a57da",
+    "content_hash": "sha256:c688243960d436172f5323b8d6cbb13721a6f6998bf5422ca835a56a2ccf8dbc",
+    "size_bytes": 860160,
+    "file_count": 7
+  },
+  "physicalIPhoneTested": false
+}
