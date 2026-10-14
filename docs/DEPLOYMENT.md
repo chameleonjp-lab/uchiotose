@@ -34,7 +34,7 @@ iPhone実機SafariとモバイルGPUの性能は、実機計測の証拠がな�
 
 今回の公開対象はmain `ada778d6e6a7a7ef34b609dacdaa4617ec5bf985`（tree `5db8b3800691fcb1699ecdecd1dc4a1ecd9e6b9e`）。浮遊島の城を含み、城の高さは2,400 m、島の最大幅は2,000 m。公開前に `npm ci`、`npm test`（217件成功）、`npm run test:ui:types`、`npm run build` が成功し、独立read-onlyレビューもPASS。main CI run `38335995882` も成功している。
 
-旧 `gh-pages` は `df1827e37d962d14cb75ca8038d0c6bf36c9435b`（deployment.jsonのsource commit `0d00ef31a44786e23a0e93aae2bda6d78c15ccdf`）。旧版にはrelease.jsonがなく、公開URLへの取得は404だった。静的成果物をその履歴の子コミット `20bc340c37a0449c3b3641c81b60d70982b1bc9e` としてfast-forward更新し、履歴の強制上書きはしていない。`.nojekyll`、ライセンス表示、および既存のhashed JS assetを保持し、`release.json`を追加、`deployment.json`を更新した。Pages設定やCNAMEは変更していない。
+旧 `gh-pages` は `df1827e37d962d14cb75ca8038d0c6bf36c9435b`（deployment.jsonのsource commit `0d00ef31a44786e23a0e93aae2bda6d78c15ccdf`）。旧版にはrelease.jsonがなく、旧版の `release.json` URL の取得は404だった。静的成果物をその履歴の子コミット `20bc340c37a0449c3b3641c81b60d70982b1bc9e` としてfast-forward更新し、履歴の強制上書きはしていない。`.nojekyll`、ライセンス表示、および既存のhashed JS assetを保持し、`release.json`を追加、`deployment.json`を更新した。Pages設定やCNAMEは変更していない。
 
 GitHub Pages公開run [38519284449](https://github.com/chameleonjp-lab/uchiotose/actions/runs/38519284449) は成功。TLS検証を有効にした公開URLからのHTTP取得で、HTML、JS、CSS、release.json、deployment.json、third-party-notices.txtの6件がローカル成果物とバイト単位で一致した。公開release.commitは `ada778d6e6a7a7ef34b609dacdaa4617ec5bf985`、公開JSには `floating-island-castle` が含まれる。HTMLは `./assets/index-DnuEAYz2.js` を参照している。
 
