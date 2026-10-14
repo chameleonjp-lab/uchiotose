@@ -1,13 +1,16 @@
 {
   "repository": "chameleonjp-lab/uchiotose",
-  "commit": "0d00ef31a44786e23a0e93aae2bda6d78c15ccdf",
-  "sourceTree": "47945ee0f0bfc36d930dd78392ce9d89d53fd322",
+  "commit": "ada778d6e6a7a7ef34b609dacdaa4617ec5bf985",
+  "sourceTree": "5db8b3800691fcb1699ecdecd1dc4a1ecd9e6b9e",
   "files": {
-    "assets/index-BF7Y2cGw.js": "3338ca7bc302878339bf5471aca43eecc24d2c204d6604cea7949d23bf3261c7",
+    "index.html": "47cac6e40f562bbb6ec2c8a8eca9430a455c8b332c75be0c27894dfa98dea7d0",
+    "release.json": "48d0709cad1e08ba9b9cb51417207eb5d9198b94a3b09e70ef4fdad4cda0150b",
+    "third-party-notices.txt": "97de7ac302052bcea7f20e5ae89635c10e049614f56409288d554d63fceb614f",
     "assets/index-CM_NdGef.css": "da43ec868b2376e44fca82231ce10e744bf4435d158bdfc3698576a6aca177b7",
-    "index.html": "41d29d4e9dfb63b2a218c965334b014581a3f746f68d3404f9663cb29a16acd4",
-    "third-party-notices.txt": "97de7ac302052bcea7f20e5ae89635c10e049614f56409288d554d63fceb614f"
+    "assets/index-DnuEAYz2.js": "70cf9d483e5cdb5443e7b218b65fbc74551fc19ee36d0633a89643a2e1134f3c"
   },
-  "publicationAuthorizationDate": "2026-10-10",
-  "publicationScope": "User-requested publication; physical-phone acceptance not claimed"
+  "publicationAuthorizationDate": "2026-10-14",
+  "publicationScope": "User-requested update of https://chameleonjp-lab.github.io/uchiotose/; merged castle source; physical-phone acceptance not claimed",
+  "previousPagesCommit": "df1827e37d962d14cb75ca8038d0c6bf36c9435b",
+  "sourceAcceptanceRun": "https://github.com/chameleonjp-lab/uchiotose/actions/runs/38335995882"
 }
