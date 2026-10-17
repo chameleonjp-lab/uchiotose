@@ -43,6 +43,8 @@ jobs:
       - name: Capture castle scenery and check stable GPU resources (no gameplay)
         run: node node_modules/playwright/cli.js test --config playwright.config.ts browser-tests/castle-scenery.spec.ts --project=chromium --output=test-results/castle-scenery
       - name: Focused live camera contracts in Chromium and WebKit
+        env:
+          CAMERA_SOURCE_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
         run: CAMERA_CONTROLS_ONLY=1 node node_modules/playwright/cli.js test --config playwright.config.ts browser-tests/home.spec.ts --grep "@camera-controls" --project=chromium --project=webkit-ui --reporter=line --output=camera-controls-results
       - name: Preserve UI results, screenshots, traces and errors
         if: always()

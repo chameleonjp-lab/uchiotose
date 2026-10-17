@@ -1,6 +1,9 @@
 import { expect, test } from './local-only';
 import { execFileSync } from 'node:child_process';
-const cameraSourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+// CI passes the exact checkout ref without changing Git ownership safeguards.
+const cameraSourceCommit = process.env.CAMERA_SOURCE_COMMIT
+  ?? execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+if (!/^[0-9a-f]{40}$/.test(cameraSourceCommit)) throw new Error('Expected an exact camera source commit SHA');
 
 const homeViewports = [
   { width: 393, height: 648 },
