@@ -2,7 +2,8 @@ import { createFlightTargetLock, type FlightTargetLock } from './flight-target';
 /** Kaisen 3d751051 flight.ts: numeric adapter; aerodynamic equations are retained. */
 import { resolveThrottleAxis } from './throttle-lever';
 import { PLAYER_MAX_PITCH } from './flight-assist';
-import { add, scale, sub, length, vec, normalize, attitudeQuaternion, quaternionAttitude, transformDirection } from './world-math';
+import { EASY_CAMERA_LOOK_ANGLE, NORMAL_CAMERA_LOOK_ANGLE } from './flight-view';
+import { add, scale, sub, length, vec, normalize, attitudeQuaternion, transformDirection } from './world-math';
 import type { FlightAircraft, FlightInput, GameMode } from './flight-types';
 export { clamp } from './world-math';
 export { normalizedAngle as normalizeAngle } from './world-math';
@@ -35,8 +36,13 @@ export function updateAircraftMotion(
   plane: FlightAircraft, turnInput: number, climbInput: number, dt: number,
   preferredSpeed: number, looping = false, speedCeiling = MAX_SPEED,
   maxPitch = ENEMY_MAX_PITCH, responseMultiplier = 1, authoritySpeed = plane.speed,
+  manualSteering = false, cameraLookAngle = NORMAL_CAMERA_LOOK_ANGLE,
 ): void {
-  const turn = clamp(turnInput, -1, 1), climb = clamp(climbInput, -1, 1);
+  let turn = clamp(turnInput, -1, 1), climb = clamp(climbInput, -1, 1);
+  if (manualSteering) {
+    const magnitude = Math.hypot(turn, climb);
+    if (magnitude > 1) { turn /= magnitude; climb /= magnitude; }
+  }
   const lowSpeedAuthority = authoritySpeed <= STALL_SPEED + 20
     ? 0.92 + ((authoritySpeed - STALL_SPEED) / 20) * 0.23
     : authoritySpeed <= CRUISE_SPEED
@@ -44,8 +50,35 @@ export function updateAircraftMotion(
   const highSpeedLoad = clamp(1 - Math.max(0, authoritySpeed - 115) * 0.008, 0.78, 1);
   const authority = lowSpeedAuthority * highSpeedLoad;
   if (!looping) {
-    plane.pitch += (climb * maxPitch - plane.pitch) * (1 - Math.exp(-dt * 4.2));
-    plane.yaw = normalizeAngle(plane.yaw - turn * MAX_YAW_RATE * authority * responseMultiplier * dt);
+    if (manualSteering) {
+      const angularStep = MAX_YAW_RATE * authority * dt, pitchBefore = plane.pitch;
+      let yawStep = angularStep * responseMultiplier;
+      if (Math.abs(plane.pitch) > maxPitch) {
+        plane.pitch += clamp(clamp(plane.pitch, -maxPitch, maxPitch) - plane.pitch, -angularStep, angularStep);
+      } else if (Math.abs(climb) > EPSILON) {
+        plane.pitch = clamp(plane.pitch + climb * angularStep, -maxPitch, maxPitch);
+      } else if (Math.abs(turn) <= EPSILON) {
+        // A held horizontal turn retains pitch. Only both neutral axes level.
+        plane.pitch += clamp(-plane.pitch * (1 - Math.exp(-dt * 4.2)), -angularStep, angularStep);
+      }
+      if (Math.abs(turn) > EPSILON && Math.abs(pitchBefore) <= maxPitch && Math.abs(plane.pitch) <= maxPitch) {
+        const pitchDelta = Math.abs(climb) > EPSILON ? plane.pitch - pitchBefore : 0;
+        const desiredTotal = Math.hypot(pitchDelta, Math.abs(turn) * angularStep * responseMultiplier);
+        const cameraPitchBefore = (Math.abs(climb) > EPSILON ? pitchBefore : plane.pitch) + cameraLookAngle;
+        const cosProduct = Math.cos(cameraPitchBefore) * Math.cos(plane.pitch + cameraLookAngle);
+        if (cosProduct > EPSILON) {
+          const sineHalfYaw = Math.sqrt(Math.max(0,
+            Math.sin(desiredTotal * .5) ** 2 - Math.sin(pitchDelta * .5) ** 2,
+          ) / cosProduct);
+          yawStep = 2 * Math.asin(clamp(sineHalfYaw, 0, 1)) / Math.abs(turn);
+        }
+      }
+      plane.yaw = normalizeAngle(plane.yaw - turn * yawStep);
+    } else {
+      // Preserve numeric operation order for NPC and absolute-pitch assist.
+      plane.pitch += (climb * maxPitch - plane.pitch) * (1 - Math.exp(-dt * 4.2));
+      plane.yaw = normalizeAngle(plane.yaw - turn * MAX_YAW_RATE * authority * responseMultiplier * dt);
+    }
     plane.bank += (turn * MAX_BANK - plane.bank) * (1 - Math.exp(-dt * 5.5));
   } else plane.bank += -plane.bank * (1 - Math.exp(-dt * 3));
   const turnDrag = Math.abs(turn) * 2.7, climbDrag = Math.max(0, climb) * 2.1;
@@ -65,8 +98,13 @@ export function desiredFlightInput(plane: FlightAircraft, target: import('./worl
 export function updatePlayerLoop(
   player: FlightAircraft, meta: FlightController, input: FlightInput, userInput: FlightInput,
   loopPressed: boolean, dt: number, preferredSpeed: number, speedCeiling: number, responseMultiplier: number, authoritySpeed = player.speed,
+  mode: GameMode = 'normal',
 ): boolean {
   if (player.loopCooldown > 0) player.loopCooldown = Math.max(0, player.loopCooldown - dt);
+  const cameraLookAngle = mode === 'easy' ? EASY_CAMERA_LOOK_ANGLE : NORMAL_CAMERA_LOOK_ANGLE;
+  const manualSteering = !!userInput.steeringActive
+    || Math.max(Math.abs(userInput.turn), Math.abs(userInput.climb)) > EPSILON
+    || Math.max(Math.abs(input.turn), Math.abs(input.climb)) <= EPSILON;
   const revisionChanged = meta.loopStartSteeringRevision !== undefined && userInput.steeringRevision !== undefined
     && userInput.steeringRevision !== meta.loopStartSteeringRevision;
   const commandChanged = Math.abs(userInput.turn - meta.loopStartTurn) > EPSILON || Math.abs(userInput.climb - meta.loopStartClimb) > EPSILON;
@@ -74,10 +112,11 @@ export function updatePlayerLoop(
   if (player.loopProgress > 0 && steeringChanged) {
     player.loopProgress = 0; player.loopCooldown = LOOP_COOLDOWN; meta.playerLoopActive = false;
     const recoveryPitch = clamp(userInput.climb, -1, 1) * PLAYER_MAX_PITCH;
-    const attitude = quaternionAttitude(player.quaternion), recoveryBank = clamp(userInput.turn, -1, 1) * MAX_BANK;
-    player.pitch = recoveryPitch + normalizeAngle(attitude.pitch - recoveryPitch);
-    player.yaw = attitude.yaw; player.bank = recoveryBank + normalizeAngle(attitude.bank - recoveryBank);
-    updateAircraftMotion(player, userInput.turn, userInput.climb, dt, preferredSpeed, false, speedCeiling, PLAYER_MAX_PITCH, responseMultiplier, authoritySpeed);
+    const recoveryBank = clamp(userInput.turn, -1, 1) * MAX_BANK;
+    // Keep the continuous branch across vertical; canonical Euler would flip yaw.
+    player.pitch = recoveryPitch + normalizeAngle(player.pitch - recoveryPitch);
+    player.yaw = normalizeAngle(player.yaw); player.bank = recoveryBank + normalizeAngle(player.bank - recoveryBank);
+    updateAircraftMotion(player, userInput.turn, userInput.climb, dt, preferredSpeed, false, speedCeiling, PLAYER_MAX_PITCH, responseMultiplier, authoritySpeed, true, cameraLookAngle);
     return false;
   }
   if (player.loopProgress <= 0 && loopPressed && player.loopCooldown <= EPSILON && player.speed >= STALL_SPEED) {
@@ -85,7 +124,7 @@ export function updatePlayerLoop(
     meta.loopStartSteeringRevision = userInput.steeringRevision; meta.loopStartTurn = userInput.turn; meta.loopStartClimb = userInput.climb;
   }
   if (player.loopProgress <= 0) {
-    updateAircraftMotion(player, input.turn, input.climb, dt, preferredSpeed, false, speedCeiling, PLAYER_MAX_PITCH, responseMultiplier, authoritySpeed);
+    updateAircraftMotion(player, input.turn, input.climb, dt, preferredSpeed, false, speedCeiling, PLAYER_MAX_PITCH, responseMultiplier, authoritySpeed, manualSteering, cameraLookAngle);
     return false;
   }
   if (!meta.playerLoopActive) { meta.playerLoopActive = true; meta.loopStartYaw = player.yaw; meta.loopStartPitch = player.pitch; }

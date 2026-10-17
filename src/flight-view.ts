@@ -4,11 +4,16 @@ import type { FlightAircraft, GameMode } from './flight-types';
 import type { Vec3 } from './world-math';
 export const FLIGHT_FOV = 64, FLIGHT_FAR = 6500, FLIGHT_VISIBILITY_RANGE = 1500;
 export const FLIGHT_CAMERA_BANK_FACTOR = 0.45, EASY_AIM_RADIUS = 0.135;
+export const NORMAL_CAMERA_LOOK_ANGLE = -.19;
+export const EASY_CAMERA_LOOK_ANGLE = -Math.atan2(11, 479);
 const TAN_HALF_FOV = Math.tan(FLIGHT_FOV * Math.PI / 360);
 export function getFlightCameraPose(player: FlightAircraft, mode: GameMode) {
   let rotation = multiplyQuaternion(player.quaternion, attitudeQuaternion(0, 0, -player.bank * (1 - FLIGHT_CAMERA_BANK_FACTOR)));
   const position = add(transformDirection({ x: 0, y: 11, z: 29 }, rotation), player.position);
-  rotation = multiplyQuaternion(rotation, attitudeQuaternion(mode === 'easy' ? -Math.atan2(11, 479) : -0.19, 0, 0));
+  // Preserve the numeric quaternion actually used by renderer interpolation.
+  rotation = multiplyQuaternion(player.quaternion, attitudeQuaternion(0, 0, -player.bank));
+  rotation = multiplyQuaternion(rotation, attitudeQuaternion(mode === 'easy' ? EASY_CAMERA_LOOK_ANGLE : NORMAL_CAMERA_LOOK_ANGLE, 0, 0));
+  rotation = multiplyQuaternion(rotation, attitudeQuaternion(0, 0, player.bank * FLIGHT_CAMERA_BANK_FACTOR));
   return { position, rotation };
 }
 export function projectFlightTarget(player: FlightAircraft, target: Vec3, aspect: number, mode: GameMode) {

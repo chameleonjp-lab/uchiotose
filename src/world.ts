@@ -251,7 +251,7 @@ export function stepWorld(previous:WorldState,sourceMission:MissionState,input:F
       const adjusted={...accepted,...smoothFlightAssistance(meta,accepted,assist,FIXED_WORLD_DT)};
       const pressed=accepted.loop&&!meta.loopHeld;meta.loopHeld=accepted.loop;
       updatePlayerLoop(p,meta,adjusted,accepted,pressed,FIXED_WORLD_DT,advanceThrottle(meta,accepted,mode,FIXED_WORLD_DT),MAX_SPEED,meta.responseMultiplier,
-        worldActualSpeed(p.speed,a.ice,m.tick,'aircraft'));
+        worldActualSpeed(p.speed,a.ice,m.tick,'aircraft'),mode);
     }else{const ai=wingInput(p,w,m.tick);updateAircraftMotion(p,ai.turn,ai.climb,FIXED_WORLD_DT,CRUISE_SPEED,false,MAX_SPEED,.62,1,
       worldActualSpeed(p.speed,a.ice,m.tick,'aircraft'));}
     a.baseSpeedMps=p.speed;a.actualSpeedMps=worldActualSpeed(p.speed,a.ice,m.tick,'aircraft');p.forward=forwardOf(p);

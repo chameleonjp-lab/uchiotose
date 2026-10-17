@@ -1,12 +1,14 @@
 import { defineConfig } from "@playwright/test";
+const cameraControlsOnly = process.env.CAMERA_CONTROLS_ONLY === "1";
 export default defineConfig({
+  grepInvert: cameraControlsOnly ? undefined : /@camera-controls/,
   testDir: "./browser-tests",
   testIgnore: /ui-only\.spec\.ts/,
   timeout: 60000,
   expect: { timeout: 15000 },
   workers: 1,
   projects: [
-    { name: "webkit-ui", testMatch: /mobile-settings-ui\.spec\.ts/, use: { browserName: "webkit", launchOptions: {} } },
+    { name: "webkit-ui", testMatch: cameraControlsOnly ? /home\.spec\.ts/ : /mobile-settings-ui\.spec\.ts/, use: { browserName: "webkit", launchOptions: {} } },
     { name: "chromium", use: { browserName: "chromium" } },
   ],
   retries: 0,
@@ -20,8 +22,8 @@ export default defineConfig({
     isMobile: true,
     hasTouch: true,
     deviceScaleFactor: 1,
-    screenshot: "only-on-failure",
-    trace: "retain-on-failure",
+    screenshot: cameraControlsOnly ? "off" : "only-on-failure",
+    trace: cameraControlsOnly ? "off" : "retain-on-failure",
     launchOptions: {
       args: [
         "--use-gl=angle",
