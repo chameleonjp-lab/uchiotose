@@ -1,4 +1,9 @@
 import { expect, test } from './local-only';
+import { execFileSync } from 'node:child_process';
+// CI passes the exact checkout ref without changing Git ownership safeguards.
+const cameraSourceCommit = process.env.CAMERA_SOURCE_COMMIT
+  ?? execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+if (!/^[0-9a-f]{40}$/.test(cameraSourceCommit)) throw new Error('Expected an exact camera source commit SHA');
 
 const homeViewports = [
   { width: 393, height: 648 },
@@ -285,4 +290,57 @@ test('HUD header controls fit three planned viewports and Pause traps keyboard f
   await expect(page.locator('#resume')).toBeFocused();
   await page.keyboard.press('Shift+Tab');
   await expect(page.locator('#pause-settings')).toBeFocused();
+});
+
+test.describe('focused camera controls', () => {
+for (const mode of ['normal', 'easy'] as const) for (const viewport of [
+  { width: 393, height: 852 }, { width: 393, height: 648 }, { width: 568, height: 320 },
+  { width: 852, height: 393 }, { width: 1280, height: 720 },
+]) test(`@camera-controls camera rollout live ${mode} ${viewport.width}x${viewport.height}`, async ({ page }, testInfo) => {
+  // Real input and real fixed ticks only. Snapshot and renderer diagnostics are
+  // read-only; no fixture state setters, synthetic stepping or frozen game.
+  const read = () => page.evaluate(() => {
+    const api = (window as any).__uchiotose;
+    const state = api.snapshot() as import('../src/simulation').SimulationState;
+    const id = state.mission.controlledAircraftId;
+    if (!id) throw new Error('No controlled aircraft');
+    const p = state.world.aircraft[id];
+    return { id, missionId: state.mission.missionId, tick: state.mission.tick,
+      phase: state.mission.phase, requiresRelease: state.mission.requiresInputRelease,
+      version: state.mission.controlResetVersion, pitch: p.pitch, yaw: p.yaw,
+      quaternion: p.quaternion, position: p.position, renderer: api.diagnostics().renderer };
+  });
+  await page.setViewportSize(viewport);
+  await page.goto('/');
+  await expect(page.locator('#start')).toBeEnabled();
+  await page.getByLabel(mode === 'normal' ? 'ノーマル' : 'イージー', { exact: true }).check();
+  await page.locator('#start').click();
+  await expect.poll(async () => { const s = await read(); return s.tick > 2 && s.phase === 'playing' && !s.requiresRelease; }).toBe(true);
+  await page.locator('#flight').focus();
+  const initial = await read();
+  await page.keyboard.down('ArrowUp');
+  await expect.poll(async () => (await read()).pitch).toBeGreaterThan(initial.pitch + .03);
+  await page.keyboard.down('ArrowRight');
+  await page.keyboard.up('ArrowUp');
+  // Establish the pure horizontal interval after the last vertical key event.
+  await expect.poll(async () => (await read()).yaw).toBeLessThan(initial.yaw - .015);
+  const turning = await read();
+  await expect.poll(async () => (await read()).tick).toBeGreaterThan(turning.tick + 8);
+  const held = await read();
+  expect(held.id).toBe(initial.id);expect(held.missionId).toBe(initial.missionId);
+  expect(held.phase).toBe('playing');expect(held.pitch).toBeCloseTo(turning.pitch, 10);
+  expect(held.yaw).toBeLessThan(turning.yaw);
+  expect(held.renderer.calls).toBeGreaterThan(0);
+  expect(held.renderer.lastSubmittedFrame.tick).toBeGreaterThan(0);
+  console.log(JSON.stringify({ sourceCommit: cameraSourceCommit, mode, viewport, initial, turning, held }));
+  await page.keyboard.up('ArrowRight');
+  await page.locator('#pause-button').click();
+  const paused = await read();
+  await expect(page.locator('#app')).toHaveAttribute('data-screen', 'paused');
+  await page.locator('#pause-settings').click();
+  // Closing settings must preserve the paused simulation rather than resume it.
+  await page.locator('#control-cancel').click();
+  expect((await read()).phase).toBe('paused');expect((await read()).tick).toBe(paused.tick);
+});
+
 });

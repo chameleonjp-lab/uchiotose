@@ -7,7 +7,7 @@ import { createWorldState,stepWorld,syncWorldState,constrainWorldMotion,safeAirc
   createSpawnGuard,findAircraftSpawnPoint,findEnemySpawnPoint,aircraftSpawnPoint,
   type WorldState,type FlightInput } from '../src/world';
 import { ISLAND_VERTICES,ISLAND_TRIANGLES,ISLAND_PLANES,sweepIsland,sweepSea,lineOfSight } from '../src/island';
-import { vec,length,sub,distance,angle,attitudeQuaternion,transformDirection } from '../src/world-math';
+import { vec,length,sub,distance,angle,attitudeQuaternion,quaternionAttitude,normalizedAngle,transformDirection } from '../src/world-math';
 import { createFlightController,updatePlayerLoop,advanceThrottle,updateQuaternion } from '../src/flight';
 import { applyEasyShotCorrection,autoFireTarget } from '../src/flight-assist';
 import { getFlightCameraPose,projectFlightTarget } from '../src/flight-view';
@@ -111,13 +111,23 @@ test('pause resumes the same loop; a real control handoff cancels only the new o
   w.aircraft.A002.loopProgress=.4;w.aircraft.A002.controller.playerLoopActive=true;const changed=syncWorldState(w,handoff);
   assert.equal(changed.aircraft.A002.loopProgress,0);assert.equal(changed.aircraft.A001.loopProgress,progress);
 });
-test('fixed-source aerodynamic golden traces cover throttle, steering, complete/interrupted loops',()=>{
+test('historical golden traces preserve absolute aerodynamics and complete loops; cancelled manual traces are separately replaced',()=>{
   const golden=JSON.parse(fs.readFileSync(new URL('./fixtures/kaisen-flight.json',import.meta.url),'utf8'));
   assert.equal(golden.commit,'3d751051dc6212482a129e8da596ddd349b2f9f5');
   for(const c of golden.cases){const p={position:vec(2800,1000,2300),quaternion:attitudeQuaternion(0,.3,0),yaw:.3,pitch:0,bank:0,speed:110,loopProgress:0,loopCooldown:0};
     const meta=createFlightController(p);let sample=0;
     for(let tick=1;tick<=c.ticks;tick++){const input={...c.input,turn:tick>=c.interruptAt&&c.interruptAt>0?.42:c.input.turn,fire:false,loop:tick===c.loopAt};
-      updatePlayerLoop(p,meta,input,input,input.loop,1/60,advanceThrottle(meta,input,'normal',1/60),141,1);
+      const preferred=advanceThrottle(meta,input,'normal',1/60);
+      if(c.loopAt<0) updateAircraftMotion(p,input.turn,input.climb,1/60,preferred,false,141,.95);
+      else if(c.interruptAt>0&&tick>=c.interruptAt){
+        // The checked-in 3d751051 fixture is retained byte-for-byte, including its
+        // obsolete canonical-Euler cancellation. Replay that historical boundary
+        // only here; new manual cancellation is covered by the full matrix below.
+        p.loopCooldown=Math.max(0,p.loopCooldown-1/60);
+        if(tick===c.interruptAt){const old=quaternionAttitude(p.quaternion),recoveryBank=input.turn*.72;
+          p.pitch=normalizedAngle(old.pitch);p.yaw=old.yaw;p.bank=recoveryBank+normalizedAngle(old.bank-recoveryBank);p.loopProgress=0;p.loopCooldown=2;}
+        updateAircraftMotion(p,input.turn,input.climb,1/60,preferred,false,141,.95);
+      }else updatePlayerLoop(p,meta,input,input,input.loop,1/60,preferred,141,1);
       if(tick%60===0){const expected=c.samples[sample++];for(const key of ['yaw','pitch','bank','speed','loopProgress','loopCooldown'] as const)close(p[key],expected[key],1e-9);
         for(const axis of ['x','y','z'] as const)close(p.position[axis],expected.position[axis],1e-8);
         for(const axis of ['x','y','z','w'] as const)close(p.quaternion[axis],expected.quaternion[axis],1e-9);}}
@@ -203,4 +213,141 @@ test('simultaneous guarded reservations and record/pending array order use ident
   assert.deepEqual(w,rw);for(const id of ['A009','A010','A011'])assert.ok(w.aircraft[id]);
   assert.deepEqual(w.enemies.E025.position,rw.enemies.E025.position);assert.deepEqual(w.enemies.E026.position,rw.enemies.E026.position);
   assert.ok(distance(w.aircraft.A009.position,w.aircraft.A010.position)>12);assert.ok(distance(w.aircraft.A010.position,w.aircraft.A011.position)>12);
+});
+
+// Kaisen 67ac107 / approved total-angle rollout. The existing authoritySpeed
+// position is deliberately exercised independently of aerodynamic base speed.
+import { Euler, Quaternion, PerspectiveCamera } from 'three';
+import type { FlightAircraft, GameMode } from '../src/flight-types';
+import { FLIGHT_FOV, FLIGHT_FAR } from '../src/flight-view';
+import { updateAircraftMotion } from '../src/flight';
+function cameraPlane(pitch=0,bank=0,yaw=0,speed=110):FlightAircraft {
+  return {position:vec(0,2000,0),quaternion:attitudeQuaternion(pitch,yaw,bank),pitch,bank,yaw,speed,loopProgress:0,loopCooldown:0};
+}
+function cameraPose(p:FlightAircraft,mode:GameMode){const v=getFlightCameraPose(p,mode),rotation=new Quaternion(v.rotation.x,v.rotation.y,v.rotation.z,v.rotation.w);return {position:new Vector3(v.position.x,v.position.y,v.position.z),rotation,forward:new Vector3(0,0,-1).applyQuaternion(rotation).normalize()};}
+const opticalAngle=(a:Vector3,b:Vector3)=>Math.atan2(new Vector3().crossVectors(a,b).length(),a.dot(b));
+const cameraAuthority=(s:number)=>(s<=85?.92+(s-65)/20*.23:s<=110?1.15-(s-85)/25*.15:1)*Math.max(.78,Math.min(1,1-Math.max(0,s-115)*.008));
+function cameraStep(p:FlightAircraft,i:FlightInput,m:GameMode,response=1,authoritySpeed=p.speed,control=createFlightController(p)){
+  updatePlayerLoop(p,control,i,i,false,1/60,110,141,response,authoritySpeed,m);
+}
+test('numeric camera-forward total angle matches all directions and uses the existing actual-speed argument',()=>{
+  for(const mode of ['easy','normal'] as const)for(const speed of [65,85,110,141])for(const pitch of [-.9,0,.9])for(const bank of [-.72,0,.72])for(const yaw of [-3.14,0,3.14])for(let direction=0;direction<8;direction++)for(const strength of [.25,.45,.6]){
+    const theta=direction*Math.PI/4,p=cameraPlane(pitch,bank,yaw,speed),before=cameraPose(p,mode).forward;
+    cameraStep(p,{...neutral,turn:Math.cos(theta)*strength,climb:Math.sin(theta)*strength,steeringActive:true},mode);
+    const actual=opticalAngle(before,cameraPose(p,mode).forward),expected=.82*cameraAuthority(speed)/60*strength;
+    assert.ok(Math.abs(actual-expected)<=1e-12,JSON.stringify({mode,speed,pitch,bank,yaw,direction,strength,actual,expected}));
+  }
+  for(const authoritySpeed of [65,85,346/3.6,110,141])for(const mode of ['easy','normal'] as const){
+    const p=cameraPlane(.3,.72,1.3,141),before=cameraPose(p,mode).forward;cameraStep(p,{...neutral,turn:.45,steeringActive:true},mode,1,authoritySpeed);
+    close(opticalAngle(before,cameraPose(p,mode).forward),.82*cameraAuthority(authoritySpeed)/60*.45,1e-12);
+  }
+});
+test('numeric horizontal offscreen multiplier excludes pitch; circular diagonals and neutral are bounded',()=>{
+  for(const mode of ['easy','normal'] as const)for(const speed of [65,85,110,141])for(const pitch of [-.9,0,.9])for(const sign of [-1,1]){
+    const step=.82*cameraAuthority(speed)/60;
+    for(const axis of ['turn','climb'] as const){const p=cameraPlane(pitch,0,0,speed),before=cameraPose(p,mode).forward;cameraStep(p,{...neutral,[axis]:sign*.45,steeringActive:true},mode,1.65);close(opticalAngle(before,cameraPose(p,mode).forward),step*.45*(axis==='turn'?1.65:1),1e-12);}
+    const p=cameraPlane(pitch,0,0,speed),before=cameraPose(p,mode).forward;cameraStep(p,{...neutral,turn:sign,climb:sign,steeringActive:true},mode);close(opticalAngle(before,cameraPose(p,mode).forward),step,1e-12);
+    const h=cameraPlane(pitch,0,0,speed);cameraStep(h,{...neutral,turn:sign*.6,steeringActive:true},mode);assert.equal(h.pitch,pitch);const neutralStep=.82*cameraAuthority(h.speed)/60;cameraStep(h,{...neutral,steeringActive:true},mode);assert.ok(Math.abs(h.pitch-pitch)<=neutralStep+1e-12);
+  }
+  for(const sign of [-1,1]){const p=cameraPlane(sign*.95);cameraStep(p,{...neutral,climb:sign,steeringActive:true},'normal');assert.equal(p.pitch,sign*.95);cameraStep(p,{...neutral,climb:-sign,steeringActive:true},'normal');assert.ok(Math.abs(p.pitch)<.95);}
+});
+test('numeric camera matches Three composition, old offset, interpolated quaternion and projected gun sight',()=>{
+  for(const mode of ['easy','normal'] as const)for(const pitch of [-Math.PI*2,-Math.PI,-Math.PI/2,-.9,0,.9,Math.PI/2,Math.PI,Math.PI*2])for(const yaw of [-3.14,0,3.14])for(const bank of [-.72,0,.72]){
+    const p=cameraPlane(pitch,bank,yaw),pose=cameraPose(p,mode),q=new Quaternion(p.quaternion.x,p.quaternion.y,p.quaternion.z,p.quaternion.w),axis=new Vector3(0,0,1);
+    const oldPosition=new Vector3(0,11,29).applyQuaternion(q.clone().multiply(new Quaternion().setFromAxisAngle(axis,bank*.55))).add(new Vector3(p.position.x,p.position.y,p.position.z));
+    assert.ok(pose.position.distanceTo(oldPosition)<=1e-12);assert.ok(opticalAngle(pose.forward,cameraPose(cameraPlane(pitch,0,yaw),mode).forward)<=1e-12);
+    for(const alpha of [0,.25,.5,.75,1]){
+      const interpolated=q.clone().slerp(new Quaternion().setFromEuler(new Euler(.25,-.8,.2,'YXZ')),alpha);p.quaternion={x:interpolated.x,y:interpolated.y,z:interpolated.z,w:interpolated.w};const current=cameraPose(p,mode);
+      const expected=interpolated.clone().multiply(new Quaternion().setFromAxisAngle(axis,bank)).multiply(new Quaternion().setFromAxisAngle(new Vector3(1,0,0),mode==='easy'?-Math.atan2(11,479):-.19)).multiply(new Quaternion().setFromAxisAngle(axis,-bank*.45));
+      close(1-Math.abs(current.rotation.dot(expected)),0,1e-12);close(current.rotation.length(),1,1e-12);
+      for(const [width,height] of [[393,852],[393,648],[568,320],[852,393],[1280,720]]){
+        const c=new PerspectiveCamera(FLIGHT_FOV,width/height,.1,FLIGHT_FAR);c.position.copy(current.position);c.quaternion.copy(current.rotation);c.updateMatrixWorld(true);
+        const target=new Vector3(0,0,-504.5).applyQuaternion(interpolated).add(new Vector3(p.position.x,p.position.y,p.position.z)),a=target.clone().project(c),b=projectFlightTarget(p,target,width/height,mode);close(a.x,b.x,1e-12);close(a.y,b.y,1e-12);
+        if(mode==='normal'){const sight=projectGunSight(p,width,height);close(sight.x,(.5+.5*a.x)*width,1e-9);close(sight.y,(.5-.5*a.y)*height,1e-9);}
+      }
+    }
+  }
+});
+test('loop cancellation obeys independent pre-step bounds across bank, speed and response',()=>{
+  const stepDt=1/60, tolerance=1e-12;
+  const wrapped=(angle:number)=>Math.atan2(Math.sin(angle),Math.cos(angle));
+  let cases=0,maxQuaternionStep=0,maxForwardStep=0,maxRetainedRollStep=0,maxPoseError=0;
+  for(const mode of ['easy','normal'] as const)
+  for(const startPitch of [-.95,0,.95])for(const startBank of [-.72,0,.72])
+  for(const startSpeed of [65,85,110,141])for(const response of [1,1.65])
+  for(const ticks of [1,25,50,75,90,100,125,150,175,200,225,250,275,299])
+  for(const turn of [-1,0,1])for(const climb of [-1,0,1]){
+    const p=cameraPlane(startPitch,startBank,0,startSpeed),control=createFlightController(p);
+    const zero={...neutral,steeringRevision:1};
+    for(let i=0;i<ticks;i++)updatePlayerLoop(p,control,zero,zero,i===0,stepDt,110,141,response,p.speed,mode);
+    const before={...cameraPose(p,mode),pitch:p.pitch,yaw:p.yaw,bank:p.bank,speed:p.speed};
+
+    // Derive every allowance BEFORE cancellation. Circular input has length <= 1,
+    // so its requested angular distance is <= angularStep * max(1,response).
+    // In the finite-yaw branch both pitch endpoints lie within +/-0.95, giving
+    // cos(pitch+look) >= cos(0.95+abs(look)). Dropping the nonnegative pitch term
+    // in sin(total/2)^2 - sin(pitchDelta/2)^2 gives a conservative yaw bound.
+    // The fallback yaw rate is smaller; bank's target is always within +/-0.72.
+    const angularStep=.82*cameraAuthority(before.speed)*stepDt;
+    const look=mode==='easy'?-Math.atan2(11,479):-.19;
+    const yawBound=turn===0?0:2*Math.asin(Math.min(1,
+      Math.sin(angularStep*Math.max(1,response)/2)/Math.cos(.95+Math.abs(look))));
+    const bankBound=(Math.abs(before.bank)+.72)*(1-Math.exp(-5.5*stepDt));
+    // Rotations compose as yaw * (pitch+look) * retained optical roll. The
+    // geodesic triangle inequality bounds their total independently of deltas.
+    const quaternionBound=angularStep+yawBound+.45*bankBound;
+    assert.ok(quaternionBound<Math.PI/2,'a branch jump cannot enlarge its own allowance');
+
+    const input={...neutral,turn,climb,steeringActive:true,steeringRevision:2};
+    cameraStep(p,input,mode,response,before.speed,control);
+    const after=cameraPose(p,mode);
+    const relative=before.rotation.clone().invert().multiply(after.rotation);
+    const quaternionStep=2*Math.atan2(Math.hypot(relative.x,relative.y,relative.z),Math.abs(relative.w));
+    const pitchStep=Math.abs(wrapped(p.pitch-before.pitch));
+    const yawStep=Math.abs(wrapped(p.yaw-before.yaw));
+    const bankStep=Math.abs(wrapped(p.bank-before.bank));
+    const forwardStep=opticalAngle(before.forward,after.forward);
+    const context=JSON.stringify({mode,startPitch,startBank,startSpeed,response,ticks,turn,climb,
+      pitchStep,yawStep,bankStep,quaternionStep,angularStep,yawBound,bankBound,quaternionBound});
+    assert.equal(p.loopProgress,0);assert.equal(p.loopCooldown,2);
+    assert.ok(pitchStep<=angularStep+tolerance,`pitch: ${context}`);
+    assert.ok(yawStep<=yawBound+tolerance,`yaw: ${context}`);
+    assert.ok(bankStep<=bankBound+tolerance,`bank: ${context}`);
+    assert.ok(quaternionStep<=quaternionBound+tolerance,`camera quaternion: ${context}`);
+    assert.ok(forwardStep<=angularStep+yawBound+tolerance,`camera forward: ${context}`);
+
+    // Independently reconstruct the optical pose; bounded Euler changes alone
+    // must not hide an erroneous camera composition or a canonical branch flip.
+    const expected=new Quaternion().setFromAxisAngle(new Vector3(0,1,0),p.yaw)
+      .multiply(new Quaternion().setFromAxisAngle(new Vector3(1,0,0),p.pitch+look))
+      .multiply(new Quaternion().setFromAxisAngle(new Vector3(0,0,1),-.45*p.bank));
+    const actualComponents=after.rotation.toArray(),expectedComponents=expected.toArray();
+    const poseError=Math.min(...[1,-1].map(sign=>Math.max(...actualComponents.map(
+      (value,index)=>Math.abs(value-sign*expectedComponents[index])))));
+    assert.ok(poseError<=tolerance,`independent camera pose: ${context}`);
+    cases++;maxQuaternionStep=Math.max(maxQuaternionStep,quaternionStep);
+    maxForwardStep=Math.max(maxForwardStep,forwardStep);maxRetainedRollStep=Math.max(maxRetainedRollStep,.45*bankStep);
+    maxPoseError=Math.max(maxPoseError,poseError);
+  }
+  assert.equal(cases,18144);
+  console.log(JSON.stringify({contract:'loop-cancel-pre-step-bounds',cases,maxQuaternionStep,maxForwardStep,maxRetainedRollStep,maxPoseError}));
+});
+
+test('ownerless Easy assistance remains absolute pitch while held neutral is manual',()=>{
+  const adjusted={...neutral,turn:.3,climb:.5},p=cameraPlane(-.2),meta=createFlightController(p);
+  updatePlayerLoop(p,meta,adjusted,neutral,false,1/60,110,141,1,110,'easy');
+  close(p.pitch,-.2+(.5*.95+.2)*(1-Math.exp(-4.2/60)),1e-12);
+  const manual=cameraPlane(-.2);cameraStep(manual,{...neutral,steeringActive:true},'easy');assert.ok(Math.abs(manual.pitch+.2)<=.82/60);
+});
+import { createSimulation, releaseSimulationInput, stepSimulation } from '../src/simulation';
+test('Normal real simulation camera is fire-independent for twelve ticks with and without ice',()=>{
+  for(const frozen of [false,true])for(const turn of [-.6,0,.6])for(const climb of [-.6,0,.6]){
+    let a=releaseSimulationInput(createSimulation({missionId:'camera-fire',seed:77,phase:'playing',mode:'normal'})),b=structuredClone(a);
+    for(const s of [a,b]){const p=s.world.aircraft.A001;p.position=vec(0,2000,4200);p.pitch=.3;p.bank=.2;p.yaw=.8;updateQuaternion(p);if(frozen)s.mission.aircraft[0].ice={startsAtTick:0,expiresAtTick:301};}
+    for(let tick=0;tick<12;tick++){
+      a=stepSimulation(a,{...neutral,turn,climb,steeringActive:true});b=stepSimulation(b,{...neutral,turn,climb,fire:true,steeringActive:true});
+      const x=a.world.aircraft.A001,y=b.world.aircraft.A001;assert.deepEqual(x.position,y.position);assert.deepEqual(x.quaternion,y.quaternion);assert.equal(x.speed,y.speed);assert.deepEqual(cameraPose(x,'normal').forward,cameraPose(y,'normal').forward);
+    }
+    assert.ok(b.metrics.aircraftShots>a.metrics.aircraftShots);
+  }
 });
