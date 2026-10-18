@@ -1,17 +1,21 @@
 {
   "repository": "chameleonjp-lab/uchiotose",
-  "commit": "fd4f3c9277a64efbd344630817bb35ed826a65e7",
-  "sourceTree": "06508504c0023da8853b34d73d258b703be635fc",
+  "commit": "89725b8bf96b7bdbef6869284f8c764ed9cd4e10",
+  "sourceTree": "412d223db76ed05618e45d8d6e4a72530301305a",
   "files": {
     ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "third-party-notices.txt": "97de7ac302052bcea7f20e5ae89635c10e049614f56409288d554d63fceb614f",
-    "release.json": "b97f3edbe2f87104e8f1566ccae417cf2c02a6ec031f6eab36689015959e9729",
-    "index.html": "0728cd714380ecfeef458228090996e09f4cb966a2c2a02df06ad56ef11f971d",
+    "assets/index-B2mJ0w2C.js": "9d9469bddc55de4f884a17e2445c5608444b31112327d54a1dc4c13460c9ef81",
     "assets/index-CM_NdGef.css": "da43ec868b2376e44fca82231ce10e744bf4435d158bdfc3698576a6aca177b7",
-    "assets/index-CWWXGqVN.js": "c0e0327ae8f20703fea79758faa05c554f1f08b7ec2917e6212f94658fd62ffc"
+    "index.html": "07e6fd8b3e1cd5fac1d6b0837175c1b2cf5c39cb1b967925a70085c7f634bab9",
+    "release.json": "b50539b208e4157a13366b1c3e8b34815ecaa10fff5090b3a667c401b6034436",
+    "third-party-notices.txt": "97de7ac302052bcea7f20e5ae89635c10e049614f56409288d554d63fceb614f"
   },
-  "publicationAuthorizationDate": "2026-10-17",
-  "publicationScope": "User-requested update of existing GitHub Pages to latest merged main; physical-phone acceptance not claimed",
-  "previousPagesCommit": "20bc340c37a0449c3b3641c81b60d70982b1bc9e",
-  "sourceAcceptanceRun": "https://github.com/chameleonjp-lab/uchiotose/actions/runs/39032799543"
+  "retainedFiles": {
+    "assets/index-BF7Y2cGw.js": "3338ca7bc302878339bf5471aca43eecc24d2c204d6604cea7949d23bf3261c7",
+    "assets/index-CWWXGqVN.js": "c0e0327ae8f20703fea79758faa05c554f1f08b7ec2917e6212f94658fd62ffc",
+    "assets/index-DnuEAYz2.js": "70cf9d483e5cdb5443e7b218b65fbc74551fc19ee36d0633a89643a2e1134f3c"
+  },
+  "previousPagesCommit": "bc2090c62f63f7bb9fe188d587e2adbb2b43ae2c",
+  "sourceAcceptanceRun": "https://github.com/chameleonjp-lab/uchiotose/actions/runs/39101695060",
+  "publicationScope": "Existing public GitHub Pages; static artifacts only; previously published hashed assets preserved; physical-phone acceptance not claimed"
 }
