@@ -3,7 +3,7 @@ import test from 'node:test';
 import { Vector3, Quaternion } from 'three';
 import { getFlightAssist, autoFireTarget } from '../src/flight-assist';
 import { FLIGHT_FOV, getFlightCameraPose } from '../src/flight-view';
-import { createFlightTargetLock, smoothFlightAssistance } from '../src/flight-target';
+import { clearFlightAssistance, createFlightTargetLock, smoothFlightAssistance } from '../src/flight-target';
 
 const numeric = true, callback = false;
 const input = { turn: 0, climb: 0, fire: false, loop: false, viewAspect: 393 / 852 };
@@ -112,4 +112,21 @@ test('absolute history is not reused as relative manual input and zero is a vali
   s.assistClimb=0;s.assistClimbMode='absolute';
   const zero=(smoothFlightAssistance as any)(s,input,a,1/60,.6);
   assert.equal(zero.climb,.025);
+});
+
+
+test('inactive assistance removes the optional pitch mode own property',()=>{
+  const s:any={assistTurn:0,assistClimb:0,responseMultiplier:1,targetLock:createFlightTargetLock()};
+  const active={turn:0,climb:.8,responseMultiplier:1,hasVisibleTarget:true};
+  const activate=()=>smoothFlightAssistance(s,input,active,1/60,.6);
+  activate(); assert.equal(Object.hasOwn(s,'assistClimbMode'),true);
+  clearFlightAssistance(s); assert.equal(Object.hasOwn(s,'assistClimbMode'),false);
+  for(const changed of [false,true]) {
+    activate(); s.targetLock.changed=changed;
+    smoothFlightAssistance(s,input,{...active,hasVisibleTarget:false},1/60,.6);
+    assert.equal(Object.hasOwn(s,'assistClimbMode'),false);
+  }
+  activate();
+  smoothFlightAssistance(s,{...input,climb:.5},{...active,climb:.5},1/60);
+  assert.equal(Object.hasOwn(s,'assistClimbMode'),false);
 });

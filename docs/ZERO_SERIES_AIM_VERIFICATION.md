@@ -53,3 +53,7 @@ Verification on 2026-10-18 UTC:
 - Focused helper/world tests: 43 passed. The world regression covers both pitch signs and frozen/unfrozen aircraft and checks that the prior controller snapshot is unchanged.
 - `npm run build`: passed (existing large-bundle advisory).
 - CI, publication and iPhone/Safari acceptance are separate. This local result does not establish live-device improvement or publication.
+
+### Inactive controller schema regression
+
+A follow-up own-property regression exposed that assigning `undefined` retained an enumerable `assistClimbMode` key after assistance stopped. Clear, target-change and inactive smoothing now delete this optional key. The regression failed before correction and passes afterward; the ordinary suite now passes 227 tests. This preserves the inactive controller shape without changing active pitch behavior.
