@@ -5,7 +5,7 @@ import type { MissionState, DeathBatch, IceState, SpawnGuard } from './roster';
 import { createFlightController, forwardOf, updateQuaternion, desiredFlightInput, updateAircraftMotion, updatePlayerLoop,
   advanceThrottle, MAX_SPEED, CRUISE_SPEED } from './flight';
 import type { FlightController } from './flight';
-import { getFlightAssist } from './flight-assist';
+import { getFlightAssist, PLAYER_MAX_PITCH } from './flight-assist';
 import type { FlightAircraft, FlightInput, GameMode, FlightTarget } from './flight-types';
 import { sweepIsland, sweepSea, lineOfSight } from './island';
 import { CAPITAL_SHIP } from './fleet-geometry';
@@ -248,7 +248,10 @@ export function stepWorld(previous:WorldState,sourceMission:MissionState,input:F
       if(m.requiresInputRelease)clearFlightAssistance(p.controller);
       const accepted=m.requiresInputRelease?{turn:0,climb:0,fire:false,loop:false,viewAspect:input.viewAspect}:input;
       const targets=worldFlightTargets(w,m,p.position),assist=getFlightAssist(p,targets,accepted,mode,p.controller.targetLock),meta=p.controller;
-      const adjusted={...accepted,...smoothFlightAssistance(meta,accepted,assist,FIXED_WORLD_DT)};
+      const automaticPitch=mode==='easy'&&!accepted.steeringActive
+        &&Math.max(Math.abs(accepted.turn),Math.abs(accepted.climb))<=1e-8;
+      const pitchOrigin=automaticPitch?clamp(p.pitch/PLAYER_MAX_PITCH,-1,1):undefined;
+      const adjusted={...accepted,...smoothFlightAssistance(meta,accepted,assist,FIXED_WORLD_DT,pitchOrigin)};
       const pressed=accepted.loop&&!meta.loopHeld;meta.loopHeld=accepted.loop;
       updatePlayerLoop(p,meta,adjusted,accepted,pressed,FIXED_WORLD_DT,advanceThrottle(meta,accepted,mode,FIXED_WORLD_DT),MAX_SPEED,meta.responseMultiplier,
         worldActualSpeed(p.speed,a.ice,m.tick,'aircraft'),mode);

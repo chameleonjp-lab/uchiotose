@@ -38,3 +38,18 @@ release gate fixtureは最初のacknowledgeReleaseを明示。安全条件を弱
 射撃時の上下ずれは次のように切り分ける。ボタンfireだけではこの短いNormal対照でpitch/camera差を再現しない。1指持替えは操縦release→climb=0→既存水平復帰が起きるのでfire起因と断定しない。Easy標的補助の不一致とゲキチンNormal固定照準/衝突cameraは別の確認済み経路として修正。センリョウの危険時自動上昇は射撃とは別の保護。実iPhone特有のpointer capture/イベント順序は引き続き未確認。
 
 マージ前iPhone手順：(1)Normalで操縦指の微上下を維持し別指で射撃、射撃指のみ離す/移動。(2)操縦指を離して同じ指で射撃し、release時の水平復帰と比較。(3)Easyの円内A/画面端B・遮蔽・微入力で標的/発射を確認。(4)ゲキチン母艦近傍・bank/上昇、センリョウ安全高度/危険接近で照準/回避表示を見る。(5)回転→停止→設定Save/Cancel→明示再開、速度目標とfresh inputを確認。上下ずれが残れば作品/mode/iPhone・iOS/指操作/場面を記録。実機受入とmergeは利用者が行う。
+
+## 2026-10-18 Easy pitch acquisition correction
+
+Base: `fd4f3c9277a64efbd344630817bb35ed826a65e7`. Reference: Kaisen PR #20, `6e77bc85cf7f74430b759990184f7f1178a6766e`.
+
+The neutral Easy assist output is an absolute pitch command. Previously its ramp began at zero (horizontal), so a newly acquired target further below a descending aircraft briefly pulled the nose upward. A real world-step regression reproduced pitch -0.4 → -0.37456317473961304 before correction.
+
+New or changed target assistance now begins from live pitch / PLAYER_MAX_PITCH, clamped to the existing range. Absolute and relative ramp histories are tagged separately; manual release, target change and inactive assistance cannot reuse incompatible history. Zero remains a legitimate history value. The existing 1.5-per-second ramp, target selection, yaw, target loss neutral return, manual ownership, quaternion flight, ice authority and independent aircraft controllers remain in place.
+
+Verification on 2026-10-18 UTC:
+- The new real-world and helper regression tests were run against the old implementation and failed as expected.
+- Ordinary `npm test`: 226 passed, 0 failed. The repository's three named opt-in long-session integrations are not included in this command and were not run locally.
+- Focused helper/world tests: 43 passed. The world regression covers both pitch signs and frozen/unfrozen aircraft and checks that the prior controller snapshot is unchanged.
+- `npm run build`: passed (existing large-bundle advisory).
+- CI, publication and iPhone/Safari acceptance are separate. This local result does not establish live-device improvement or publication.

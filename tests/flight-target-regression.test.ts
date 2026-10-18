@@ -88,3 +88,28 @@ test('pause and input-release reset assistance on the same aircraft without chan
  assert.equal(reset.targetLock.key,null);assert.equal(reset.assistTurn,0);assert.equal(reset.assistClimb,0);assert.equal(reset.playerTargetSpeed,speed);
  assert.equal(plane.controller.targetLock.key,'old','world clone must not mutate the prior snapshot');
 });
+
+test('Easy absolute pitch starts at live attitude on acquisition, switch and manual release',()=>{
+  const s:any={assistTurn:0,assistClimb:0,responseMultiplier:1,targetLock:createFlightTargetLock()};
+  const a={turn:0,climb:1,responseMultiplier:1,hasVisibleTarget:true};
+  for(const origin of [.6/.95,-.6/.95]) {
+    s.targetLock.changed=true;
+    const desired={...a,climb:Math.sign(origin)};
+    const r=(smoothFlightAssistance as any)(s,input,desired,1/60,origin);
+    assert.ok((r.climb-origin)*Math.sign(origin)>0);
+    assert.ok(Math.abs(r.climb-origin)<=1.5/60+1e-12);
+    smoothFlightAssistance(s,{...input,climb:.5},{...a,climb:.5},1/60);
+    const release=(smoothFlightAssistance as any)(s,input,desired,1/60,origin);
+    assert.ok((release.climb-origin)*Math.sign(origin)>0);
+  }
+});
+test('absolute history is not reused as relative manual input and zero is a valid history',()=>{
+  const s:any={assistTurn:0,assistClimb:0,responseMultiplier:1,targetLock:createFlightTargetLock()};
+  const a={turn:0,climb:.8,responseMultiplier:1,hasVisibleTarget:true};
+  (smoothFlightAssistance as any)(s,input,a,1/60,.6);
+  const r=smoothFlightAssistance(s,{...input,climb:.1},a,1/60);
+  assert.ok(r.climb<=.125+1e-12);
+  s.assistClimb=0;s.assistClimbMode='absolute';
+  const zero=(smoothFlightAssistance as any)(s,input,a,1/60,.6);
+  assert.equal(zero.climb,.025);
+});

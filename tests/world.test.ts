@@ -10,7 +10,7 @@ import { ISLAND_VERTICES,ISLAND_TRIANGLES,ISLAND_PLANES,sweepIsland,sweepSea,lin
 import { vec,length,sub,distance,angle,attitudeQuaternion,quaternionAttitude,normalizedAngle,transformDirection } from '../src/world-math';
 import { createFlightController,updatePlayerLoop,advanceThrottle,updateQuaternion } from '../src/flight';
 import { applyEasyShotCorrection,autoFireTarget } from '../src/flight-assist';
-import { getFlightCameraPose,projectFlightTarget } from '../src/flight-view';
+import { getFlightCameraPose,projectFlightTarget,FLIGHT_FOV } from '../src/flight-view';
 import { projectGunSight } from '../src/gun-sight';
 import { WarriorVisualFactory } from '../src/warrior-visual';
 import { Box3,Vector3 } from 'three';
@@ -349,5 +349,21 @@ test('Normal real simulation camera is fire-independent for twelve ticks with an
       const x=a.world.aircraft.A001,y=b.world.aircraft.A001;assert.deepEqual(x.position,y.position);assert.deepEqual(x.quaternion,y.quaternion);assert.equal(x.speed,y.speed);assert.deepEqual(cameraPose(x,'normal').forward,cameraPose(y,'normal').forward);
     }
     assert.ok(b.metrics.aircraftShots>a.metrics.aircraftShots);
+  }
+});
+
+test('Easy world target acquisition pitches toward target from the current attitude, including ice',()=>{
+  for(const sign of [-1,1])for(const frozen of [false,true]) {
+    const m=activeMission(),w=createWorldState(m),p=w.aircraft.A001;
+    p.position=vec(0,1500,4200);p.pitch=sign*.4;p.yaw=0;p.bank=0;updateQuaternion(p);
+    if(frozen)m.aircraft[0].ice={startsAtTick:0,expiresAtTick:301};
+    const pose=getFlightCameraPose(p,'easy'),rotation=new Quaternion(pose.rotation.x,pose.rotation.y,pose.rotation.z,pose.rotation.w);
+    const point=new Vector3(0,sign*.8*500*Math.tan(FLIGHT_FOV*Math.PI/360),-500).applyQuaternion(rotation).add(new Vector3(pose.position.x,pose.position.y,pose.position.z));
+    const first=m.enemies.find(e=>e.status==='active')!;
+    for(const e of m.enemies)if(e.id!==first.id)e.status='destroyed';
+    w.enemies[first.id].position=vec(point.x,point.y,point.z);
+    const result=stepWorld(w,m,{...neutral,viewAspect:393/852},'easy');
+    assert.ok((result.world.aircraft.A001.pitch-p.pitch)*sign>0,`${p.pitch} -> ${result.world.aircraft.A001.pitch}`);
+    assert.equal(p.controller.assistClimb,0,'prior snapshot remains untouched');
   }
 });
