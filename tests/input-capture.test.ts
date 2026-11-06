@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { afterEach, test } from 'node:test';
 import { FlightControls, type FlightControlButtons } from '../src/input';
 
@@ -157,4 +158,25 @@ test('capture loss while its owner is active clears the action and requires rele
   window.dispatchEvent(pointerEvent('pointerup', 4, true));
   assert.equal(controls.allReleased, true);
   controls.dispose();
+});
+
+test('height-only resize preserves steering and fire, rebases shifted coordinates, and rotation clears',()=>{
+ const f=setup(),win=f.window as any;win.innerWidth=402;win.innerHeight=874;
+ // Construct after dimensions exist so the controls remember the initial shape.
+ f.controls.dispose();const controls=new FlightControls(f.surface as any,f.buttons,()=>true,undefined,'normal');controls.acknowledgeRelease();
+ const resize=readFileSync(new URL('../src/main.ts',import.meta.url),'utf8').split('\n').find(line=>line.startsWith("window.addEventListener('resize'"))!;assert.ok(resize);const pending=new Function('window','ui','renderer','options',`let viewportWidth=window.innerWidth,pendingLoop=true;${resize};return()=>pendingLoop;`)(win,{controls},{resize(){}},{});
+ f.surface.dispatchEvent(pointerEvent('pointerdown',1,true,100,200));win.dispatchEvent(pointerEvent('pointermove',1,true,118,190));f.buttons.fire.dispatchEvent(pointerEvent('pointerdown',2,false));
+ const held=controls.sample();win.innerHeight=820;win.dispatchEvent(new Event('resize'));
+ assert.equal(controls.peek().steerPointer,1);assert.equal(controls.sample().fire,true);assert.equal(pending(),true);
+ win.dispatchEvent(pointerEvent('pointermove',1,true,118,136));assert.equal(controls.sample().turn,held.turn);assert.equal(controls.sample().climb,held.climb);
+ win.dispatchEvent(pointerEvent('pointermove',1,true,124,136));assert.ok(controls.sample().turn>held.turn);
+ win.dispatchEvent(pointerEvent('pointercancel',2,false));assert.equal(controls.peek().steerPointer,1);assert.equal(controls.sample().fire,false);
+ win.innerWidth=874;win.innerHeight=402;win.dispatchEvent(new Event('resize'));assert.equal(controls.peek().steerPointer,null);assert.equal(pending(),false);controls.dispose();
+});
+
+test('height-only crossing of a square viewport never releases a held pointer',()=>{
+ const f=setup(),win=f.window as any;Object.assign(win,{innerWidth:402,innerHeight:874});f.controls.dispose();const c=new FlightControls(f.surface as any,f.buttons,()=>true,undefined,'normal');c.acknowledgeRelease();
+ f.surface.dispatchEvent(pointerEvent('pointerdown',1,true,100,200));win.dispatchEvent(pointerEvent('pointermove',1,true,118,190));f.buttons.fire.dispatchEvent(pointerEvent('pointerdown',2,false));const held=c.sample();
+ win.innerHeight=380;win.dispatchEvent(new Event('resize'));assert.equal(c.peek().steerPointer,1);assert.equal(c.sample().fire,true);assert.equal(c.sample().turn,held.turn);assert.equal(c.requiresRelease,false);
+ win.dispatchEvent(new Event('orientationchange'));assert.equal(c.peek().steerPointer,null);assert.equal(c.sample().fire,false);c.dispose();
 });

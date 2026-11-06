@@ -36,7 +36,7 @@ export function updateAircraftMotion(
   plane: FlightAircraft, turnInput: number, climbInput: number, dt: number,
   preferredSpeed: number, looping = false, speedCeiling = MAX_SPEED,
   maxPitch = ENEMY_MAX_PITCH, responseMultiplier = 1, authoritySpeed = plane.speed,
-  manualSteering = false, cameraLookAngle = NORMAL_CAMERA_LOOK_ANGLE,
+  manualSteering = false, cameraLookAngle = NORMAL_CAMERA_LOOK_ANGLE, holdNeutralPitch = false,
 ): void {
   let turn = clamp(turnInput, -1, 1), climb = clamp(climbInput, -1, 1);
   if (manualSteering) {
@@ -57,7 +57,7 @@ export function updateAircraftMotion(
         plane.pitch += clamp(clamp(plane.pitch, -maxPitch, maxPitch) - plane.pitch, -angularStep, angularStep);
       } else if (Math.abs(climb) > EPSILON) {
         plane.pitch = clamp(plane.pitch + climb * angularStep, -maxPitch, maxPitch);
-      } else if (Math.abs(turn) <= EPSILON) {
+      } else if (Math.abs(turn) <= EPSILON && !holdNeutralPitch) {
         // A held horizontal turn retains pitch. Only both neutral axes level.
         plane.pitch += clamp(-plane.pitch * (1 - Math.exp(-dt * 4.2)), -angularStep, angularStep);
       }
@@ -105,6 +105,7 @@ export function updatePlayerLoop(
   const manualSteering = !!userInput.steeringActive
     || Math.max(Math.abs(userInput.turn), Math.abs(userInput.climb)) > EPSILON
     || Math.max(Math.abs(input.turn), Math.abs(input.climb)) <= EPSILON;
+  const holdNeutralPitch = !!userInput.steeringActive || Math.max(Math.abs(userInput.turn), Math.abs(userInput.climb)) > EPSILON;
   const revisionChanged = meta.loopStartSteeringRevision !== undefined && userInput.steeringRevision !== undefined
     && userInput.steeringRevision !== meta.loopStartSteeringRevision;
   const commandChanged = Math.abs(userInput.turn - meta.loopStartTurn) > EPSILON || Math.abs(userInput.climb - meta.loopStartClimb) > EPSILON;
@@ -116,7 +117,7 @@ export function updatePlayerLoop(
     // Keep the continuous branch across vertical; canonical Euler would flip yaw.
     player.pitch = recoveryPitch + normalizeAngle(player.pitch - recoveryPitch);
     player.yaw = normalizeAngle(player.yaw); player.bank = recoveryBank + normalizeAngle(player.bank - recoveryBank);
-    updateAircraftMotion(player, userInput.turn, userInput.climb, dt, preferredSpeed, false, speedCeiling, PLAYER_MAX_PITCH, responseMultiplier, authoritySpeed, true, cameraLookAngle);
+    updateAircraftMotion(player, userInput.turn, userInput.climb, dt, preferredSpeed, false, speedCeiling, PLAYER_MAX_PITCH, responseMultiplier, authoritySpeed, true, cameraLookAngle, holdNeutralPitch);
     return false;
   }
   if (player.loopProgress <= 0 && loopPressed && player.loopCooldown <= EPSILON && player.speed >= STALL_SPEED) {
@@ -124,7 +125,7 @@ export function updatePlayerLoop(
     meta.loopStartSteeringRevision = userInput.steeringRevision; meta.loopStartTurn = userInput.turn; meta.loopStartClimb = userInput.climb;
   }
   if (player.loopProgress <= 0) {
-    updateAircraftMotion(player, input.turn, input.climb, dt, preferredSpeed, false, speedCeiling, PLAYER_MAX_PITCH, responseMultiplier, authoritySpeed, manualSteering, cameraLookAngle);
+    updateAircraftMotion(player, input.turn, input.climb, dt, preferredSpeed, false, speedCeiling, PLAYER_MAX_PITCH, responseMultiplier, authoritySpeed, manualSteering, cameraLookAngle, holdNeutralPitch);
     return false;
   }
   if (!meta.playerLoopActive) { meta.playerLoopActive = true; meta.loopStartYaw = player.yaw; meta.loopStartPitch = player.pitch; }

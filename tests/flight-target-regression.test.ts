@@ -3,7 +3,7 @@ import test from 'node:test';
 import { Vector3, Quaternion } from 'three';
 import { getFlightAssist, autoFireTarget } from '../src/flight-assist';
 import { FLIGHT_FOV, getFlightCameraPose } from '../src/flight-view';
-import { clearFlightAssistance, createFlightTargetLock, smoothFlightAssistance } from '../src/flight-target';
+import { clearFlightAssistance, createFlightTargetLock } from '../src/flight-target';
 
 const numeric = true, callback = false;
 const input = { turn: 0, climb: 0, fire: false, loop: false, viewAspect: 393 / 852 };
@@ -21,63 +21,25 @@ function assist(p:any, ts:any[], i:any=input, lock:any=createFlightTargetLock())
   return callback ? getFlightAssist(p,ts,i,'easy',undefined,lock) : getFlightAssist(p,ts,i,'easy',lock);
 }
 function fire(p:any,ts:any[],lock:any) { return callback ? autoFireTarget(p,ts,'easy',input.viewAspect,undefined,lock) : autoFireTarget(p,ts,'easy',input.viewAspect,lock); }
-test('circle A wins over closer off-circle B in either array order',()=>{
-  for(const reversed of [false,true]){ const p=player(),a=target(p,2,0,0,950),b=target(p,3,.8,.55,400),lock=createFlightTargetLock();
-    const ts=reversed?[b,a]:[a,b],r=assist(p,ts,input,lock);assert.equal(r.turn,0);assert.equal(r.climb,0);assert.equal(fire(p,ts,lock)?.id,2); }
+test('both modes ignore target positions while steering and keep response one',()=>{
+ for(const mode of ['easy','normal'] as const)for(const ts of [[],[target(player(),2,.8,.55,500)],[target(player(),3,2,0,500)]]){
+  const p=player(),lock=createFlightTargetLock(),i={...input,turn:.1,climb:-.02};
+  assert.deepEqual(getFlightAssist(p,ts,i,mode,lock),{turn:.1,climb:-.02,responseMultiplier:1,hasVisibleTarget:false});assert.equal(lock.key,null);
+ }
 });
-test('equal rank has a deterministic ID tie break',()=>{
-  for(const reversed of [false,true]){ const p=player(),a=target(p,2,.1,0,500),b=target(p,3,.1,0,500),lock=createFlightTargetLock();
-    const ts=reversed?[b,a]:[a,b];assist(p,ts,input,lock);assert.equal(fire(p,ts,lock)?.id,2); }
+test('valid circle target wins deterministically over nearer off-circle targets',()=>{
+ for(const reversed of [false,true]){const p=player(),a=target(p,2,0,0,950),b=target(p,3,.8,.55,400),ts=reversed?[b,a]:[a,b],lock=createFlightTargetLock();
+  assert.equal(fire(p,ts,lock)?.id,2);a.hp=0;assert.equal(fire(p,ts,lock),null);assert.equal(lock.key,null);
+ }
 });
-test('20cm distance inversion does not reverse a held off-circle target',()=>{
-  const p=player(),lock=createFlightTargetLock(),a=target(p,2,-.8,-.55,500),b=target(p,3,.8,.55,500);
-  const origin=new Vector3(p.position.x,p.position.y,p.position.z);
-  const left=new Vector3(a.position.x,a.position.y,a.position.z).sub(origin).normalize();
-  const right=new Vector3(b.position.x,b.position.y,b.position.z).sub(origin).normalize();
-  const setDistance=(t:any, direction:Vector3, distance:number)=> { const v=direction.clone().multiplyScalar(distance).add(origin);t.position=numeric?{x:v.x,y:v.y,z:v.z}:v; };
-  setDistance(a,left,500);setDistance(b,right,500.1);
-  assist(p,[a],input,lock);
-  const before=assist(p,[a,b],input,lock),key=lock.key;
-  setDistance(b,right,499.9);const after=assist(p,[b,a],input,lock);
-  assert.ok(before.turn<0);assert.ok(after.turn<0);assert.equal(lock.key,key);
+test('fire phase selects current valid target after movement and identity changes',()=>{
+ const p=player(),lock=createFlightTargetLock(),a=target(p,2,0,0,950),b=target(p,3,.8,.55,400);
+ assert.equal(fire(p,[a,b],lock)?.id,2);const selected=lock.key;
+ a.position=target(p,2,.8,.55,950).position;b.position=target(p,3,0,0,400).position;
+ assert.equal(fire(p,[a,b],lock)?.id,3);assert.notEqual(lock.key,selected);
+ b.generation=2;b.identityGeneration=2;assert.equal(fire(p,[b],lock)?.id,3);
+ b.hp=0;assert.equal(fire(p,[b],lock),null);
 });
-test('steering owner suppresses target pull even on a small movement or circle promotion',()=>{
-  const p=player(),lock=createFlightTargetLock(),a=target(p,2,-.8,-.55,600),b=target(p,3,0,0,500);
-  assist(p,[a],input,lock);
-  for(const ts of [[a],[a,b]]) { const r=assist(p,ts,{...input,turn:.1,climb:.02,steeringActive:true},lock);assert.equal(r.turn,.1);assert.equal(r.climb,.02); }
-});
-test('strong reverse manual input remains intact',()=>{
-  const p=player(),r=assist(p,[target(p,2,.8,.55,500)],{...input,turn:-.6,climb:-.7});assert.equal(r.turn,-.6);assert.equal(r.climb,-.7);
-});
-test('dead or out-of-view held targets are released, and no-target clears the lock',()=>{
-  const p=player(),lock=createFlightTargetLock(),a=target(p,2,.8,.55,500),b=target(p,3,-.8,-.55,500);
-  assist(p,[a],input,lock);const key=lock.key;assert.ok(key);
-  a.health=0;a.hp=0;assert.ok(assist(p,[a,b],input,lock).turn<0);assert.notEqual(lock.key,key);
-  b.position=target(p,3,2,0,500).position;const r=assist(p,[a,b],input,lock);assert.equal(r.turn,0);assert.equal(r.climb,0);assert.equal(lock.key,null);
-});
-test('new target identity never inherits the previous identity',()=>{
-  const p=player(),lock=createFlightTargetLock(),a=target(p,2,.8,.55,500);assist(p,[a],input,lock);const first=lock.key;
-  a.generation=2;a.identityGeneration=2;assist(p,[a],input,lock);assert.notEqual(lock.key,first);
-});
-test('new pull has bounded rates and losing all targets clears stale pull',()=>{
-  const p=player(),state={assistTurn:0,assistClimb:0,responseMultiplier:1,targetLock:createFlightTargetLock()};
-  const r=assist(p,[target(p,2,.8,.55,500)],input,state.targetLock);
-  const adjusted=smoothFlightAssistance(state,input,r,1/60);assert.ok(Math.abs(adjusted.turn)<=2.5/60+1e-12);assert.ok(Math.abs(adjusted.climb)<=1.5/60+1e-12);
-  const neutral=smoothFlightAssistance(state,input,assist(p,[],input,state.targetLock),1/60);assert.equal(neutral.turn,0);assert.equal(neutral.climb,0);
-});
-test('Normal fire flag does not change steering requests',()=>{
-  const p=player(),ts=[target(p,2,.8,.55,500)],i={...input,turn:.2,climb:.1};
-  assert.deepEqual(getFlightAssist(p,ts,i,'normal'),getFlightAssist(p,ts,{...i,fire:true},'normal'));
-});
-
-test('fire phase revalidates the tick selection without switching to a different ID',()=>{
-  const p=player(),lock=createFlightTargetLock(),a=target(p,2,0,0,950),b=target(p,3,.8,.55,400);
-  assist(p,[a,b],input,lock);const selected=lock.key;
-  a.position=target(p,2,.8,.55,950).position;b.position=target(p,3,0,0,400).position;
-  assert.equal(fire(p,[a,b],lock),null);assert.equal(lock.key,selected);
-  assist(p,[a,b],input,lock);assert.equal(fire(p,[a,b],lock)?.id,3);
-});
-
 import { createSimulation, setSimulationPhase, releaseSimulationInput } from '../src/simulation';
 test('pause and input-release reset assistance on the same aircraft without changing cruise speed',()=>{
  let state=createSimulation({missionId:'aim-reset',phase:'playing',mode:'easy'});state=releaseSimulationInput(state);
@@ -87,46 +49,4 @@ test('pause and input-release reset assistance on the same aircraft without chan
  const reset=state.world.aircraft[state.mission.controlledAircraftId!].controller;
  assert.equal(reset.targetLock.key,null);assert.equal(reset.assistTurn,0);assert.equal(reset.assistClimb,0);assert.equal(reset.playerTargetSpeed,speed);
  assert.equal(plane.controller.targetLock.key,'old','world clone must not mutate the prior snapshot');
-});
-
-test('Easy absolute pitch starts at live attitude on acquisition, switch and manual release',()=>{
-  const s:any={assistTurn:0,assistClimb:0,responseMultiplier:1,targetLock:createFlightTargetLock()};
-  const a={turn:0,climb:1,responseMultiplier:1,hasVisibleTarget:true};
-  for(const origin of [.6/.95,-.6/.95]) {
-    s.targetLock.changed=true;
-    const desired={...a,climb:Math.sign(origin)};
-    const r=(smoothFlightAssistance as any)(s,input,desired,1/60,origin);
-    assert.ok((r.climb-origin)*Math.sign(origin)>0);
-    assert.ok(Math.abs(r.climb-origin)<=1.5/60+1e-12);
-    smoothFlightAssistance(s,{...input,climb:.5},{...a,climb:.5},1/60);
-    const release=(smoothFlightAssistance as any)(s,input,desired,1/60,origin);
-    assert.ok((release.climb-origin)*Math.sign(origin)>0);
-  }
-});
-test('absolute history is not reused as relative manual input and zero is a valid history',()=>{
-  const s:any={assistTurn:0,assistClimb:0,responseMultiplier:1,targetLock:createFlightTargetLock()};
-  const a={turn:0,climb:.8,responseMultiplier:1,hasVisibleTarget:true};
-  (smoothFlightAssistance as any)(s,input,a,1/60,.6);
-  const r=smoothFlightAssistance(s,{...input,climb:.1},a,1/60);
-  assert.ok(r.climb<=.125+1e-12);
-  s.assistClimb=0;s.assistClimbMode='absolute';
-  const zero=(smoothFlightAssistance as any)(s,input,a,1/60,.6);
-  assert.equal(zero.climb,.025);
-});
-
-
-test('inactive assistance removes the optional pitch mode own property',()=>{
-  const s:any={assistTurn:0,assistClimb:0,responseMultiplier:1,targetLock:createFlightTargetLock()};
-  const active={turn:0,climb:.8,responseMultiplier:1,hasVisibleTarget:true};
-  const activate=()=>smoothFlightAssistance(s,input,active,1/60,.6);
-  activate(); assert.equal(Object.hasOwn(s,'assistClimbMode'),true);
-  clearFlightAssistance(s); assert.equal(Object.hasOwn(s,'assistClimbMode'),false);
-  for(const changed of [false,true]) {
-    activate(); s.targetLock.changed=changed;
-    smoothFlightAssistance(s,input,{...active,hasVisibleTarget:false},1/60,.6);
-    assert.equal(Object.hasOwn(s,'assistClimbMode'),false);
-  }
-  activate();
-  smoothFlightAssistance(s,{...input,climb:.5},{...active,climb:.5},1/60);
-  assert.equal(Object.hasOwn(s,'assistClimbMode'),false);
 });

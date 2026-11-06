@@ -67,6 +67,9 @@ export class FlightControls {
   private climb = 0;
   private steeringRevision = 0;
   private origin = { x: 0, y: 0 };
+  private lastSteeringPoint = {x:0,y:0};
+  private rebaseSteering = false;
+  private viewportWidth = window.innerWidth;
   private currentMode: FlightMode;
   private releaseGate = true;
   private readonly abort = new AbortController();
@@ -140,8 +143,8 @@ export class FlightControls {
     window.addEventListener('keyup', event => this.keyUp(event), opts);
     window.addEventListener('blur', () => this.clear(), opts);
     window.addEventListener('pagehide', () => this.clear(), opts);
-    window.addEventListener('resize', () => this.clear(), opts);
-    window.visualViewport?.addEventListener('resize', () => this.clear(), opts);
+    window.addEventListener('resize', () => this.resizeViewport(), opts);
+    window.visualViewport?.addEventListener('resize', () => this.resizeViewport(), opts);
     document.addEventListener('visibilitychange', () => { if (document.hidden) this.clear(); }, opts);
   }
 
@@ -239,6 +242,7 @@ export class FlightControls {
     this.clearThrottleKeys(); this.releaseThrottle();
     const steeringPointer = this.steerPointer;
     this.steerPointer = null;
+    this.rebaseSteering = false;
     this.steerPointerType = null;
     this.buttonPointerTypes.clear();
     this.turn = 0;
@@ -274,6 +278,13 @@ export class FlightControls {
     this.abort.abort();
   }
 
+  private resizeViewport(): void {
+    const width=window.innerWidth,height=window.innerHeight;
+    const rotated=!Number.isFinite(width)||!Number.isFinite(height)||width!==this.viewportWidth;
+    this.viewportWidth=width;
+    if(rotated)this.clear();else if(this.steerPointer!==null)this.rebaseSteering=true;
+  }
+
   private beginSteering(event: PointerEvent, app: HTMLElement): void {
     if (!this.active() || this.isInteractiveTarget(event.target)
       || (event.pointerType === 'mouse' && event.button !== 0)) return;
@@ -289,6 +300,7 @@ export class FlightControls {
     this.steerPointer = event.pointerId;
     this.steerPointerType = event.pointerType;
     this.origin = { x: event.clientX, y: event.clientY };
+    this.lastSteeringPoint={...this.origin};this.rebaseSteering=false;
     const appRect = app.getBoundingClientRect();
     this.joystick.style.left = `${event.clientX - appRect.left}px`;
     this.joystick.style.top = `${event.clientY - appRect.top}px`;
@@ -302,6 +314,12 @@ export class FlightControls {
     if (event.pointerId !== this.steerPointer) return;
     if (event.pointerType === 'mouse' && event.buttons === 0) { this.endSteering(event); return; }
     event.preventDefault();
+    if(this.rebaseSteering){
+      this.origin.x+=event.clientX-this.lastSteeringPoint.x;this.origin.y+=event.clientY-this.lastSteeringPoint.y;this.rebaseSteering=false;
+      const rect=this.surface.closest<HTMLElement>('#app')?.getBoundingClientRect()??this.surface.getBoundingClientRect();
+      this.joystick.style.left=`${this.origin.x-rect.left}px`;this.joystick.style.top=`${this.origin.y-rect.top}px`;
+    }
+    this.lastSteeringPoint={x:event.clientX,y:event.clientY};
     const dx = event.clientX - this.origin.x;
     const dy = event.clientY - this.origin.y;
     const distance = Math.hypot(dx, dy);
