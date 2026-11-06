@@ -1,21 +1,25 @@
 {
   "repository": "chameleonjp-lab/uchiotose",
-  "commit": "89725b8bf96b7bdbef6869284f8c764ed9cd4e10",
-  "sourceTree": "412d223db76ed05618e45d8d6e4a72530301305a",
+  "commit": "e2af08dd3d1a9aede5721b657c876e11b1d520c2",
+  "sourceBranch": "main",
+  "sourceTree": "9b5f864b3d3d62f79fda21103b1ce0b927d9bd7c",
+  "sourcePullRequest": 22,
   "files": {
     ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "assets/index-B2mJ0w2C.js": "9d9469bddc55de4f884a17e2445c5608444b31112327d54a1dc4c13460c9ef81",
+    "assets/index-B4gYYk4d.js": "e46d1a78e44938dde3dc627979bed68e35ebd74e185a2b843e089eb150ac1936",
     "assets/index-CM_NdGef.css": "da43ec868b2376e44fca82231ce10e744bf4435d158bdfc3698576a6aca177b7",
-    "index.html": "07e6fd8b3e1cd5fac1d6b0837175c1b2cf5c39cb1b967925a70085c7f634bab9",
-    "release.json": "b50539b208e4157a13366b1c3e8b34815ecaa10fff5090b3a667c401b6034436",
+    "index.html": "0bb64b8fe496ea1a8a97de58514055ca3fe0a017fa1c6605fea282377e02cd75",
+    "release.json": "fe7a96bed78dad63c79c965b2b86566595c9654b5374641ffafdc853d6f6daa3",
     "third-party-notices.txt": "97de7ac302052bcea7f20e5ae89635c10e049614f56409288d554d63fceb614f"
   },
   "retainedFiles": {
+    "assets/index-B2mJ0w2C.js": "9d9469bddc55de4f884a17e2445c5608444b31112327d54a1dc4c13460c9ef81",
     "assets/index-BF7Y2cGw.js": "3338ca7bc302878339bf5471aca43eecc24d2c204d6604cea7949d23bf3261c7",
     "assets/index-CWWXGqVN.js": "c0e0327ae8f20703fea79758faa05c554f1f08b7ec2917e6212f94658fd62ffc",
     "assets/index-DnuEAYz2.js": "70cf9d483e5cdb5443e7b218b65fbc74551fc19ee36d0633a89643a2e1134f3c"
   },
-  "previousPagesCommit": "bc2090c62f63f7bb9fe188d587e2adbb2b43ae2c",
-  "sourceAcceptanceRun": "https://github.com/chameleonjp-lab/uchiotose/actions/runs/39101695060",
-  "publicationScope": "Existing public GitHub Pages; static artifacts only; previously published hashed assets preserved; physical-phone acceptance not claimed"
+  "previousPagesCommit": "88e00ca0fe7c1cbf2545063c137583343080a3e1",
+  "sourceAcceptanceRun": "https://github.com/chameleonjp-lab/uchiotose/actions/runs/42281245576",
+  "publicationScope": "User requested all tested games public; existing GitHub Pages static artifacts only; all previous hashed assets preserved",
+  "physicalPhoneAccepted": false
 }
