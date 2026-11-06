@@ -8,7 +8,7 @@ import {
   type Vec3, type WorldState,
 } from './world';
 import type { FlightAircraft, FlightInput, FlightTarget, GameMode } from './flight-types';
-import { autoFireTarget, applyEasyShotCorrection } from './flight-assist';
+import { autoFireTarget } from './flight-assist';
 import { aircraftDamageMultiplier } from './aircraft-damage';
 import { consumeAircraftVolley, consumeMagicRound, consumeShipRound, updateReloads } from './ammunition';
 import { assignAttackSlots, createAttackBudget, type AttackBudgetState, type AttackCandidate, type AttackTarget } from './attack-budget';
@@ -221,7 +221,7 @@ function emitProjectiles(state: SimulationState, mission: MissionState, world: W
         const speed = aircraft.actualSpeedMps + (kind === 'mg' ? 820 : 700);
         const predicted = target ? interceptDirection(origin, target.position, target.velocity, speed, 1.5, pose.forward) : pose.forward;
         const gated = dot(pose.forward, predicted) >= Math.cos(0.16) ? predicted : pose.forward;
-        const direction = aircraft.role === 'player' ? mode === 'easy' ? applyEasyShotCorrection(pose.forward, gated) : pose.forward : gated;
+        const direction = aircraft.role === 'player' ? pose.forward : gated;
         append(makeProjectile(mission.missionId, ordinal++, aircraft.id, aircraft.role!, kind, mission.tick, origin, direction, speed, volley.damage));
       }
       if (before.reloadUntilTick === null && volley.aircraft.reloadUntilTick !== null) {

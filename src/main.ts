@@ -169,7 +169,9 @@ function frame(now: number): void {
 const abort = new AbortController(), options = {signal: abort.signal};
 window.addEventListener('blur', () => pause('画面の操作が中断されたため停止しました'), options);
 document.addEventListener('visibilitychange', () => { if (document.hidden) pause('別の画面へ移動したため停止しました'); }, options);
-window.addEventListener('resize', () => { ui.controls.clear(); renderer?.resize(); }, options);
+let viewportWidth=window.innerWidth;
+window.addEventListener('resize', () => { if(window.innerWidth!==viewportWidth)pendingLoop=false;viewportWidth=window.innerWidth;renderer?.resize(); }, options);
+window.addEventListener('orientationchange', () => { pendingLoop=false; }, options);
 canvas.addEventListener('webglcontextlost', event => {
   event.preventDefault(); contextLost = true; el<HTMLButtonElement>('resume').disabled = true; pause('描画が中断されました。復旧を待って再開してください');
   el<HTMLButtonElement>('start').disabled = true;

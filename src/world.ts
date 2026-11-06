@@ -1,11 +1,10 @@
-import { clearFlightAssistance, smoothFlightAssistance } from './flight-target';
+import { clearFlightAssistance } from './flight-target';
 /** P2: authoritative, serializable 60 Hz movement; presentation never enters this state. */
 import { TICKS_PER_SECOND } from './roster';
 import type { MissionState, DeathBatch, IceState, SpawnGuard } from './roster';
 import { createFlightController, forwardOf, updateQuaternion, desiredFlightInput, updateAircraftMotion, updatePlayerLoop,
   advanceThrottle, MAX_SPEED, CRUISE_SPEED } from './flight';
 import type { FlightController } from './flight';
-import { getFlightAssist, PLAYER_MAX_PITCH } from './flight-assist';
 import type { FlightAircraft, FlightInput, GameMode, FlightTarget } from './flight-types';
 import { sweepIsland, sweepSea, lineOfSight } from './island';
 import { CAPITAL_SHIP } from './fleet-geometry';
@@ -28,7 +27,7 @@ const byId=<T extends {id:string}>(items:readonly T[]):T[]=>[...items].sort((a,b
 const entriesById=<T>(items:Record<string,T>):[string,T][]=>Object.entries(items).sort(([a],[b])=>a.localeCompare(b));
 
 interface BodyPose { id: string; position: Vec3; previousPosition: Vec3; velocity: Vec3; forward: Vec3; radius: number }
-export interface AircraftPose extends BodyPose, FlightAircraft { previousQuaternion: Quat; controller: FlightController }
+export interface AircraftPose extends BodyPose, FlightAircraft { previousQuaternion: Quat; previousBank?: number; previousPitch?: number; previousYaw?: number; controller: FlightController }
 export interface EnemyPose extends BodyPose { quaternion: Quat; yaw: number; targetSpeed: number }
 export interface ShipPose extends BodyPose { yaw: number; quaternion: Quat; previousQuaternion: Quat;
   length: number; width: number; height: number; routePhase: number }
@@ -106,7 +105,7 @@ function spawnAircraft(id: string, slot: number, seed: number, point?:Vec3): Air
   const position = point??safeAircraftSpawn(slot,seed), forward = normalize(vec(-position.x, 0, -position.z));
   const yaw = Math.atan2(-forward.x,-forward.z), quaternion = attitudeQuaternion(0,yaw,0);
   const p = { id, position, previousPosition: {...position}, quaternion, previousQuaternion: {...quaternion},
-    yaw, pitch:0, bank:0, speed:110, velocity:scale(forward,110), forward, radius:AIRCRAFT_RADIUS, loopProgress:0,loopCooldown:0 };
+    yaw, pitch:0, bank:0, previousBank:0, previousPitch:0, previousYaw:yaw, speed:110, velocity:scale(forward,110), forward, radius:AIRCRAFT_RADIUS, loopProgress:0,loopCooldown:0 };
   return {...p,controller:createFlightController(p)};
 }
 function spawnEnemy(id:string,slot:number,seed:number,point?:Vec3):EnemyPose {
@@ -161,6 +160,8 @@ export function syncWorldState(previous:WorldState,mission:MissionState):WorldSt
         player.controller={...createFlightController(player),playerTargetSpeed:player.controller.playerTargetSpeed};}
       else player.controller.loopHeld=false;
       clearFlightAssistance(player.controller);
+      player.previousPosition={...player.position};player.previousQuaternion={...player.quaternion};
+      player.previousBank=player.bank;player.previousPitch=player.pitch;player.previousYaw=player.yaw;
     }
     w.controlledAircraftId=mission.controlledAircraftId;
   }
@@ -243,17 +244,13 @@ export function stepWorld(previous:WorldState,sourceMission:MissionState,input:F
     enemies:byId(sourceMission.enemies).map(e=>({...e,velocity:{...e.velocity}})),ships:byId(sourceMission.ships).map(s=>({...s}))};
   const impacts:TerrainImpact[]=[];
   for(const a of m.aircraft){
-    if(a.status!=='active')continue;const p=w.aircraft[a.id];p.previousPosition={...p.position};p.previousQuaternion={...p.quaternion};p.speed=a.baseSpeedMps;
+    if(a.status!=='active')continue;const p=w.aircraft[a.id];p.previousPosition={...p.position};p.previousQuaternion={...p.quaternion};p.previousBank=p.bank;p.previousPitch=p.pitch;p.previousYaw=p.yaw;p.speed=a.baseSpeedMps;
     if(a.id===m.controlledAircraftId){
       if(m.requiresInputRelease)clearFlightAssistance(p.controller);
       const accepted=m.requiresInputRelease?{turn:0,climb:0,fire:false,loop:false,viewAspect:input.viewAspect}:input;
-      const targets=worldFlightTargets(w,m,p.position),assist=getFlightAssist(p,targets,accepted,mode,p.controller.targetLock),meta=p.controller;
-      const automaticPitch=mode==='easy'&&!accepted.steeringActive
-        &&Math.max(Math.abs(accepted.turn),Math.abs(accepted.climb))<=1e-8;
-      const pitchOrigin=automaticPitch?clamp(p.pitch/PLAYER_MAX_PITCH,-1,1):undefined;
-      const adjusted={...accepted,...smoothFlightAssistance(meta,accepted,assist,FIXED_WORLD_DT,pitchOrigin)};
+      const meta=p.controller;clearFlightAssistance(meta);
       const pressed=accepted.loop&&!meta.loopHeld;meta.loopHeld=accepted.loop;
-      updatePlayerLoop(p,meta,adjusted,accepted,pressed,FIXED_WORLD_DT,advanceThrottle(meta,accepted,mode,FIXED_WORLD_DT),MAX_SPEED,meta.responseMultiplier,
+      updatePlayerLoop(p,meta,accepted,accepted,pressed,FIXED_WORLD_DT,advanceThrottle(meta,accepted,mode,FIXED_WORLD_DT),MAX_SPEED,meta.responseMultiplier,
         worldActualSpeed(p.speed,a.ice,m.tick,'aircraft'),mode);
     }else{const ai=wingInput(p,w,m.tick);updateAircraftMotion(p,ai.turn,ai.climb,FIXED_WORLD_DT,CRUISE_SPEED,false,MAX_SPEED,.62,1,
       worldActualSpeed(p.speed,a.ice,m.tick,'aircraft'));}

@@ -16,7 +16,7 @@ import { seaVertex,seaFragment,skyVertex,skyFragment } from './atmosphere';
 import { ISLAND_TRIANGLES,ISLAND_VERTICES,lineOfSight } from './island';
 import { FLIGHT_FOV,getFlightCameraPose } from './flight-view';
 import { drawHUDOverlay } from './hud-overlay';
-import { add,distance,lerp,vec,clamp } from './world-math';
+import { add,distance,lerp,vec,clamp,normalizedAngle } from './world-math';
 import type { WorldState,GameMode,Vec3,AircraftPose } from './world';
 import type { MissionState } from './roster';
 import type { Projectile } from './projectiles';
@@ -44,7 +44,7 @@ export class WorldRenderer{
   private fire:InstancedMesh;private ice:InstancedMesh;private burns:InstancedMesh;private frost:InstancedMesh;private bursts:InstancedMesh;
   private lines:LineSegments;private linePositions=new Float32Array(320*6);private lineColors=new Float32Array(320*6);
   private burstPool:Burst[]=Array.from({length:BURST_CAPACITY},()=>({position:vec(),since:0,active:false}));
-  private previousBodies=new Map<string,Vec3>();private missionId:string|null=null;private resetVersion=-1;
+  private previousBodies=new Map<string,Vec3>();private missionId:string|null=null;private resetVersion=-1;private presentationResetTick=-1;
   private lastPlayer:AircraftPose|null=null;private lastCameraPlayerId:string|null=null;
   private matrix=new Matrix4();private orientation=new Quaternion();private position=new Vector3();private scale=new Vector3();
   private width=1;private height=1;private disposed=false;private quality:RenderQuality='medium';
@@ -212,18 +212,31 @@ export class WorldRenderer{
     const status=this.queue.poll(performance.now());if(status==='pending')return false;
     if(status==='failed'||status==='stalled'){const last=this.lastSubmittedFrame,pending=this.queue.diagnostics(performance.now()).pendingMs;
       throw new Error(`GPU frame ${status}; last ${last?.missionId??'initial'}/${last?.phase??'loading'} tick ${last?.tick??0}, current ${m.missionId}/${m.phase} tick ${m.tick}, ${Math.round(pending)} ms pending; ${last?.calls??0} calls, ${last?.triangles??0} triangles, ${this.renderer.info.programs?.length??0} programs, DPR ${this.renderer.getPixelRatio()}`);}
-    const time=m.tick/60,t=clamp(alpha,0,1);
+    const time=m.tick/60;
     if(this.missionId!==m.missionId){this.missionId=m.missionId;this.previousBodies.clear();for(const b of this.burstPool)b.active=false;this.resetCamera();}
-    if(this.resetVersion!==m.controlResetVersion){this.resetVersion=m.controlResetVersion;this.lastPlayer=null;}
+    if(this.resetVersion!==m.controlResetVersion){this.resetVersion=m.controlResetVersion;this.lastPlayer=null;this.presentationResetTick=m.tick;}
+    // Resume/handoff can happen between displays. Keep every actor at the endpoint until a fresh interval exists.
+    const t=this.presentationResetTick===m.tick?1:clamp(alpha,0,1);
     const staticFrameKey=`${m.missionId}:${m.phase}:${m.tick}:${m.controlResetVersion}:${mode}:${this.viewRevision}`;
     // Home, Pause and Result have no advancing visual clock. Poll completion above
     // on every rAF, but do not submit identical worlds behind modal compositing.
     if(m.phase!=='playing'&&this.lastStaticFrameKey===staticFrameKey)return false;
+    const displayed:WorldState={...w,
+      aircraft:Object.fromEntries(Object.entries(w.aircraft).map(([id,p])=>{
+        const q=new Quaternion(p.previousQuaternion.x,p.previousQuaternion.y,p.previousQuaternion.z,p.previousQuaternion.w)
+          .slerp(new Quaternion(p.quaternion.x,p.quaternion.y,p.quaternion.z,p.quaternion.w),t);
+        const sampled={...p,position:lerp(p.previousPosition,p.position,t),quaternion:{x:q.x,y:q.y,z:q.z,w:q.w},
+          bank:(p.previousBank??p.bank)+normalizedAngle(p.bank-(p.previousBank??p.bank))*t,
+          pitch:(p.previousPitch??p.pitch)+normalizedAngle(p.pitch-(p.previousPitch??p.pitch))*t,
+          yaw:(p.previousYaw??p.yaw)+normalizedAngle(p.yaw-(p.previousYaw??p.yaw))*t};
+        return [id,sampled];
+      })),
+      enemies:Object.fromEntries(Object.entries(w.enemies).map(([id,p])=>[id,{...p,position:lerp(p.previousPosition,p.position,t)}])),
+      ships:Object.fromEntries(Object.entries(w.ships).map(([id,p])=>[id,{...p,position:lerp(p.previousPosition,p.position,t)}]))};
     const aircraft=m.aircraft.filter(a=>a.status==='active').sort((a,b)=>Number(b.id===m.controlledAircraftId)-Number(a.id===m.controlledAircraftId)||a.id.localeCompare(b.id));
-    for(let i=0;i<this.planes.length;i++){const visual=this.planes[i],a=aircraft[i],p=a&&w.aircraft[a.id];visual.root.visible=Boolean(p);
-      if(!p)continue;visual.root.position.copy(p3(lerp(p.previousPosition,p.position,t)));
-      visual.root.quaternion.set(p.previousQuaternion.x,p.previousQuaternion.y,p.previousQuaternion.z,p.previousQuaternion.w)
-        .slerp(new Quaternion(p.quaternion.x,p.quaternion.y,p.quaternion.z,p.quaternion.w),t);
+    for(let i=0;i<this.planes.length;i++){const visual=this.planes[i],a=aircraft[i],p=a&&displayed.aircraft[a.id];visual.root.visible=Boolean(p);
+      if(!p)continue;visual.root.position.copy(p3(p.position));
+      visual.root.quaternion.set(p.quaternion.x,p.quaternion.y,p.quaternion.z,p.quaternion.w);
       visual.propeller.rotation.z=time*(34+Math.min(8,p.speed*.035))%(Math.PI*2);const d=clamp(p.bank*.34,-.3,.3);
       visual.ailerons[0].rotation.x=d;visual.ailerons[1].rotation.x=-d;visual.elevator.rotation.x=clamp(-p.pitch*.32,-.26,.26);}
     const enemies=m.enemies.filter(e=>e.status==='active').sort((a,b)=>a.id.localeCompare(b.id));
@@ -239,17 +252,14 @@ export class WorldRenderer{
       if(free){free.position={...position};free.since=time;free.active=true;}}
     this.previousBodies=liveBodies;
     this.updateProjectiles(projectiles,t);this.updateEffects(w,m,time);
-    const player=m.controlledAircraftId?w.aircraft[m.controlledAircraftId]:null;
-    if(player){const interpolated={...player,position:lerp(player.previousPosition,player.position,t)};
-      const q=new Quaternion(player.previousQuaternion.x,player.previousQuaternion.y,player.previousQuaternion.z,player.previousQuaternion.w)
-        .slerp(new Quaternion(player.quaternion.x,player.quaternion.y,player.quaternion.z,player.quaternion.w),t);
-      interpolated.quaternion={x:q.x,y:q.y,z:q.z,w:q.w};this.lastPlayer=interpolated;this.lastCameraPlayerId=player.id;}
+    const player=m.controlledAircraftId?displayed.aircraft[m.controlledAircraftId]:null;
+    if(player){this.lastPlayer=player;this.lastCameraPlayerId=player.id;}
     if(this.lastPlayer){const camera=getFlightCameraPose(this.lastPlayer,mode);this.camera.position.copy(p3(camera.position));
       this.camera.quaternion.set(camera.rotation.x,camera.rotation.y,camera.rotation.z,camera.rotation.w);}
     else{this.camera.position.set(0,1300,4600);this.camera.lookAt(0,700,0);}
     this.camera.updateMatrixWorld();this.sky.position.copy(this.camera.position);this.sea.position.x=oceanAnchor(this.camera.position.x);
     this.sea.position.z=oceanAnchor(this.camera.position.z);this.seaMaterial.uniforms.uTime.value=time;
-    this.renderer.render(this.scene,this.camera);this.drawOverlay(w,m,mode);this.queue.submit(performance.now());
+    this.renderer.render(this.scene,this.camera);this.drawOverlay(displayed,m,mode);this.queue.submit(performance.now());
     this.lastStaticFrameKey=m.phase==='playing'?null:staticFrameKey;
     this.lastSubmittedFrame={missionId:m.missionId,phase:m.phase,tick:m.tick,mode,calls:this.renderer.info.render.calls,triangles:this.renderer.info.render.triangles};return true;
   }

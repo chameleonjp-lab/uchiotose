@@ -9,7 +9,7 @@ import { createWorldState,stepWorld,syncWorldState,constrainWorldMotion,safeAirc
 import { ISLAND_VERTICES,ISLAND_TRIANGLES,ISLAND_PLANES,sweepIsland,sweepSea,lineOfSight } from '../src/island';
 import { vec,length,sub,distance,angle,attitudeQuaternion,quaternionAttitude,normalizedAngle,transformDirection } from '../src/world-math';
 import { createFlightController,updatePlayerLoop,advanceThrottle,updateQuaternion } from '../src/flight';
-import { applyEasyShotCorrection,autoFireTarget } from '../src/flight-assist';
+import { autoFireTarget } from '../src/flight-assist';
 import { getFlightCameraPose,projectFlightTarget,FLIGHT_FOV } from '../src/flight-view';
 import { projectGunSight } from '../src/gun-sight';
 import { WarriorVisualFactory } from '../src/warrior-visual';
@@ -139,10 +139,7 @@ test('actual free-flight velocity is used for a lifetime-limited intercept',()=>
   close(d.x*820*flightTime,velocity.x*flightTime);close(d.y*820*flightTime,velocity.y*flightTime);
   assert.deepEqual(interceptDirection(origin,vec(0,1000,-5000),velocity,200,1,vec(0,0,-1)),vec(0,0,-1));
 });
-test('Easy shot correction retains 35%, 0.028 rad and 0.16 rad gates; Normal bore remains fixed',()=>{
-  const forward=vec(0,0,-1);close(angle(forward,applyEasyShotCorrection(forward,vec(Math.sin(.04),0,-Math.cos(.04)))),.04*.35);
-  close(angle(forward,applyEasyShotCorrection(forward,vec(Math.sin(.14),0,-Math.cos(.14)))),.028);
-  assert.deepEqual(applyEasyShotCorrection(forward,vec(Math.sin(.17),0,-Math.cos(.17))),forward);
+test('Normal trigger stays manual and Easy uses a valid circle target',()=>{
   const p=createWorldState(activeMission()).aircraft.A001;const position=addAhead(p.position,transformDirection(vec(0,0,-1),p.quaternion),500);
   const target={id:'E001',position,velocity:vec(),hp:80};assert.equal(autoFireTarget(p,[target],'normal',1),null);assert.ok(autoFireTarget(p,[target],'easy',1));
   const sight=projectGunSight(p,393,648);assert.ok(Number.isFinite(sight.x)&&Number.isFinite(sight.y));
@@ -242,16 +239,16 @@ test('numeric camera-forward total angle matches all directions and uses the exi
     close(opticalAngle(before,cameraPose(p,mode).forward),.82*cameraAuthority(authoritySpeed)/60*.45,1e-12);
   }
 });
-test('numeric horizontal offscreen multiplier excludes pitch; circular diagonals and neutral are bounded',()=>{
+test('manual angular budget, circular diagonals and held neutral are bounded',()=>{
   for(const mode of ['easy','normal'] as const)for(const speed of [65,85,110,141])for(const pitch of [-.9,0,.9])for(const sign of [-1,1]){
     const step=.82*cameraAuthority(speed)/60;
-    for(const axis of ['turn','climb'] as const){const p=cameraPlane(pitch,0,0,speed),before=cameraPose(p,mode).forward;cameraStep(p,{...neutral,[axis]:sign*.45,steeringActive:true},mode,1.65);close(opticalAngle(before,cameraPose(p,mode).forward),step*.45*(axis==='turn'?1.65:1),1e-12);}
+    for(const axis of ['turn','climb'] as const){const p=cameraPlane(pitch,0,0,speed),before=cameraPose(p,mode).forward;cameraStep(p,{...neutral,[axis]:sign*.45,steeringActive:true},mode,1);close(opticalAngle(before,cameraPose(p,mode).forward),step*.45,1e-12);}
     const p=cameraPlane(pitch,0,0,speed),before=cameraPose(p,mode).forward;cameraStep(p,{...neutral,turn:sign,climb:sign,steeringActive:true},mode);close(opticalAngle(before,cameraPose(p,mode).forward),step,1e-12);
     const h=cameraPlane(pitch,0,0,speed);cameraStep(h,{...neutral,turn:sign*.6,steeringActive:true},mode);assert.equal(h.pitch,pitch);const neutralStep=.82*cameraAuthority(h.speed)/60;cameraStep(h,{...neutral,steeringActive:true},mode);assert.ok(Math.abs(h.pitch-pitch)<=neutralStep+1e-12);
   }
   for(const sign of [-1,1]){const p=cameraPlane(sign*.95);cameraStep(p,{...neutral,climb:sign,steeringActive:true},'normal');assert.equal(p.pitch,sign*.95);cameraStep(p,{...neutral,climb:-sign,steeringActive:true},'normal');assert.ok(Math.abs(p.pitch)<.95);}
 });
-test('numeric camera matches Three composition, old offset, interpolated quaternion and projected gun sight',()=>{
+test('numeric camera matches Three composition, old offset, sampled quaternion and projected gun sight',()=>{
   for(const mode of ['easy','normal'] as const)for(const pitch of [-Math.PI*2,-Math.PI,-Math.PI/2,-.9,0,.9,Math.PI/2,Math.PI,Math.PI*2])for(const yaw of [-3.14,0,3.14])for(const bank of [-.72,0,.72]){
     const p=cameraPlane(pitch,bank,yaw),pose=cameraPose(p,mode),q=new Quaternion(p.quaternion.x,p.quaternion.y,p.quaternion.z,p.quaternion.w),axis=new Vector3(0,0,1);
     const oldPosition=new Vector3(0,11,29).applyQuaternion(q.clone().multiply(new Quaternion().setFromAxisAngle(axis,bank*.55))).add(new Vector3(p.position.x,p.position.y,p.position.z));
@@ -352,7 +349,7 @@ test('Normal real simulation camera is fire-independent for twelve ticks with an
   }
 });
 
-test('Easy world target acquisition pitches toward target from the current attitude, including ice',()=>{
+test('Easy world held attitude is independent of visible targets, including ice',()=>{
   for(const sign of [-1,1])for(const frozen of [false,true]) {
     const m=activeMission(),w=createWorldState(m),p=w.aircraft.A001;
     p.position=vec(0,1500,4200);p.pitch=sign*.4;p.yaw=0;p.bank=0;updateQuaternion(p);
@@ -362,8 +359,8 @@ test('Easy world target acquisition pitches toward target from the current attit
     const first=m.enemies.find(e=>e.status==='active')!;
     for(const e of m.enemies)if(e.id!==first.id)e.status='destroyed';
     w.enemies[first.id].position=vec(point.x,point.y,point.z);
-    const result=stepWorld(w,m,{...neutral,viewAspect:393/852},'easy');
-    assert.ok((result.world.aircraft.A001.pitch-p.pitch)*sign>0,`${p.pitch} -> ${result.world.aircraft.A001.pitch}`);
+    const result=stepWorld(w,m,{...neutral,steeringActive:true,viewAspect:393/852},'easy');
+    assert.equal(result.world.aircraft.A001.pitch,p.pitch);
     assert.equal(p.controller.assistClimb,0,'prior snapshot remains untouched');
   }
 });
